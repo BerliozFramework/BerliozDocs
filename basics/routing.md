@@ -1,3 +1,6 @@
+<meta name="docparser-index" content="Basics usage; Routing" />
+<meta name="docparser-index-order" content="5" />
+
 # Routing
 
 The default router of Berlioz Framework is the package [**berlioz/router**](https://github.com/BerliozFramework/Router).

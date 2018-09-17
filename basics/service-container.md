@@ -1,3 +1,6 @@
+<meta name="docparser-index" content="Basics usage; Service container" />
+<meta name="docparser-index-order" content="2" />
+
 # Service container
 
 The default service container of Berlioz Framework is the package [**berlioz/service-container**](https://github.com/BerliozFramework/ServiceContainer).

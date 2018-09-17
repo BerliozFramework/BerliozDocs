@@ -1,3 +1,6 @@
+<meta name="docparser-index" content="Basics usage; Controllers" />
+<meta name="docparser-index-order" content="4" />
+
 # Controllers
 
 It's a classes whose control interactions between models, services and templates.

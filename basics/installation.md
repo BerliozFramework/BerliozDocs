@@ -1,3 +1,6 @@
+<meta name="docparser-index" content="Installation" />
+<meta name="docparser-index-order" content="1" />
+
 # Installation
 
 This page describe the default installation for the most of HTTP projects.
