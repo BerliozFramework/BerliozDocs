@@ -1,3 +1,6 @@
+<meta name="docparser-index" content="Basics usage; Packages" />
+<meta name="docparser-index-order" content="3" />
+
 # Packages
 
 ## Installation of a package

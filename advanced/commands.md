@@ -1,3 +1,6 @@
+<meta name="docparser-index" content="Advanced usage; Commands" />
+<meta name="docparser-index-order" content="1" />
+
 # Commands
 
 You can create some commands to call your functions or services.

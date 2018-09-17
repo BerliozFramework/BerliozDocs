@@ -1,3 +1,7 @@
+<meta name="docparser-index" content="Basics usage; Hierarchy of directories" />
+<meta name="docparser-index-order" content="0" />
+<meta name="docparser-index-visible" content="false" />
+
 # Hierarchy of directories
 
 We recommend to uses the default hierarchy of directories for your projects:

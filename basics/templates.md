@@ -1,3 +1,6 @@
+<meta name="docparser-index" content="Basics usage; Templates" />
+<meta name="docparser-index-order" content="6" />
+
 # Templates
 
 In **Berlioz**, we recommend to use **Twig** template engine:

@@ -1,3 +1,6 @@
+<meta name="docparser-index" content="Getting started" />
+<meta name="docparser-index-order" content="0" />
+
 # Getting started
 
 ## Introduction

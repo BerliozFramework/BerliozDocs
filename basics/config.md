@@ -1,3 +1,6 @@
+<meta name="docparser-index" content="Basics usage; Configuration" />
+<meta name="docparser-index-order" content="1" />
+
 # Configuration
 
 The default configuration manager of Berlioz Framework is the package [**berlioz/config**](https://github.com/BerliozFramework/Config).
