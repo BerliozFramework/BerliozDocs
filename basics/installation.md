@@ -34,7 +34,7 @@ To run the application, your HTTP server must be pointed on `public` directory.
 
 For **Apache** version >= 2.4:
 
-```apacheconfig
+```apache
 <VirtualHost *:80>
     ServerName www.berlioz-framework.com
     DocumentRoot "/path/to/my-project/public"
@@ -48,7 +48,7 @@ For **Apache** version >= 2.4:
 
 For **Apache** version < 2.4:
 
-```apacheconfig
+```apache
 <VirtualHost *:80>
     ServerName www.berlioz-framework.com
     DocumentRoot "/path/to/my-project/public"
@@ -70,7 +70,7 @@ If you want increase the performances of your server, it's to disable support of
 
 For that, you must specify to Apache the fallback resource and disable option `AllowOverride`:
 
-```apacheconfig
+```apache
 <Directory "/path/to/my-project/public">
     AllowOverride None
     FallbackResource /app.php
