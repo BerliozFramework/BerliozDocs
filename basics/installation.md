@@ -139,5 +139,10 @@ In your web browser, go to the url: `http://localhost:8000`, you will see your p
 
 Go to in your favorite browser, and try to go to your page, in your example: `www.berlioz-framework.com`.
 
-If everything ok, you will see:
-TODO IMAGE
+If everything ok, you will see this screen:
+
+![Test](../_imgs/first-page.png)
+
+You can also see on this first page, the debug console of **Berlioz**. If you click on, you will see the debug detail:
+
+![Test](../_imgs/first-page-debug.png)
