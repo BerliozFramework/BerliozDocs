@@ -1,4 +1,4 @@
-<meta name="docparser-index" content="Basics usage; Service container" />
+<meta name="docparser-index" content="Basic uses; Service container" />
 <meta name="docparser-index-order" content="2" />
 
 # Service container

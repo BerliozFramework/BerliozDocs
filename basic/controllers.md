@@ -1,4 +1,4 @@
-<meta name="docparser-index" content="Basics usage; Controllers" />
+<meta name="docparser-index" content="Basic uses; Controllers" />
 <meta name="docparser-index-order" content="4" />
 
 # Controllers

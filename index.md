@@ -18,22 +18,22 @@ composer create-project berlioz/berlioz --remove-vcs
 
 It's done! You are ready to develop your project!
 
-[Need help to configure your http server ?](./basics/installation.md).
+[Need help to configure your http server ?](basic/installation.md).
 
-## Concepts and basics usage
+## Concepts and basic uses
 
 You are now ready to develop on your project!
 
 You must understand some concepts of the **Berlioz Framework**:
 
 - [Hierarchy of directories](./directories.md)
-- [Configuration](./basics/config.md)
-- [Service Container](./basics/service-container.md)
-- [Packages](./basics/packages.md)
-- [Controllers](./basics/controllers.md)
-- [Routing](./basics/routing.md)
-- [Templates](./basics/templates.md)
-- [ORM](./basics/orm.md)
+- [Configuration](basic/config.md)
+- [Service Container](basic/service-container.md)
+- [Packages](basic/packages.md)
+- [Controllers](basic/controllers.md)
+- [Routing](basic/routing.md)
+- [Templates](basic/templates.md)
+- [ORM](basic/orm.md)
 
 ## Advanced usage
 

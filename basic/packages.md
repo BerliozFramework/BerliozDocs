@@ -1,4 +1,4 @@
-<meta name="docparser-index" content="Basics usage; Packages" />
+<meta name="docparser-index" content="Basic uses; Packages" />
 <meta name="docparser-index-order" content="3" />
 
 # Packages

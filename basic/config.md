@@ -1,4 +1,4 @@
-<meta name="docparser-index" content="Basics usage; Configuration" />
+<meta name="docparser-index" content="Basic uses; Configuration" />
 <meta name="docparser-index-order" content="1" />
 
 # Configuration

@@ -1,4 +1,4 @@
-<meta name="docparser-index" content="Basics usage; Templates" />
+<meta name="docparser-index" content="Basic uses; Templates" />
 <meta name="docparser-index-order" content="6" />
 
 # Templates

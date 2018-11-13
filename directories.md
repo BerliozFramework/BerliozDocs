@@ -1,4 +1,4 @@
-<meta name="docparser-index" content="Basics usage; Hierarchy of directories" />
+<meta name="docparser-index" content="Basic uses; Hierarchy of directories" />
 <meta name="docparser-index-order" content="0" />
 <meta name="docparser-index-visible" content="false" />
 

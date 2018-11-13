@@ -1,5 +1,6 @@
 <meta name="docparser-index" content="Advanced usage; Commands" />
 <meta name="docparser-index-order" content="1" />
+<meta name="docparser-description" content="You can use CLI commands with Berlioz Framework to simplify the background tasks of your project" />
 
 # Commands
 
