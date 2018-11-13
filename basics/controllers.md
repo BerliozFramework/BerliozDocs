@@ -3,7 +3,7 @@
 
 # Controllers
 
-It's a classes whose control interactions between models, services and templates.
+It's classes whose control interactions between models, services and templates.
 The controller is instanced and the matched method is called, by router service when the application start.
 
 ## Class
