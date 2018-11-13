@@ -3,4 +3,5 @@
 
 # Advanced usage
 
-*Coming soon.*
+- [CLI project](./advanced/cli.md)
+- [Commands](./advanced/commands.md)
