@@ -3,6 +3,10 @@
 
 # Packages
 
+Packages are available to simplify the integration of some functionality in project without fastidious configuration. 
+
+They are also the specificity to be able to used instead of middleware with implementation of **PSR-15**.
+
 ## Installation of a package
 
 1. Use composer to install package:
