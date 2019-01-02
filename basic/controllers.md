@@ -25,9 +25,15 @@ Two methods are reserved for system:
 class MyController extends \Berlioz\HttpCore\Controller\AbstractController
 {
     /**
+     * Method description.
+     *
+     * @param \Berlioz\Http\Message\ServerRequest $request
+     * @param \Berlioz\Http\Message\Response $response
+     *
+     * @return \Berlioz\Http\Message\Response $response
      * @route( "/my-route/{attr1}" )
      */
-    public function myMethod(\Berlioz\Http\Message\ServerRequest $request, \Berlioz\Core\Http\Response $response)
+    public function myMethod(ServerRequest $request, Response $response): Response
     {
         // Do something
         $attribute = $request->getAttribute('attr1');

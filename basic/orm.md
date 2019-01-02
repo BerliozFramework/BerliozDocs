@@ -21,9 +21,13 @@ Berlioz purposes you to use **Atlas ORM**. We have create a package to easier th
 
 ### Installation
 
-If you have installed your project with the default skeleton, you should have [**Atlas Package for Berlioz**](https://github.com/BerliozFramework/AtlasPackage) installed.
+Use composer to install package:
 
-Else go to [packages page](./packages.md) to know [how install package](./packages.md).
+```bash
+composer require berlioz/atlas-package
+```
+
+For more detail package installation, referred to the [package description](./packages.md) page.
 
 ### Configuration
 
@@ -56,6 +60,7 @@ You can call service container in controllers to get Atlas object:
 ```php
 /** @var \Atlas\Orm\Atlas $atlas */
 $atlas = $this->getService('atlas');
+$atlas = $this->getService(\Atlas\Orm\Atlas::class);
 ```
 
 To know more on usage with the ORM, referrer you to the [official documentation or Atlas ORM](http://atlasphp.io).

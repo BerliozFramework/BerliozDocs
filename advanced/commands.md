@@ -48,7 +48,7 @@ Example of file:
 
 ```json
 {
-    "json": {
+    "commands": {
         "myproject:foo": "\\MyProject\\Command\\FooCommand",
         "myproject:bar": "\\MyProject\\Command\\BarCommand"
     }

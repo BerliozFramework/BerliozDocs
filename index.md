@@ -5,7 +5,7 @@
 
 ## Introduction
 
-**Berlioz Framework** is a slim PHP framework, to easy publish your online projects like website, intranet, api... or all your creations !
+**Berlioz Framework** is a slim PHP framework, to easily publish your online projects like website, intranet, api... or all your creations !
 **Berlioz**, it's a simple and effective alternative PHP framework to the market.
 
 ## Quick start
@@ -13,12 +13,14 @@
 You want to install quickly a Berlioz project?
 
 ```bash
-composer create-project berlioz/berlioz --remove-vcs
+composer create-project berlioz/website-skeleton --remove-vcs
 ```
+
+*Option `--remove-vcs` to remove default `.git` directory.*
 
 It's done! You are ready to develop your project!
 
-[Need help to configure your http server ?](./basic/installation.md).
+[Need help to configure your http server?](./basic/installation.md).
 
 ## Concepts and basic uses
 

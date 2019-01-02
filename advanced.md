@@ -5,3 +5,4 @@
 
 - [CLI project](./advanced/cli.md)
 - [Commands](./advanced/commands.md)
+- [Package creation](./advanced/packages.md)

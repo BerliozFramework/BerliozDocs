@@ -14,15 +14,15 @@ If you use the main repository of Berlioz : **berlioz/berlioz**, the package it'
 
 If you use customizable repositories, you need to install by yourself the **TwigPackage**.
 
-## Manual installation of Twig package
+## Installation of Twig package
 
-1. Use composer to install package:
+Use composer to install package:
 
-    ```bash
-    composer require berlioz/twig-package
-    ```
-2. Add package to the `packages.json` file of your project (cf. [Manage packages](./packages.md)).
-3. Finished!
+```bash
+composer require berlioz/twig-package
+```
+
+For more detail package installation, referred to the [package description](./packages.md) page.
 
 ## Template service
 

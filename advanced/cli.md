@@ -6,7 +6,7 @@
 
 **Berlioz Framework** allows you to manage your CLI projects.
 
-In some case, you don't have any rendering functionality or HTTP support. The **Berlioz/CliCode** project is do for you!
+In some case, you don't have any rendering functionality or HTTP support. The **Berlioz/CliCore** project is do for you!
 
 ## Installation
 
@@ -36,9 +36,13 @@ For more details of commands usage, referrer you to the [Commands page](./comman
 
 ## Default commands
 
+### `berlioz:help`
+
+To get help and get all available commands.
+
 ### `berlioz:config`
 
-To see the beautify configuration.
+To get the beautify configuration.
 
 Parameters:
 

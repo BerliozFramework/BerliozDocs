@@ -3,11 +3,15 @@
 
 # Packages
 
-Packages are available to simplify the integration of some functionality in project without fastidious configuration. 
+Packages are available to simplify the integration of some functionality in project without fastidious configuration.
 
 They are also the specificity to be able to used instead of middleware with implementation of **PSR-15**.
 
 ## Installation of a package
+
+If the package respect [our recommandations](../advanced/packages.md), the installation is automatic ; but you can also declare package manualy.
+
+## Manual installation of a package
 
 1. Use composer to install package:
 
@@ -29,7 +33,7 @@ They are also the specificity to be able to used instead of middleware with impl
    ```json
    {
        "packages": [
-           "\\Berlioz\\Package\\MyPackage\\ClassOfMyPackage"
+           "Berlioz\\Package\\MyPackage\\ClassOfMyPackage"
        ]
    }
    ```

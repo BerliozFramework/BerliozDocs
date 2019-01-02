@@ -14,15 +14,15 @@ It's interesting in some case to separate your configuration in different files.
 
 ## Get configuration object
 
-Configuration is accessible from the application object with method `getConfig()`.
+Configuration is accessible from the core object with method `Core::getConfig()`. The core is accessible from the application object.
 
-From controllers whose inherit `AbstractController` class, application is accessible with method `AbstractController::getConfig()`.
+From controllers whose inherit `AbstractController` class, the core is accessible with method `AbstractController::getCore()`.
 
 ```php
 // ...in method of controller
 
 /** @var \Berlioz\Core\Config $config */
-$config = $this->getApp()->getConfig();
+$config = $this->getCore()->getConfig();
 ```
 
 ## Usage
@@ -31,7 +31,7 @@ You can access to the variables of configuration with method `Config::get()`. Pa
 
 ```php
 /** @var \Berlioz\Core\Config $config */
-$config = $this->getApp()->getConfig();
+$config = $this->getCore()->getConfig();
 $value = $config->get('app.varname.subvar');
 ```
 
