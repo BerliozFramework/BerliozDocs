@@ -36,7 +36,7 @@ For **Apache** version >= 2.4:
 
 ```apache
 <VirtualHost *:80>
-    ServerName www.berlioz-framework.com
+    ServerName getberlioz.com
     DocumentRoot "/path/to/my-project/public"
 
     <Directory "/path/to/my-project/public">
@@ -50,7 +50,7 @@ For **Apache** version < 2.4:
 
 ```apache
 <VirtualHost *:80>
-    ServerName www.berlioz-framework.com
+    ServerName getberlioz.com
     DocumentRoot "/path/to/my-project/public"
 
     <Directory "/path/to/my-project/public">
@@ -66,9 +66,9 @@ For **Apache** version < 2.4:
 >
 > Cf. [Apache documentation](https://httpd.apache.org/docs/current/fr/mod/mod_rewrite.html) for installation.
 
-If you want increase the performances of your server, it's to disable support of `.htaccess` files.
+If you want increase the performances of your server, disables support of `.htaccess` files.
 
-For that, you must specify to Apache the fallback resource and disable option `AllowOverride`:
+For that, you must specify to Apache the fallback resource and disable `AllowOverride` option:
 
 ```apache
 <Directory "/path/to/my-project/public">
@@ -86,7 +86,7 @@ To run PHP application with [Nginx](https://www.nginx.com), you need to use [PHP
 
 ```nginx
 server {
-    server_name www.berlioz-framework.com;
+    server_name getberlioz.com;
     root /path/to/my-project/public;
 
     # Test existent of file before redirect to fallback file: app.php
@@ -97,7 +97,7 @@ server {
     # Configuration for app.php file calls
     location ~ ^/app\.php(/|$) {
         # FastCGI configuration
-        fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
+        fastcgi_pass unix:/var/run/php/php-fpm.sock;
         fastcgi_split_path_info ^(.+\.php)(/.*)$;
         include fastcgi_params;
 
@@ -118,7 +118,7 @@ server {
 
 ### PHP HTTP server
 
-If you want test application without Web Server to installed, you can use [built-in web server](http://php.net/manual/features.commandline.webserver.php).
+If you want test application without Web Server to install, you can use [built-in web server](http://php.net/manual/features.commandline.webserver.php).
 
 To start server:
 
@@ -137,7 +137,7 @@ In your web browser, go to the url: `http://localhost:8000`, you will see your p
 
 ## Test first page
 
-Go to in your favorite browser, and try to go to your page, in your example: `www.berlioz-framework.com`.
+Go to in your favorite browser, and try to go to your page, in your example: `getberlioz.com`.
 
 If everything ok, you will see this screen:
 
