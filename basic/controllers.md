@@ -45,6 +45,6 @@ class MyController extends \Berlioz\HttpCore\Controller\AbstractController
 
 ## Parameters
 
-Parameters given to the methods are injected automatically by the [`Instantiator`](./service-container.md) class of [service container](./service-container.md).
+Parameters of the controllers methods are automatically injected by the class [`Instantiator`](./service-container.md) of [service container](./service-container.md).
 
 Attributes of routes are available with `ServerRequest` parameter, with method `getAttributes()`.

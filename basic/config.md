@@ -14,12 +14,12 @@ It's interesting in some case to separate your configuration in different files.
 
 ## Get configuration object
 
-Configuration is accessible from the core object with method `Core::getConfig()`. The core is accessible from the application object.
+Configuration is accessible from the core object with method `Core:getConfig()`. The core is accessible from the application object.
 
-From controllers whose inherit `AbstractController` class, the core is accessible with method `AbstractController::getCore()`.
+From controllers whose inherit `AbstractController` class, the core is accessible with method `AbstractController:getCore()`.
 
 ```php
-// ...in method of controller
+// ...in controller method
 
 /** @var \Berlioz\Core\Config $config */
 $config = $this->getCore()->getConfig();
@@ -27,7 +27,7 @@ $config = $this->getCore()->getConfig();
 
 ## Usage
 
-You can access to the variables of configuration with method `Config::get()`. Parameter given is the variable name.
+You can access to the variables of configuration with method `Config:get(string $name)`. `$name` given parameter is the path of your variable in your JSON.
 
 ```php
 /** @var \Berlioz\Core\Config $config */
@@ -61,11 +61,11 @@ Your configuration is automatically extended from a default configuration:
 }
 ```
 
-The variables encapsulated by `%` are automatically replaced by values.
+The variables encapsulated by `%` are automatically replaced by associate values.
 
 ## Extend configuration
 
-It's possible to extend a configuration file with special root key `@extends` and file to extend in value.
+It's possible to extend a configuration file with special root key `@extends` with extended file in value.
 
 ### config.json.dist
 
