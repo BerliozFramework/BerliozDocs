@@ -4,7 +4,7 @@
 
 # Commands
 
-You can create some commands to call your functions or services.
+You can create some commands to call your functions or services to automated some jobs in crontab for example.
 
 ## Create a command
 
@@ -13,32 +13,77 @@ You need to implements `\Berlioz\CliCore\Command\CommandInterface` interface or 
 Representation of interface:
 
 ```php
+/**
+ * Interface CommandInterface.
+ *
+ * @package Berlioz\CliCore\Command
+ */
 interface CommandInterface
 {
     /**
-     * Get args.
+     * Get short description.
      *
-     * Must return an array of arguments.
-     *
-     * @return \Berlioz\CliCore\Command\CommandArg[]
+     * @return string|null
      */
-    public function getArgs(): array;
+    public static function getShortDescription(): ?string;
+
+    /**
+     * Get description.
+     *
+     * @return string|null
+     */
+    public static function getDescription(): ?string;
+
+    /**
+     * Get options.
+     *
+     * Must return an array of options.
+     *
+     * @return \GetOpt\Option[]
+     * @see http://getopt-php.github.io/getopt-php/options.html
+     */
+    public static function getOptions(): array;
+
+    /**
+     * Get operands.
+     *
+     * Must return an array of operands.
+     *
+     * @return \GetOpt\Operand[]
+     * @see http://getopt-php.github.io/getopt-php/operands.html
+     */
+    public static function getOperands(): array;
 
     /**
      * Run command.
      *
-     * @param \Berlioz\CliCore\App\CliArgs $args
+     * @param \GetOpt\GetOpt $getOpt
      *
      * @return void
      */
-    public function run(CliArgs $args);
+    public function run(GetOpt $getOpt);
 }
 ```
 
-Methods:
+## Use arguments
 
-- `CommandInterface::getArgs()`: to your arguments declaration
-- `CommandInterface::run()`: to the command running code (with dependencies injection)
+Berlioz commands uses `ulrichsg/getopt-php` composer package to manage CLI arguments. So to use arguments, `\Berlioz\CliCore\Command\CommandInterface::getOptions()` method must return an array of `\GetOpt\Option` objects.
+
+Example:
+
+```php
+public static function getOptions(): array
+{
+    return [
+        (new Option('f', 'filter', GetOpt::OPTIONAL_ARGUMENT))
+            ->setDescription('Filter')
+            ->setValidation('is_string'),
+        (new Option(null, 'nb', GetOpt::OPTIONAL_ARGUMENT))
+            ->setDescription('Number of results')
+            ->setValidation('is_numeric')
+    ];
+}
+```
 
 ## Declare a command
 
