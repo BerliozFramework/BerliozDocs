@@ -6,8 +6,6 @@
 
 The default router of Berlioz Framework is the package [**berlioz/router**](https://github.com/BerliozFramework/Router).
 
-Declaration of routes are done with annotations for the moment, we add in future the capacity to choice between configuration file and annotations.
-
 ## Basic declaration
 
 You can add annotation to the methods of your controllers, like this:
@@ -60,7 +58,7 @@ The `requirements` option accept only JSON object like value. The key represents
 
 ```php
 /**
- * @route("/my-route/{attribute}", requirements={"attribute":"\d+"})
+ * @route("/my-route/{attribute}", requirements={"attribute":"\\d+"})
  */
 ```
 
@@ -117,4 +115,37 @@ The `defaults` option accept only JSON object like value. The key represents the
 /**
  * @route("/my-route/{attribute}", defaults={"attribute":"new"})
  */
+```
+
+## Declaration of routes in configuration
+
+You can also declare routes in your configuration. To do, create a `routes.json` file in your configuration directory.
+
+An example of `routes.json` file:
+
+```json
+{
+  "routes": [
+    {
+      "path": "/my-route",
+      "context": {
+        "_class": "My\\Project\\Controller\\MyController",
+        "_method": "myMethod"
+      }
+    },
+    {
+      "path": "/my-route/{attribute}",
+      "options": {
+        "requirements": {
+          "attribute": "\\d+"
+        },
+        "priority": 0
+      },
+      "context": {
+        "_class": "My\\Project\\Controller\\MyController",
+        "_method": "mySecondMethod"
+      }
+    }
+  ]
+}
 ```
