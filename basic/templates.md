@@ -1,5 +1,7 @@
-<meta name="docparser-index" content="Basic uses; Templates" />
-<meta name="docparser-index-order" content="6" />
+```index
+breadcrumb: Basic uses; Templates
+summary-order: 7
+```
 
 # Templates
 

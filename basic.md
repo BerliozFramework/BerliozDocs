@@ -1,6 +1,8 @@
-<meta name="docparser-index" content="Basic uses" />
-<meta name="docparser-index-order" content="2" />
-<meta name="docparser-description" content="Basic uses of Berlioz Framework" />
+```index
+breadcrumb: Basic uses
+summary-order: 3
+description: Basic uses of Berlioz Framework
+```
 
 # Basic uses
 

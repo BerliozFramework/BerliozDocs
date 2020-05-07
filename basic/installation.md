@@ -1,5 +1,7 @@
-<meta name="docparser-index" content="Installation" />
-<meta name="docparser-index-order" content="1" />
+```index
+breadcrumb: Installation
+summary-order: 2
+```
 
 # Installation
 

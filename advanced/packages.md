@@ -1,6 +1,8 @@
-<meta name="docparser-index" content="Advanced usage; Package creation" />
-<meta name="docparser-index-order" content="2" />
-<meta name="docparser-description" content="Create package to make implementation of functionnalities for others peoples" />
+```index
+breadcrumb: Advanced usage; Package creation
+summary-order: 3
+description: Create package to make implementation of functionnalities for others peoples
+```
 
 # Creation of package
 

@@ -1,6 +1,8 @@
-<meta name="docparser-index" content="Basic uses; Routing" />
-<meta name="docparser-index-order" content="5" />
-<meta name="docparser-description" content="Manage the routes (urls) of your project with annotations or directly into configuration file" />
+```index
+breadcrumb: Basic uses; Routing
+summary-order: 6
+description: Manage the routes (urls) of your project with annotations or directly into configuration file
+```
 
 # Routing
 

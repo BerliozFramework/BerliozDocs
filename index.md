@@ -1,5 +1,7 @@
-<meta name="docparser-index" content="Getting started" />
-<meta name="docparser-index-order" content="0" />
+```index
+breadcrumb: Getting started
+summary-order: 1
+```
 
 # Getting started
 

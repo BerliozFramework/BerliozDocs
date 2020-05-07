@@ -1,5 +1,7 @@
-<meta name="docparser-index" content="Basic uses; Packages" />
-<meta name="docparser-index-order" content="3" />
+```index
+breadcrumb: Basic uses; Packages
+summary-order: 4
+```
 
 # Packages
 

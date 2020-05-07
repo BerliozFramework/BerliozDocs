@@ -1,6 +1,8 @@
-<meta name="docparser-index" content="Advanced usage; CLI Project" />
-<meta name="docparser-index-order" content="0" />
-<meta name="docparser-description" content="Berlioz Framework allows you to manage your CLI projects with commands and other extras" />
+```index
+breadcrumb: Advanced usage; CLI Project
+summary-order: 1
+description: Berlioz Framework allows you to manage your CLI projects with commands and other extras
+```
 
 # CLI Project
 

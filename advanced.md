@@ -1,5 +1,7 @@
-<meta name="docparser-index" content="Advanced usage" />
-<meta name="docparser-index-order" content="3" />
+```index
+breadcrumb: Advanced usage
+summary-order: 4
+```
 
 # Advanced usage
 

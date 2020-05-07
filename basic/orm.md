@@ -1,5 +1,7 @@
-<meta name="docparser-index" content="Basic uses; Object-Relational Mapping" />
-<meta name="docparser-index-order" content="7" />
+```index
+breadcrumb: Basic uses; Object-Relational Mapping
+summary-order: 8
+```
 
 # Object-Relational Mapping
 

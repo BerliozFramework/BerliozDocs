@@ -1,5 +1,7 @@
-<meta name="docparser-index" content="Basic uses; Configuration" />
-<meta name="docparser-index-order" content="1" />
+```index
+breadcrumb: Basic uses; Configuration
+summary-order: 2
+```
 
 # Configuration
 

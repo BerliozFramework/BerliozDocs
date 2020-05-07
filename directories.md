@@ -1,6 +1,8 @@
-<meta name="docparser-index" content="Basic uses; Hierarchy of directories" />
-<meta name="docparser-index-order" content="0" />
-<meta name="docparser-index-visible" content="false" />
+```index
+breadcrumb: Basic uses; Hierarchy of directories
+summary-order: 1
+summary-visible: false
+```
 
 # Hierarchy of directories
 
