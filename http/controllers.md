@@ -1,12 +1,12 @@
 ```index
-breadcrumb: Basic uses; Controllers
-summary-order: 5
+breadcrumb: HTTP Website; Controllers
+summary-order: 2; 1
 ```
 
 # Controllers
 
 It's classes whose control interactions between models, services and templates.
-The controller is instanced and the matched method is called, by router service when the application start.
+The controller is instanced, and the matched method is called, by router service when the application started.
 
 ## Class
 
@@ -16,7 +16,7 @@ It's the main controller for website projects who offer methods for services, ro
 
 ## Magic methods
 
-Two methods are reserved for system:
+Two methods are reserve for system:
 
 - `_b_pre()`: method called before execution of controller method
 - `_b_post()`: method called after execution of controller method
@@ -47,6 +47,6 @@ class MyController extends \Berlioz\HttpCore\Controller\AbstractController
 
 ## Parameters
 
-Parameters of the controllers methods are automatically injected by the class [`Instantiator`](./service-container.md) of [service container](./service-container.md).
+Parameters of the controllers methods are automatically inject by the class [`Instantiator`](../getting-started/service-container.md) of [service container](../getting-started/service-container.md).
 
 Attributes of routes are available with `ServerRequest` parameter, with method `getAttributes()`.

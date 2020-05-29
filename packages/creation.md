@@ -1,7 +1,6 @@
 ```index
-breadcrumb: Advanced usage; Package creation
-summary-order: 3
-description: Create package to make implementation of functionnalities for others peoples
+breadcrumb: Packages; Creation
+summary-visible: false
 ```
 
 # Creation of package
@@ -9,7 +8,7 @@ description: Create package to make implementation of functionnalities for other
 ## Package class
 
 First step is to create a class who implements `Berlioz\Core\Package\PackageInterface` interface.
-To simplify your creation, you can extends `Berlioz\Core\Package\AbstractPackage` class.
+To simplify your creation, you can extend `Berlioz\Core\Package\AbstractPackage` class.
 
 Representation of interface:
 

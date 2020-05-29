@@ -1,25 +1,25 @@
 ```index
-breadcrumb: Installation
-summary-order: 2
+breadcrumb: Getting started; Installation
+summary-order: 1
 ```
 
 # Installation
 
-This page describe the default installation for the most of HTTP projects.
-But you can use **Berlioz Framework** for CLI projects for example, go to [advanced usage page](../advanced.md) to know more.
+This page describes the default installation for the most of HTTP projects.
+If you want use **Berlioz Framework** for CLI projects, go to [CLI Project](../cli.md) to know more.
 
 ## Berlioz Framework
 
 Installation of Berlioz Framework must be done by [Composer](https://getcomposer.org/), it's the recommended installation.
 
 ```bash
-composer create-project berlioz/berlioz --remove-vcs
+composer create-project berlioz/website-skeleton --remove-vcs
 ```
 
 You can specify the version to composer:
 
 ```bash
-composer create-project berlioz/berlioz 1.0 --remove-vcs
+composer create-project berlioz/website-skeleton 1.0 --remove-vcs
 ```
 
 > **Info**:
@@ -75,7 +75,7 @@ For that, you must specify to Apache the fallback resource and disable `AllowOve
 ```apache
 <Directory "/path/to/my-project/public">
     AllowOverride None
-    FallbackResource /app.php
+    FallbackResource /index.php
     # ...
 </Directory>
 ```  
@@ -91,13 +91,13 @@ server {
     server_name getberlioz.com;
     root /path/to/my-project/public;
 
-    # Test existent of file before redirect to fallback file: app.php
+    # Test existent of file before redirect to fallback file: index.php
     location / {
-        try_files $uri /app.php$is_args$args;
+        try_files $uri /index.php$is_args$args;
     }
 
-    # Configuration for app.php file calls
-    location ~ ^/app\.php(/|$) {
+    # Configuration for index.php file calls
+    location ~ ^/index\.php(/|$) {
         # FastCGI configuration
         fastcgi_pass unix:/var/run/php/php-fpm.sock;
         fastcgi_split_path_info ^(.+\.php)(/.*)$;
@@ -107,7 +107,7 @@ server {
         fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
         fastcgi_param DOCUMENT_ROOT $realpath_root;
 
-        # To do not use app.php file for routes
+        # To do not use index.php file for routes
         internal;
     }
 
@@ -127,7 +127,7 @@ To start server:
 ```bash
 cd /path/of/project
 cd public
-php -S localhost:8000 app.php
+php -S localhost:8000 index.php
 ```
 
 In your web browser, go to the url: `http://localhost:8000`, you will see your project!

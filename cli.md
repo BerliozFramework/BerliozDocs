@@ -1,6 +1,6 @@
 ```index
-breadcrumb: Advanced usage; CLI Project
-summary-order: 1
+breadcrumb: CLI Commands; Introduction
+summary-order: 3; 1
 description: Berlioz Framework allows you to manage your CLI projects with commands and other extras
 ```
 
@@ -20,11 +20,11 @@ First, create your classical project with composer support. And executes this co
 composer require berlioz/cli-core
 ```
 
-An executable will be create in binary directory of **Composer** (default: **vendor/bin**).
+An executable will be created in the binary directory of **Composer** (default: **vendor/bin**).
 
 ## Commands
 
-CLI commands are available on framework.
+CLI commands are available on the framework.
 You can use some default commands or create your owns.
 
 For execution of commands:
@@ -34,7 +34,7 @@ $ vendor/bin/berlioz myproject:foo
 Printed result!
 ```
 
-For more details of commands usage, referrer you to the [Commands page](./commands.md).
+For more details of commands usage, referrer you to the [Commands page](cli/commands.md).
 
 ## Default commands
 
@@ -44,7 +44,7 @@ To get help and get all available commands.
 
 ### `berlioz:config`
 
-To get the beautify configuration.
+To get the beautified configuration.
 
 Parameters:
 

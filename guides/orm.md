@@ -1,6 +1,6 @@
 ```index
-breadcrumb: Basic uses; Object-Relational Mapping
-summary-order: 8
+breadcrumb: Guides; Object-Relational Mapping
+summary-order: 6; 0
 ```
 
 # Object-Relational Mapping
@@ -29,11 +29,11 @@ Use composer to install package:
 composer require berlioz/atlas-package
 ```
 
-For more detail package installation, referred to the [package description](./packages.md) page.
+For more detail package installation, referred to the [package description](../packages.md) page.
 
 ### Configuration
 
-Create a `atlas.json` file in your [configuration directory](../directories.md), with this content:
+Create a `atlas.json` file in your [configuration directory](../getting-started/directories.md), with this content:
 
 ```json
 {

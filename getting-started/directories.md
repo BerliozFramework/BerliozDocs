@@ -1,17 +1,16 @@
 ```index
-breadcrumb: Basic uses; Hierarchy of directories
-summary-order: 1
-summary-visible: false
+breadcrumb: Getting started; Directories
 ```
 
 # Hierarchy of directories
 
-We recommend to uses the default hierarchy of directories for your projects.
+We recommend using the default hierarchy of directories for your projects.
 
 ## Default hierarchy
 
 Default hierarchy of directories:
 
+- `/assets`: assets of project
 - `/config`: configurations of project
 - `/public`: public directory where your web server link visitors
 - `/src`: your project sources

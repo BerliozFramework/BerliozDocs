@@ -1,10 +1,10 @@
 ```index
-breadcrumb: Basic uses; Routing
-summary-order: 6
-description: Manage the routes (urls) of your project with annotations or directly into configuration file
+breadcrumb: HTTP Website; Routing
 ```
 
 # Routing
+
+Routes redirect HTTP requests to the good controller and method of him.
 
 The default router of Berlioz Framework is the package [**berlioz/router**](https://github.com/BerliozFramework/Router).
 

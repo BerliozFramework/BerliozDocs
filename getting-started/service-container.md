@@ -1,6 +1,5 @@
 ```index
-breadcrumb: Basic uses; Service container
-summary-order: 3
+breadcrumb: Getting started; Service container
 ```
 
 # Service container
@@ -48,31 +47,49 @@ In case of a parameter is an object, the system get the classes implemented to i
 
 ### New instance of a class or object
 
+You can create a new instance of a class.
+
 ```php
-$instantiator = $this->getApp()->getServiceContainer()->getInstantiator();
-$object = $instantiator->newInstanceOf(MyClass::class,
-                                       ['argument1' => 'Value',
-                                        'argument3' => 'Value',
-                                        'argument2' => 'Value']);
+$instantiator = $this->getCore()->getServiceContainer()->getInstantiator();
+$object = $instantiator->newInstanceOf(
+    MyClass::class,
+    [
+        'argument1' => 'Value',
+        'argument3' => 'Value',
+        'argument2' => 'Value'
+    ]
+);
 ```
 
 ### Invoke a method
 
+You can invoke a specific method of an object.
+
 ```php
-$instantiator = $this->getApp()->getServiceContainer()->getInstantiator();
-$result = $instantiator->invokeMethod($myObject,
-                                      'myMethodName',
-                                      ['argument1' => 'Value',
-                                       'argument3' => 'Value',
-                                       'argument2' => 'Value']);
+$instantiator = $this->getCore()->getServiceContainer()->getInstantiator();
+$result = $instantiator->invokeMethod(
+    $myObject,
+    'myMethodName',
+    [
+        'argument1' => 'Value',
+        'argument3' => 'Value',
+        'argument2' => 'Value'
+    ]
+);
 ```
 
 ### Invoke a function
 
+You can invoke a function.
+
 ```php
-$instantiator = $this->getApp()->getServiceContainer()->getInstantiator();
-$result = $instantiator->invokeFunction('myFunctionName',
-                                        ['argument1' => 'Value',
-                                         'argument3' => 'Value',
-                                         'argument2' => 'Value']);
+$instantiator = $this->getCore()->getServiceContainer()->getInstantiator();
+$result = $instantiator->invokeFunction(
+    'myFunctionName',
+    [
+        'argument1' => 'Value',
+        'argument3' => 'Value',
+        'argument2' => 'Value'
+    ]
+);
 ```

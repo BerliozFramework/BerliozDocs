@@ -22,7 +22,7 @@ composer create-project berlioz/website-skeleton --remove-vcs
 
 It's done! You are ready to develop your project!
 
-[Need help to configure your http server?](./basic/installation.md).
+[Need help to configure your http server?](getting-started/installation.md).
 
 ## Concepts and basic uses
 
@@ -30,15 +30,19 @@ You are now ready to develop on your project!
 
 You must understand some concepts of the **Berlioz Framework**:
 
-- [Hierarchy of directories](./directories.md)
-- [Configuration](./basic/config.md)
-- [Service Container](./basic/service-container.md)
-- [Packages](./basic/packages.md)
-- [Controllers](./basic/controllers.md)
-- [Routing](./basic/routing.md)
-- [Templates](./basic/templates.md)
-- [ORM](./basic/orm.md)
+- [Hierarchy of directories](./getting-started/directories.md)
+- [Configuration](./getting-started/config.md)
+- [Service Container](./getting-started/service-container.md)
+- [Packages](packages.md)
+- [Controllers](./http/controllers.md)
+- [Routing](./http/routing.md)
+- [Templates](templating.md)
+- [ORM](./guides/orm.md)
 
 ## Advanced usage
 
-If you want go further with **Berlioz Framework**, you can consult the [advanced usage page](./advanced.md).
+If you want go further with **Berlioz Framework**, you can consult:
+
+- [CLI Project](cli.md)
+- [Commands](./cli/commands.md)
+- [Package creation](./packages/creation.md)

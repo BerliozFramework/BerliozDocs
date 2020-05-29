@@ -1,16 +1,14 @@
 ```index
-breadcrumb: Advanced usage; Commands
-summary-order: 2
-description: You can use CLI commands with Berlioz Framework to simplify the background tasks of your project
+breadcrumb: CLI; Commands
 ```
 
 # Commands
 
-You can create some commands to call your functions or services to automated some jobs in crontab for example.
+You can create some commands to call your functions or services to automate some jobs in crontab for example.
 
 ## Create a command
 
-You need to implements `\Berlioz\CliCore\Command\CommandInterface` interface or extends `\Berlioz\CliCore\Command\AbstractCommand` abstract class.
+You need to implement `\Berlioz\CliCore\Command\CommandInterface` interface or extends `\Berlioz\CliCore\Command\AbstractCommand` abstract class.
 
 Representation of interface:
 
@@ -89,7 +87,7 @@ public static function getOptions(): array
 
 ## Declare a command
 
-You need to declare each commands in a `commands.json` file in you configuration directory.
+You need to declare each commands in a `commands.json` file in your [configuration directory](../getting-started/config.md).
 
 Example of file:
 
@@ -104,7 +102,7 @@ Example of file:
 
 ## Call a command
 
-An executable is available in binary directory of **Composer** to call commands.
+An executable is available in the binary directory of **Composer** to call commands.
 
 Examples:
 
