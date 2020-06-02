@@ -1,5 +1,5 @@
 ```index
-breadcrumb: CLI; Commands
+breadcrumb: CLI Commands; Commands
 ```
 
 # Commands
