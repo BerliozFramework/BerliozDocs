@@ -15,7 +15,7 @@ summary-order: 1
 You want to install quickly a Berlioz project?
 
 ```bash
-composer create-project berlioz/website-skeleton --remove-vcs
+composer create-project berlioz/website-skeleton my-project --remove-vcs
 ```
 
 *Option `--remove-vcs` to remove default `.git` directory.*

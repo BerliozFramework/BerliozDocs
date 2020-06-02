@@ -13,13 +13,13 @@ If you want use **Berlioz Framework** for CLI projects, go to [CLI Project](../c
 Installation of Berlioz Framework must be done by [Composer](https://getcomposer.org/), it's the recommended installation.
 
 ```bash
-composer create-project berlioz/website-skeleton --remove-vcs
+composer create-project berlioz/website-skeleton my-project --remove-vcs
 ```
 
 You can specify the version to composer:
 
 ```bash
-composer create-project berlioz/website-skeleton 1.0 --remove-vcs
+composer create-project berlioz/website-skeleton my-project "1.0" --remove-vcs
 ```
 
 > **Info**:
