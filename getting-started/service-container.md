@@ -8,6 +8,42 @@ The default service container of Berlioz Framework is the package [**berlioz/ser
 
 **Berlioz Service Container** is a PHP library to manage your services with dependencies injection, respecting PSR-11 (Container interface) standard.
 
+## Configuration
+
+You can define services in the configuration file.
+
+Example:
+
+```json
+{
+    "services": {
+        "myServiceAlias": {
+            "class": "MyService\\ClassName",
+            "arguments": {
+                "foo": "value",
+                "bar": "value"
+            },
+            "calls": [
+                {
+                    "method": "myMethodName",
+                    "arguments": {
+                        "baz": "value",
+                        "qux": "value"
+                    }
+                }
+            ]
+        },
+        ...
+    }
+}
+```
+
+In the example, when you got service `myServiceAlias` or `MyService\ClassName::class`, the instantiator will take configuration, and do:
+
+- Instantiate class with constructor arguments `foo` and `bar`
+- Call method `myMethodName` with arguments `baz` and `qux`, after instantiation
+
+
 ## Usage
 
 Service container is accessible from the application object with method `getServiceContainer()`.
