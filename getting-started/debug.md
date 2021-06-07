@@ -47,7 +47,7 @@ In your configuration file, you need to declare the list of authorized ips and h
   "berlioz": {
     "debug": {
       "enable": true,
-      "ips": [
+      "ip": [
         "127.0.0.1",
         "getberlioz.com"
       ]
@@ -56,4 +56,4 @@ In your configuration file, you need to declare the list of authorized ips and h
 }
 ```
 
-In this example, debug mode is activate only for local ip `127.0.0.1` and host `getberlioz.com`.
+In this example, debug mode is activated only for local ip `127.0.0.1` and host `getberlioz.com`.

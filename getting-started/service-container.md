@@ -1,5 +1,6 @@
 ```index
 breadcrumb: Getting started; Service container
+keywords: service, container
 ```
 
 # Service container
@@ -46,9 +47,9 @@ In the example, when you got service `myServiceAlias` or `MyService\ClassName::c
 
 ## Usage
 
-Service container is accessible from the application object with method `getServiceContainer()`.
+Service container is accessible from the application object with method `getContainer()`.
 
-Remember the 2 main methods:
+Remember the 3 main methods:
 
 - `get($id)`
 
@@ -61,16 +62,16 @@ Remember the 2 main methods:
   > PSR-11: Returns true if the container can return an entry for the given identifier.
   > Returns false otherwise.
 
-- `getInstantiator()`
+- `call(string|array|Closure $subject, array $arguments = [])`
 
-  > Returns an `Instantiator` class with dependencies injection functionality.
+  > Returns the subject with dependencies injection functionality.
   > Go next on the page to know more.
 
-Others methods of **Service Container** in many cases, are not necessaries for projects. If you want know more, go on [repository documentation](https://github.com/BerliozFramework/ServiceContainer).
+Others methods of **Service Container** in many cases, are not necessaries for projects. If you want to know more, go on [repository documentation](https://github.com/BerliozFramework/ServiceContainer).
 
 > **Tips**:
 >
-> You can get service quickly from `Controller` classes with method: `Controller::getService($id)`.
+> You can get service quickly from `Controller` classes with method: `Controller::get($id)`.
 
 ## Instantiator
 
@@ -86,8 +87,7 @@ In case of a parameter is an object, the system get the classes implemented to i
 You can create a new instance of a class.
 
 ```php
-$instantiator = $this->getCore()->getServiceContainer()->getInstantiator();
-$object = $instantiator->newInstanceOf(
+$object = $this->getCore()->getContainer()->call(
     MyClass::class,
     [
         'argument1' => 'Value',
@@ -102,10 +102,11 @@ $object = $instantiator->newInstanceOf(
 You can invoke a specific method of an object.
 
 ```php
-$instantiator = $this->getCore()->getServiceContainer()->getInstantiator();
-$result = $instantiator->invokeMethod(
-    $myObject,
-    'myMethodName',
+$result = $this->getCore()->getContainer()->call(
+    [
+        $myObject,
+        'myMethodName'
+    ],
     [
         'argument1' => 'Value',
         'argument3' => 'Value',
@@ -119,13 +120,22 @@ $result = $instantiator->invokeMethod(
 You can invoke a function.
 
 ```php
-$instantiator = $this->getCore()->getServiceContainer()->getInstantiator();
-$result = $instantiator->invokeFunction(
+$result = $this->getCore()->getContainer()->call(
     'myFunctionName',
     [
         'argument1' => 'Value',
         'argument3' => 'Value',
         'argument2' => 'Value'
     ]
+);
+```
+
+### Invoke a Closure
+
+You can invoke a closure.
+
+```php
+$result = $this->getCore()->getContainer()->call(
+    fn(Berlioz\Core\Core $core) => true
 );
 ```

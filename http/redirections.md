@@ -1,15 +1,16 @@
 ```index
 breadcrumb: HTTP Website; Redirections
+keywords: redirection
 ```
 
 # HTTP Redirections
 
-Sometimes, you need to redirect an old route to a new route.
-You have two methods to redirect route to another route.
+Sometimes, you need to redirect an old route to a new route. You have two methods to redirect route to another route.
 
 ## With config
 
-You can create a `redirections.json` file into your [configuration directory](../getting-started/directories.md) and add a similar content:
+You can create a `redirections.json` file into your [configuration directory](../getting-started/directories.md) and add
+a similar content:
 
 ```json
 {
@@ -25,8 +26,8 @@ You can create a `redirections.json` file into your [configuration directory](..
 }
 ```
 
-The key `berlioz.http.redirections` is an JSON object.
-The key of property it's a regular expression to find, and the value is the replacement value.
+The key `berlioz.http.redirections` is an JSON object. The key of property it's a regular expression to find, and the
+value is the replacement value.
 
 In internal, Berlioz use `preg_replace()` PHP function. So you can use mask and replacement value with backreferences.
 
@@ -42,14 +43,18 @@ Original path              | Redirect path
 /another-old-route/        | /new/
 /another-old-route/foo/bar | /new/foo/bar
 
-The default redirection HTTP status code is `301 Moved Permanently`, so if you want specify another HTTP status code, it's possible with this config example:
+The default redirection HTTP status code is `301 Moved Permanently`, so if you want specify another HTTP status code,
+it's possible with this config example:
 
 ```json
 {
   "berlioz": {
     "http": {
       "redirections": {
-        "^/old$": {"url": "/new", "type": 302}
+        "^/old$": {
+          "url": "/new",
+          "type": 302
+        }
       }
     }
   }
@@ -65,10 +70,11 @@ In this example, the HTTP status code will be `302 Found`.
 
 ## With controller
 
-You can create redirection with methods of controllers, to use `redirection()` helper, who redirect with `302 Found` HTTP status.
+You can create redirection with methods of controllers, to use `redirection()` helper, who redirect with `302 Found`HTTP
+status.
 
 ```php
-class MyController extends \Berlioz\HttpCore\Controller\AbstractController
+class MyController extends \Berlioz\Http\Core\Controller\AbstractController
 {
     /**
      * @route( "/old-route" )
@@ -83,19 +89,19 @@ class MyController extends \Berlioz\HttpCore\Controller\AbstractController
 If you can also generate the route from the router, like this:
 
 ```php
-class MyController extends \Berlioz\HttpCore\Controller\AbstractController
+use Berlioz\Http\Core\Attribute as Berlioz;
+use Berlioz\Http\Core\Controller\AbstractController;
+use Berlioz\Http\Message\Response;
+
+class MyController extends AbstractController
 {
-    /**
-     * @route( "/old-route" )
-     */
+    #[Berlioz\Route('/old-route')]
     public function oldMethod(): Response
     {
         return $this->redirect($this->getRouter()->generate('foo-route'));
     }
 
-    /**
-     * @route( "/new-route", name="foo-route" )
-     */
+    #[Berlioz\Route('/new-route', name: 'foo-route')]
     public function newMethod(): Response
     {
         // ...
@@ -103,7 +109,7 @@ class MyController extends \Berlioz\HttpCore\Controller\AbstractController
 }
 ```
 
-If you want specify the HTTP response code, pass him in second parameter of `redirect()` method:
+If you want to specify the HTTP response code, pass it in the second parameter of `redirect()` method:
 
 ```php
 return $this->redirect('/new-route', 301);

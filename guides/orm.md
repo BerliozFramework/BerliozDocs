@@ -1,6 +1,6 @@
 ```index
-breadcrumb: Guides; Object-Relational Mapping
-summary-order: 6; 0
+breadcrumb: Guides; ORM
+summary-order: ; 1
 ```
 
 # Object-Relational Mapping
@@ -29,7 +29,7 @@ Use composer to install package:
 composer require berlioz/atlas-package
 ```
 
-For more detail package installation, referred to the [package description](../packages.md) page.
+For more detail package installation, referred to the [package description](packages.md) page.
 
 ### Configuration
 

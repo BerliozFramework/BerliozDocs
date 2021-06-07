@@ -1,5 +1,5 @@
 ```index
-breadcrumb: Packages; Creation
+breadcrumb: Guides; Packages; Creation
 summary-visible: false
 ```
 
@@ -13,31 +13,49 @@ To simplify your creation, you can extend `Berlioz\Core\Package\AbstractPackage`
 Representation of interface:
 
 ```php
+use Berlioz\Config\ConfigInterface;
+use Berlioz\Config\Exception\ConfigException;
+use Berlioz\Core\Core;
+use Berlioz\ServiceContainer\Container;
+
 /**
  * Interface PackageInterface.
- *
- * @package Berlioz\Core\Package
  */
-interface PackageInterface extends CoreAwareInterface
+interface PackageInterface
 {
+    /**
+     * Package configuration.
+     *
+     * Method called for the configuration of package.
+     * Do not use this method to do any actions on framework, only configuration of package.
+     *
+     * @return ConfigInterface|null
+     * @throws ConfigException
+     */
+    public static function config(): ?ConfigInterface;
+
     /**
      * Register package.
      *
-     * Method called for the registration of all packages.
-     * Do not use this method to do any actions on framework, only configuration and registration of services.
+     * Method called for the registration of services associated to the package.
+     * Do not use this method to do any actions on framework, only registration of services.
      *
-     * @return mixed
+     * @param Container $container
+     *
+     * @return void
      */
-    public function register();
+    public static function register(Container $container): void;
 
     /**
-     * Init package.
+     * Boot package.
      *
      * Method called after creation of all packages.
      *
-     * @return mixed
+     * @param Core $core
+     *
+     * @return void
      */
-    public function init();
+    public static function boot(Core $core): void;
 }
 ```
 

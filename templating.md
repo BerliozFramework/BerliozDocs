@@ -1,12 +1,12 @@
 ```index
-breadcrumb: Templating; Introduction
-summary-order: 4; 1
-keywords: templating
+breadcrumb: Templating
+summary-order: 4
+keywords: templating, twig
 ```
 
 # Templates
 
-We provide a **Twig** package. Twig is a PHP template engine with is own syntax.
+We provide a **Twig** package. Twig is a PHP template engine with its own syntax.
 
 - Official website: [https://twig.symfony.com/](https://twig.symfony.com/)
 - Documentation: [https://twig.symfony.com/doc/](https://twig.symfony.com/doc/)
@@ -15,7 +15,7 @@ We provide a **Twig** package. Twig is a PHP template engine with is own syntax.
 
 If you use the main repository of Berlioz : **berlioz/berlioz**, the package it's already available.
 
-If you use customizable repositories, you need to [install the package](packages.md) by yourself:
+If you use customizable repositories, you need to [install the package](guides/packages.md) by yourself:
 
 ```bash
 composer require berlioz/twig-package
@@ -38,13 +38,21 @@ $rendering = $this->render(
 Example outside controllers:
 
 ```php
-/** @var \Berlioz\Package\Twig\Twig $twig */
-$twig = $this->getCore()->getServiceContainer()->get(\Berlioz\Package\Twig\Twig::class);
+use Berlioz\Package\Twig\Twig;
+
+/** @var Twig $twig */
+$twig = $this->getCore()->getContainer()->get(Twig::class);
 $rendering = $twig->render(
     'my-template/path/file.html.twig',
     ['myVar' => 'value']
 );
 ```
+
+## Service inflector
+
+An inflector is provided with interface: `\Berlioz\Package\Twig\TwigAwareInterface`.
+
+For more information on inflectors, refers you to [container inflectors](./getting-started/service-container.md).
 
 ## Methods
 
@@ -68,24 +76,27 @@ Twig package have some methods:
 
 ```json
 {
-    "berlioz": {
-        "directories": {
-            "templates": "%berlioz.directories.app%/templates"
-        }
-    },
-    "twig": {
-        "paths": {
-            "__main__": "%berlioz.directories.templates%"
-        },
-        "options": {
-            "cache": "%berlioz.directories.cache%/twig",
-            "debug": "%berlioz.debug.enable%"
-        },
-        "extensions": [
-            "Berlioz\\Package\\Twig\\TwigExtension"
-        ],
-        "globals": {}
+  "berlioz": {
+    "directories": {
+      "templates": "{config: berlioz.directories.app}/templates"
     }
+  },
+  "twig": {
+    "paths": {
+      "__main__": "{config: berlioz.directories.templates}",
+      "Berlioz-TwigPackage": "{config: berlioz.directories.vendor}/berlioz/twig-package/resources"
+    },
+    "options": {
+      "cache": "{config: berlioz.directories.cache}/twig",
+      "optimizers": null
+    },
+    "extensions": [
+      "Berlioz\\Package\\Twig\\Extension\\AssetExtension",
+      "Berlioz\\Package\\Twig\\Extension\\DefaultExtension",
+      "Berlioz\\Package\\Twig\\Extension\\RouterExtension"
+    ],
+    "globals": {}
+  }
 }
 ```
 

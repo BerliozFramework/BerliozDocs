@@ -1,5 +1,7 @@
 ```index
-breadcrumb: CLI Commands; Commands
+breadcrumb: CLI Project; Commands
+summary-order: 3; 2
+keywords: command
 ```
 
 # Commands
@@ -8,25 +10,18 @@ You can create some commands to call your functions or services to automate some
 
 ## Create a command
 
-You need to implement `\Berlioz\CliCore\Command\CommandInterface` interface or extends `\Berlioz\CliCore\Command\AbstractCommand` abstract class.
+You need to implement `\Berlioz\Cli\Core\Command\CommandInterface` interface or extends `\Berlioz\CliCore\Command\AbstractCommand` abstract class.
 
-Representation of interface:
+Representation of the interface:
 
 ```php
+use Berlioz\Cli\Core\Console\Environment;
+
 /**
  * Interface CommandInterface.
- *
- * @package Berlioz\CliCore\Command
  */
 interface CommandInterface
 {
-    /**
-     * Get short description.
-     *
-     * @return string|null
-     */
-    public static function getShortDescription(): ?string;
-
     /**
      * Get description.
      *
@@ -35,55 +30,60 @@ interface CommandInterface
     public static function getDescription(): ?string;
 
     /**
-     * Get options.
+     * Get help.
      *
-     * Must return an array of options.
-     *
-     * @return \GetOpt\Option[]
-     * @see http://getopt-php.github.io/getopt-php/options.html
+     * @return string|null
      */
-    public static function getOptions(): array;
-
-    /**
-     * Get operands.
-     *
-     * Must return an array of operands.
-     *
-     * @return \GetOpt\Operand[]
-     * @see http://getopt-php.github.io/getopt-php/operands.html
-     */
-    public static function getOperands(): array;
+    public static function getHelp(): ?string;
 
     /**
      * Run command.
      *
-     * @param \GetOpt\GetOpt $getOpt
+     * @param Environment $env
      *
-     * @return void
+     * @return int
      */
-    public function run(GetOpt $getOpt);
+    public function run(Environment $env): int;
 }
 ```
 
-## Use arguments
+## Arguments
 
-Berlioz commands uses `ulrichsg/getopt-php` composer package to manage CLI arguments. So to use arguments, `\Berlioz\CliCore\Command\CommandInterface::getOptions()` method must return an array of `\GetOpt\Option` objects.
-
-Example:
+Arguments must be declared with PHP 8 attributes, example:
 
 ```php
-public static function getOptions(): array
+use Berlioz\Cli\Core\Command\Argument;
+use Berlioz\Cli\Core\Command\CommandInterface;
+use Berlioz\Cli\Core\Console\Environment;
+
+#[Argument('argument1', prefix: 'a', longPrefix: 'arg')]
+#[Argument('argument2', longPrefix: 'arg2')]
+class MyCommand implements CommandInterface
 {
-    return [
-        (new Option('f', 'filter', GetOpt::OPTIONAL_ARGUMENT))
-            ->setDescription('Filter')
-            ->setValidation('is_string'),
-        (new Option(null, 'nb', GetOpt::OPTIONAL_ARGUMENT))
-            ->setDescription('Number of results')
-            ->setValidation('is_numeric')
-    ];
+    // ...
+
+    public function run(Environment $env): int
+    {
+        $env->getArgument('argument1'); // Get the argument 1
+        $env->getArgument('argument2'); // Get the argument 2
+        
+        // ...
+    }
 }
 ```
+
+Options for arguments:
+
+Name | Type |Description
+-----|------|------------
+name | string | Name of argument
+prefix | string (default: null) | Prefix (one character)
+longPrefix | string (default: null) | Long prefix
+description | string (default: null) | Description, used for --help
+defaultValue | mixed (default: null) | Default value
+required | bool (default: false) | If argument is required
+noValue | bool (default: false) | If argument has no value
+castTo | string (default: null) | Cast to a specified type
 
 ## Declare a command
 

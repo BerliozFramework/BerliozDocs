@@ -1,6 +1,6 @@
 ```index
 breadcrumb: HTTP Website; Exceptions
-keywords: exception
+keywords: exception, error
 ```
 
 # HTTP exceptions
@@ -13,17 +13,17 @@ If you throw an `HttpException`, the framework do not generate this exception an
 
 ## Main exception
 
-`\Berlioz\HttpCore\Exception\HttpException` is the main exception used by the framework to generate errors to the user.
+`\Berlioz\Http\Core\Exception\HttpException` is the main exception used by the framework to generate errors to the user.
 
-## Children HTTP exceptions
+For the most common HTTP exceptions, some class are already define in the namespace `\Berlioz\Http\Core\Exception\Http`:
 
-For the most common HTTP exceptions, some class are already define in the namespace `\Berlioz\HttpCore\Exception\Http`:
-
-- `BadRequestHttpException`: 400 Bad Request
-- `ConflictHttpException`: 409 Conflict
-- `ForbiddenHttpException`: 403 Forbidden
-- `InternalServerErrorHttpException`: 500 Internal Server Error
-- `NotFoundHttpException`: 404 Not Found
-- `NotImplementedHttpException`: 501 Not Implemented
-- `ServiceUnavailableHttpException`: 503 Service Unavailable
-- `UnauthorizedHttpException`: 401 Unauthorized
+Exception | Code | Reason
+----------|------|-------
+`BadRequestHttpException` | 400 | Bad Request
+`ConflictHttpException` | 409 | Conflict
+`ForbiddenHttpException` | 403 | Forbidden
+`InternalServerErrorHttpException` | 500 | Internal Server Error
+`NotFoundHttpException` | 404 | Not Found
+`NotImplementedHttpException` | 501 | Not Implemented
+`ServiceUnavailableHttpException` | 503 | Service Unavailable
+`UnauthorizedHttpException` | 401 | Unauthorized

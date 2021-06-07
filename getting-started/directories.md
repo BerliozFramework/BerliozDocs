@@ -10,18 +10,20 @@ We recommend using the default hierarchy of directories for your projects.
 
 Default hierarchy of directories:
 
-- `/assets`: assets of project
-- `/config`: configurations of project
-- `/public`: public directory where your web server link visitors
-- `/src`: your project sources
-- `/templates`: your templates files
-- `/var`
-  - `/var/cache`: cache directory
-  - `/var/debug`: debug reports directory
-  - `/var/tmp`: temporary directory for your project
-- `/vendor`: vendors (for composer)
+Path | Description
+-----|------------
+`/assets` | Assets of project
+`/config` | Configurations of project
+`/public` | Public directory where your web server link visitors
+`/src` | Your project sources
+`/templates` | Your templates files
+`/var` | Var files
+`/var/cache` | Cache directory
+`/var/debug` | Debug reports directory
+`/var/tmp` | Temporary directory for your project
+`/vendor` | Vendors (for composer)
 
-It's a basic hierarchy that lot of frameworks used. You will not loose if you come for one of them.
+It's a basic hierarchy that lot of frameworks used. You won't be lost if you come for any of them :).
 
 ## Custom hierarchy
 
@@ -31,7 +33,7 @@ To do that, you have two choices:
 - Implements `Berlioz\Core\Directories\DirectoriesInterface` interface
 - Extends `Berlioz\Core\Directories\DefaultDirectories` class
 
-Representation of interface:
+Representation of the interface:
 
 ```php
 /**
@@ -101,4 +103,4 @@ interface DirectoriesInterface
 }
 ```
 
-Give your object in first argument of `Berlioz\Core\Core` object.
+Pass your object in first argument of `Berlioz\Core\Core` object.

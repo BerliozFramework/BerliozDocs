@@ -1,5 +1,6 @@
 ```index
 breadcrumb: Getting started; Installation
+keywords: installation
 summary-order: 1
 ```
 
@@ -19,7 +20,7 @@ composer create-project berlioz/website-skeleton my-project --remove-vcs
 You can specify the version to composer:
 
 ```bash
-composer create-project berlioz/website-skeleton my-project "1.0" --remove-vcs
+composer create-project berlioz/website-skeleton my-project "2.0" --remove-vcs
 ```
 
 > **Info**:
@@ -143,8 +144,8 @@ Go to in your favorite browser, and try to go to your page, in your example: `ge
 
 If everything ok, you will see this screen:
 
-![First page](../_imgs/first-page.png)
+![First page](../_assets/first-page.png)
 
 You can also see on this first page, the debug console of **Berlioz**. If you click on, you will see the debug detail:
 
-![Debug](../_imgs/first-page-debug.png)
+![Debug](../_assets/first-page-debug.png)

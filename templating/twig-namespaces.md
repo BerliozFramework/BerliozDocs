@@ -1,6 +1,7 @@
 ```index
 breadcrumb: Templating; Namespaces
-keywords: templating
+summary-order: ; 1
+keywords: templating, twig
 ```
 
 # Twig namespaces
@@ -15,8 +16,8 @@ Paths need to be declared in your configuration file like this:
 {
     "twig": {
         "paths": {
-            "foo": "%berlioz.directories.templates%/foo",
-            "bar": "%berlioz.directories.templates%/bar"
+            "foo": "{config: berlioz.directories.templates}/foo",
+            "bar": "{config: berlioz.directories.templates}/bar"
         }
     }
 }

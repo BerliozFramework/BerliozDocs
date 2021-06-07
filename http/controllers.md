@@ -1,5 +1,6 @@
 ```index
 breadcrumb: HTTP Website; Controllers
+keywords: controller
 summary-order: 2; 1
 ```
 
@@ -10,32 +11,29 @@ The controller is instanced, and the matched method is called, by router service
 
 ## Class
 
-`\Berlioz\HttpCore\Controller\AbstractController`
+`\Berlioz\Http\Core\Controller\AbstractController`
 
 It's the main controller for website projects who offer methods for services, routing, templating, flash messages, and redirection.
-
-## Magic methods
-
-Two methods are reserve for system:
-
-- `_b_pre()`: method called before execution of controller method
-- `_b_post()`: method called after execution of controller method
 
 ## Example
 
 ```php
-class MyController extends \Berlioz\HttpCore\Controller\AbstractController
+use Berlioz\Http\Core\Controller\AbstractController;
+use Berlioz\Http\Message\Response;
+use Berlioz\Http\Message\ServerRequest;
+
+class MyController extends AbstractController
 {
     /**
      * Method description.
      *
-     * @param \Berlioz\Http\Message\ServerRequest $request
-     * @param \Berlioz\Http\Message\Response $response
+     * @param ServerRequest $request
+     * @param Response $response
      *
-     * @return \Berlioz\Http\Message\Response $response
-     * @route( "/my-route/{attr1}" )
+     * @return Response $response
      */
-    public function myMethod(ServerRequest $request, Response $response): Response
+    #Route['/my-route/{attr1}']
+    public function myMethod(ServerRequest $request): Response
     {
         // Do something
         $attribute = $request->getAttribute('attr1');
