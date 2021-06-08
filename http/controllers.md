@@ -6,14 +6,13 @@ summary-order: 2; 1
 
 # Controllers
 
-It's classes whose control interactions between models, services and templates.
-The controller is instanced, and the matched method is called, by router service when the application started.
+It's classes whose control interactions between models, services and templates. The controller is instanced, and the
+matched method is called, by router service when the application started.
 
-## Class
+## Class `\Berlioz\Http\Core\Controller\AbstractController`
 
-`\Berlioz\Http\Core\Controller\AbstractController`
-
-It's the main controller for website projects who offer methods for services, routing, templating, flash messages, and redirection.
+It's the main controller for website projects who offer methods for services, routing, templating, flash messages, and
+redirection.
 
 ## Example
 
@@ -45,6 +44,8 @@ class MyController extends AbstractController
 
 ## Parameters
 
-Parameters of the controllers methods are automatically inject by the class [`Instantiator`](../getting-started/service-container.md) of [service container](../getting-started/service-container.md).
+Parameters of the controllers methods are automatically inject by the
+class [`Instantiator`](../getting-started/service-container.md)
+of [service container](../getting-started/service-container.md).
 
 Attributes of routes are available with `ServerRequest` parameter, with method `getAttributes()`.
