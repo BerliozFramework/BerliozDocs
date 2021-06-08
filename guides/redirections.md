@@ -1,6 +1,7 @@
 ```index
-breadcrumb: HTTP Website; Redirections
+breadcrumb: Guides; HTTP Redirections
 keywords: redirection
+summary-order: ; 4
 ```
 
 # HTTP Redirections

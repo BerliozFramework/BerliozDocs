@@ -19,10 +19,10 @@ on [PSR-15](https://www.php-fig.org/psr/psr-15/) recommendation.
 
 Some middlewares are configured by default:
 
-- `Berlioz\Http\Core\Http\Middleware\MaintenanceMiddleware`: stop execution of controllers and display maintenance page
-  if maintenance is enabled.
-- `Berlioz\Http\Core\Http\Middleware\RedirectionMiddleware`: do redirections configured in configuration if no controller
-  found.
+- `Berlioz\Http\Core\Http\Middleware\MaintenanceMiddleware`:
+  stop execution of controllers and display maintenance page if [maintenance is enabled](../guides/maintenance.md).
+- `Berlioz\Http\Core\Http\Middleware\RedirectionMiddleware`:
+  do [redirections configured](../guides/redirections.md) in configuration if no controller found.
 
 ## Declare middlewares
 

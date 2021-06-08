@@ -1,6 +1,7 @@
 ```index
 breadcrumb: Guides; Maintenance mode
-summary-order: ; 4
+keywords: maintenance
+summary-order: ; 5
 ```
 
 # Maintenance mode
