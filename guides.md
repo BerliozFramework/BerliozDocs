@@ -5,7 +5,7 @@ summary-order: 5
 
 # Guides
 
-Guides are made to help you use the framework in a specific situation or to learn some practice.
+The guides are designed to help you use the framework in a specific situation or to learn a certain practice:
 
 - [ORM](./guides/orm.md) (Object-Relational Mapping)
 
@@ -19,5 +19,8 @@ Guides are made to help you use the framework in a specific situation or to lear
 
   Learn how manage packages and how create one.
 
-- Maintenance mode (TODO)
+- [Maintenance mode](./guides/maintenance.md)
+
+  Define a maintenance page during your maintenance works.
+
 - Assets (TODO)
