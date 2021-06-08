@@ -75,7 +75,7 @@ class MyController
 }
 ```
 
-## Attribute requirement mask
+### Requirement mask
 
 You can define a requirement mask for a specific attribute, it's very useful to limit internal errors if you search need
 only `int` values for an attribute for example.
@@ -96,7 +96,7 @@ class MyController
 }
 ```
 
-## Priority
+### Priority
 
 In some cases, you need to set priority between routes, because the global mask of 2 requests are concurrent, like this
 routes:
@@ -144,7 +144,7 @@ class MyController
 }
 ```
 
-## Default values
+### Default values
 
 You can define default values in option of the route, in case of you generate them without specify attribute.
 
@@ -164,6 +164,25 @@ class MyController
     }
 }
 ```
+
+### Group of routes
+
+For routes with same parameters, you can define a route group attribute to the controller.
+
+Example:
+
+```php
+use Berlioz\Http\Core\Attribute as Berlioz;
+
+#[Berlioz\RouteGroup('/root-path', requirements: ['id' => '\d+'])]
+class MyController
+{
+    // ...
+}
+```
+
+All the parameters will be merged with the parameters of the route, except the path which will be concatenated with the
+path of the route.
 
 ## Declaration of routes in configuration
 
