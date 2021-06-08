@@ -4,8 +4,8 @@ breadcrumb: Getting started; Configuration
 
 # Configuration
 
-The default configuration manager of Berlioz Framework is the package [**
-berlioz/config**](https://github.com/BerliozFramework/Config).
+The default configuration manager of Berlioz Framework is the package
+[**berlioz/config**](https://github.com/BerliozFramework/Config).
 
 ## Write configuration
 
@@ -54,7 +54,8 @@ $value = $config->get('app.varname.subvar');
 
 All configuration files with `.dist` in filename have a lower priority than others.
 
-It's recommended to write a dist configuration to push on the repository ; and add a `config.json` into `.gitignore` file where you can write your sensitive data...
+It's recommended to write a dist configuration to push on the repository ; and add a `config.json` into `.gitignore`
+file where you can write your sensitive data...
 
 ## Default configuration of Berlioz
 
