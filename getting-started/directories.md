@@ -12,11 +12,12 @@ Default hierarchy of directories:
 
 Path | Description
 -----|------------
-`/assets` | Assets of project
 `/config` | Configurations of project
 `/public` | Public directory where your web server link visitors
 `/src` | Your project sources
-`/templates` | Your templates files
+`/resources` | Resources of project
+`/resources/assets` | Assets of project
+`/resources/templates` | Your templates files
 `/var` | Var files
 `/var/cache` | Cache directory
 `/var/debug` | Debug reports directory
