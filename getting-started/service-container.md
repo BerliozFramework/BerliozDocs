@@ -5,9 +5,11 @@ keywords: service, container
 
 # Service container
 
-The default service container of Berlioz Framework is the package [**berlioz/service-container**](https://github.com/BerliozFramework/ServiceContainer).
+The default service container of Berlioz Framework is the package [**
+berlioz/service-container**](https://github.com/BerliozFramework/ServiceContainer).
 
-**Berlioz Service Container** is a PHP library to manage your services with dependencies injection, respecting PSR-11 (Container interface) standard.
+**Berlioz Service Container** is a PHP library to manage your services with dependencies injection, respecting PSR-11 (
+Container interface) standard.
 
 ## Configuration
 
@@ -17,33 +19,39 @@ Example:
 
 ```json
 {
+  "container": {
+    "providers": [
+      "MyService\\Provider",
+      ...
+    ],
     "services": {
-        "myServiceAlias": {
-            "class": "MyService\\ClassName",
-            "arguments": {
-                "foo": "value",
-                "bar": "value"
-            },
-            "calls": [
-                {
-                    "method": "myMethodName",
-                    "arguments": {
-                        "baz": "value",
-                        "qux": "value"
-                    }
-                }
-            ]
+      "myServiceAlias": {
+        "class": "MyService\\ClassName",
+        "arguments": {
+          "foo": "value",
+          "bar": "value"
         },
-        ...
+        "calls": [
+          {
+            "method": "myMethodName",
+            "arguments": {
+              "baz": "value",
+              "qux": "value"
+            }
+          }
+        ]
+      },
+      ...
     }
+  }
 }
 ```
 
-In the example, when you got service `myServiceAlias` or `MyService\ClassName::class`, the instantiator will take configuration, and do:
+In the example, when you got service `myServiceAlias` or `MyService\ClassName::class`, the instantiator will take
+configuration, and do:
 
 - Instantiate class with constructor arguments `foo` and `bar`
 - Call method `myMethodName` with arguments `baz` and `qux`, after instantiation
-
 
 ## Usage
 
@@ -67,7 +75,8 @@ Remember the 3 main methods:
   > Returns the subject with dependencies injection functionality.
   > Go next on the page to know more.
 
-Others methods of **Service Container** in many cases, are not necessaries for projects. If you want to know more, go on [repository documentation](https://github.com/BerliozFramework/ServiceContainer).
+Others methods of **Service Container** in many cases, are not necessaries for projects. If you want to know more, go
+on [repository documentation](https://github.com/BerliozFramework/ServiceContainer).
 
 > **Tips**:
 >
@@ -75,7 +84,8 @@ Others methods of **Service Container** in many cases, are not necessaries for p
 
 ## Instantiator
 
-**Berlioz Framework** give you an **Instantiator** class that you can use to do dependency injection with object, methods or functions.
+**Berlioz Framework** give you an **Instantiator** class that you can use to do dependency injection with object,
+methods or functions.
 
 In all next examples cases, the last argument is an array of parameters to give to the constructor, method or function.
 The order of arguments is not important.
