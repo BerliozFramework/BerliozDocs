@@ -30,21 +30,22 @@ You are now ready to develop on your project!
 
 You must understand some concepts of the **Berlioz Framework**:
 
-- [Hierarchy of directories](./getting-started/directories.md)
-- [Configuration](./getting-started/config.md)
-- [Service Container](./getting-started/service-container.md)
+- [Hierarchy of directories](getting-started/directories.md)
+- [Configuration](getting-started/config.md)
+- [Service Container](getting-started/service-container.md)
 - [Packages](guides/packages.md)
-- [Controllers](./http/controllers.md)
-- [Middlewares](./http/middleware.md)
-- [Routing](./http/routing.md)
-- [Templates](templating.md)
-- [ORM](./guides/orm.md)
+- [Controllers](http/controllers.md)
+- [Middlewares](http/middleware.md)
+- [Routing](http/routing.md)
+- [Templates](guides/templating.md)
+- [ORM](guides/orm.md)
+- [Forms](guides/forms.md)
 
 ## Advanced usage
 
 If you want go further with **Berlioz Framework**, you can consult:
 
 - [CLI Project](cli.md)
-- [Commands](./cli/commands.md)
-- [Console](./cli/console.md)
+- [Commands](cli/commands.md)
+- [Console](cli/console.md)
 - [Package creation](guides/packages/creation.md)

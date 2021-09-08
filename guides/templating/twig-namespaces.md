@@ -1,7 +1,7 @@
 ```index
-breadcrumb: Templating; Namespaces
-summary-order: ; 1
-keywords: templating, twig
+breadcrumb: Guides; Templating; Namespaces
+summary-order: ; ; 1
+keywords: templating, template, twig
 ```
 
 # Twig namespaces

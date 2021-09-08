@@ -1,7 +1,7 @@
 ```index
-breadcrumb: Templating; Extensions
-summary-order: ; 2
-keywords: templating, twig
+breadcrumb: Guides; Templating; Extensions
+summary-order: ; ; 2
+keywords: templating, template, twig
 ```
 
 # Twig extensions

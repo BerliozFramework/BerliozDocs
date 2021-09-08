@@ -9,25 +9,25 @@ The guides are designed to help you use the framework in a specific situation or
 
 ## Projects
 
-- [ORM](./guides/orm.md) (Object-Relational Mapping)
+- [ORM](guides/orm.md) (Object-Relational Mapping)
 
   Learn how manage your database and associate entities with framework.
 
-- [Events](./guides/events.md)
+- [Events](guides/events.md)
 
   Learn how exploit capabilities of events with framework.
 
-- [Packages](./guides/packages.md)
+- [Packages](guides/packages.md)
 
   Learn how manage packages and how create one.
 
 ## HTTP projects
 
-- [Redirections](./guides/redirections.md)
+- [Redirections](guides/redirections.md)
 
   Implement HTTP redirections for old routes (for example) with or without controller.
 
-- [Maintenance mode](./guides/maintenance.md)
+- [Maintenance mode](guides/maintenance.md)
 
   Define a maintenance page during your maintenance works.
 
