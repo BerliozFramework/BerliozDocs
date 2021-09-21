@@ -18,6 +18,8 @@ All [commons options](inputs.md#common-options), and:
 | Name | Type | Default value | Description |
 | ---- | ---- | ------------- | ----------- |
 | **default_value** | string | "on" | Default value for input value |
+| **checked_value** | mixed | true | Value for checked input |
+| **unchecked_value** | mixed | true | Value for unchecked input |
 
 ## Attributes
 

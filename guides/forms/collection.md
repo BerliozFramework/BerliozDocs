@@ -20,6 +20,11 @@ Use class `Berlioz\Form\Collection` to construct a collection of inputs.
 | **max_elements** | int | *none* | The maximum number of elements in collection |
 | **type** | string | "collection" | The type name of collection (to personalize template) |
 
+## Creation of sub objects
+
+Use special option "data_type" in the prototype options to create the specified class object. Or use a closure in this
+option to create a dynamic object.
+
 ## JavaScript interaction
 
 A library is available to do interaction with JavaScript and user: https://github.com/BerliozFramework/Form.js
