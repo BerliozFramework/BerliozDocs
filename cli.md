@@ -51,3 +51,10 @@ Parameters:
 ### `berlioz:cache-clear`
 
 To clear the cache.
+
+Parameters (version `^2.2`):
+
+- `-all`
+  To clear all contents of cache directory (except hidden items)
+- `...`
+  To specify directories name to clear.
