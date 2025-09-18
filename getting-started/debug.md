@@ -16,7 +16,8 @@ The toolbar shown at left bottom of your page, and indicate the time of page exe
 
 > If an error occurred during script execution, the check icon transform to cross icon ;)
 
-Two icons appears on hover. The first to hide the toolbar, and the second to switch at right the toolbar (this action is saved into a cookie to reproduce the position).
+Two icons appears on hover. The first to hide the toolbar, and the second to switch at right the toolbar (this action is
+saved into a cookie to reproduce the position).
 
 ## Console
 
@@ -24,18 +25,17 @@ To open console, you need to click on the toolbar.
 
 ![Debug Console](../_assets/debug-console.png)
 
-
 ## Enable/Disable debug mode
 
 In your configuration file, you need to specify the activation of debug, by default, the debug mode is not enable.
 
 ```json
 {
-  "berlioz": {
-    "debug": {
-      "enable": true
+    "berlioz": {
+        "debug": {
+            "enable": true
+        }
     }
-  }
 }
 ```
 
@@ -46,15 +46,15 @@ In your configuration file, you need to declare the list of authorized ips and h
 
 ```json
 {
-  "berlioz": {
-    "debug": {
-      "enable": true,
-      "ips": [
-        "127.0.0.1",
-        "getberlioz.com"
-      ]
+    "berlioz": {
+        "debug": {
+            "enable": true,
+            "ips": [
+                "127.0.0.1",
+                "getberlioz.com"
+            ]
+        }
     }
-  }
 }
 ```
 

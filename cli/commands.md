@@ -10,7 +10,8 @@ You can create some commands to call your functions or services to automate some
 
 ## Create a command
 
-You need to implement `\Berlioz\CliCore\Command\CommandInterface` interface or extends `\Berlioz\CliCore\Command\AbstractCommand` abstract class.
+You need to implement `\Berlioz\CliCore\Command\CommandInterface` interface or extends
+`\Berlioz\CliCore\Command\AbstractCommand` abstract class.
 
 Representation of interface:
 
@@ -69,7 +70,8 @@ interface CommandInterface
 
 ## Use arguments
 
-Berlioz commands uses `ulrichsg/getopt-php` composer package to manage CLI arguments. So to use arguments, `\Berlioz\CliCore\Command\CommandInterface::getOptions()` method must return an array of `\GetOpt\Option` objects.
+Berlioz commands uses `ulrichsg/getopt-php` composer package to manage CLI arguments. So to use arguments,
+`\Berlioz\CliCore\Command\CommandInterface::getOptions()` method must return an array of `\GetOpt\Option` objects.
 
 Example:
 
@@ -89,7 +91,8 @@ public static function getOptions(): array
 
 ## Declare a command
 
-You need to declare each commands in a `commands.json` file in your [configuration directory](../getting-started/config.md).
+You need to declare each commands in a `commands.json` file in
+your [configuration directory](../getting-started/config.md).
 
 Example of file:
 

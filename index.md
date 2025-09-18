@@ -8,7 +8,8 @@ summary-order: 1
 
 ## Introduction
 
-**Berlioz Framework** is a slim PHP framework, to easily publish your online projects like website, intranet, api... or all your creations !
+**Berlioz Framework** is a slim PHP framework, to easily publish your online projects like website, intranet, api... or
+all your creations !
 **Berlioz**, it's a simple and effective alternative PHP framework to the market.
 
 ## Quick start

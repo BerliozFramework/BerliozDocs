@@ -24,7 +24,8 @@ class MyHttpErrorHandler implements HttpErrorHandler
 }
 ```
 
-If you want use the template rendering engine or access to core functionalities, you need to extend `\Berlioz\HttpCore\Controller\AbstractController` class.
+If you want use the template rendering engine or access to core functionalities, you need to extend
+`\Berlioz\HttpCore\Controller\AbstractController` class.
 
 ```php
 class MyHttpErrorHandler extends AbstractController implements HttpErrorHandler

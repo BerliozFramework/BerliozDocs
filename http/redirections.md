@@ -11,19 +11,20 @@ You have two methods to redirect route to another route.
 
 ## With config
 
-You can create a `redirections.json` file into your [configuration directory](../getting-started/directories.md) and add a similar content:
+You can create a `redirections.json` file into your [configuration directory](../getting-started/directories.md) and add
+a similar content:
 
 ```json
 {
-  "berlioz": {
-    "http": {
-      "redirections": {
-        "^/old$": "/new",
-        "^/old-route/(.*)": "/new-route/$1",
-        "^/another-old-route/": "/new/"
-      }
+    "berlioz": {
+        "http": {
+            "redirections": {
+                "^/old$": "/new",
+                "^/old-route/(.*)": "/new-route/$1",
+                "^/another-old-route/": "/new/"
+            }
+        }
     }
-  }
 }
 ```
 
@@ -34,27 +35,31 @@ In internal, Berlioz use `preg_replace()` PHP function. So you can use mask and 
 
 Examples for redirection with the config given in example above:
 
-Original path              | Redirect path
----------------------------|---------------
-/old                       | /new
-/old/foo                   | ***No redirection***
-/old-route/foo             | /new-route/foo
-/old-route/foo/bar         | /new-route/foo/bar
-/old-route/                | /new-route/
-/another-old-route/        | /new/
-/another-old-route/foo/bar | /new/foo/bar
+ Original path              | Redirect path        
+----------------------------|----------------------
+ /old                       | /new                 
+ /old/foo                   | ***No redirection*** 
+ /old-route/foo             | /new-route/foo       
+ /old-route/foo/bar         | /new-route/foo/bar   
+ /old-route/                | /new-route/          
+ /another-old-route/        | /new/                
+ /another-old-route/foo/bar | /new/foo/bar         
 
-The default redirection HTTP status code is `301 Moved Permanently`, so if you want specify another HTTP status code, it's possible with this config example:
+The default redirection HTTP status code is `301 Moved Permanently`, so if you want specify another HTTP status code,
+it's possible with this config example:
 
 ```json
 {
-  "berlioz": {
-    "http": {
-      "redirections": {
-        "^/old$": {"url": "/new", "type": 302}
-      }
+    "berlioz": {
+        "http": {
+            "redirections": {
+                "^/old$": {
+                    "url": "/new",
+                    "type": 302
+                }
+            }
+        }
     }
-  }
 }
 ```
 
@@ -67,7 +72,8 @@ In this example, the HTTP status code will be `302 Found`.
 
 ## With controller
 
-You can create redirection with methods of controllers, to use `redirection()` helper, who redirect with `302 Found` HTTP status.
+You can create redirection with methods of controllers, to use `redirection()` helper, who redirect with `302 Found`HTTP
+status.
 
 ```php
 class MyController extends \Berlioz\HttpCore\Controller\AbstractController

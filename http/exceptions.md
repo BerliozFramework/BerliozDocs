@@ -11,8 +11,10 @@ keywords:
 `HttpException` class allow you to throw specific exception from context.
 You can so define an HTTP status code and message.
 
-By default, if an exception is throw, the framework generate an `InternalServerErrorHttpException` exception with the main exception in previous.
-If you throw an `HttpException`, the framework do not generate this exception and use yours, and the defined status code and message. 
+By default, if an exception is throw, the framework generate an `InternalServerErrorHttpException` exception with the
+main exception in previous.
+If you throw an `HttpException`, the framework do not generate this exception and use yours, and the defined status code
+and message.
 
 ## Main exception
 

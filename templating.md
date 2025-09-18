@@ -26,7 +26,8 @@ composer require berlioz/twig-package
 
 ## Usage
 
-In [controllers](http/controllers.md), the method `render(string $name, array $variables = []): string` is available to process of the rendering of a template file.
+In [controllers](http/controllers.md), the method `render(string $name, array $variables = []): string` is available to
+process of the rendering of a template file.
 
 Example inside controllers methods:
 

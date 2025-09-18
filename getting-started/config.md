@@ -6,7 +6,8 @@ breadcrumb:
 
 # Configuration
 
-The default configuration manager of Berlioz Framework is the package [**berlioz/config**](https://github.com/BerliozFramework/Config).
+The default configuration manager of Berlioz Framework is the package [**berlioz/config
+**](https://github.com/BerliozFramework/Config).
 
 ## Write configuration
 
@@ -17,9 +18,11 @@ It's interested in some case to separate your configuration in different files. 
 
 ## Get configuration object
 
-Configuration is accessible from the core object with method `Core:getConfig()`. The core is accessible from the application object.
+Configuration is accessible from the core object with method `Core:getConfig()`. The core is accessible from the
+application object.
 
-From controllers whose inherit `AbstractController` class, the core is accessible with method `AbstractController:getCore()`.
+From controllers whose inherit `AbstractController` class, the core is accessible with method
+`AbstractController:getCore()`.
 
 ```php
 // ...in controller method
@@ -30,7 +33,8 @@ $config = $this->getCore()->getConfig();
 
 ## Usage
 
-You can access to the variables of configuration with method `Config:get(string $name)`. Given parameter is the path of your variable in your JSON.
+You can access to the variables of configuration with method `Config:get(string $name)`. Given parameter is the path of
+your variable in your JSON.
 
 ```php
 /** @var \Berlioz\Config\ConfigInterface $config */
@@ -74,11 +78,13 @@ It's possible to extend a configuration file with special root key `@extends` wi
 
 ### config.json.dist
 
-We recommend creating a file `config.json.dist` with the default parameters. File that you can commit on your GIT repository.
+We recommend creating a file `config.json.dist` with the default parameters. File that you can commit on your GIT
+repository.
 
 This file **do not must** include any password or address server, or other critical data.
 
-So you can create a `config.json` file who inherit the `config.json.dist` file, and you just add inherit parameters like password... and **do not commit this file** and add this in your `.gitignore` file.
+So you can create a `config.json` file who inherit the `config.json.dist` file, and you just add inherit parameters like
+password... and **do not commit this file** and add this in your `.gitignore` file.
 
 ### Example
 

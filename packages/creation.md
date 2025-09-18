@@ -47,7 +47,8 @@ interface PackageInterface extends CoreAwareInterface
 
 Second step is to declare in your `composer.json` file, that the project is a Berlioz package.
 
-So add `"type": "berlioz-package"` in your `composer.json` file. And add in "config" section the declaration of your package class.
+So add `"type": "berlioz-package"` in your `composer.json` file. And add in "config" section the declaration of your
+package class.
 
 Full example of your `composer.json` file:
 

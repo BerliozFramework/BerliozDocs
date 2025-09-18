@@ -18,9 +18,9 @@ Default hierarchy of directories:
 - `/src`: your project sources
 - `/templates`: your templates files
 - `/var`
-  - `/var/cache`: cache directory
-  - `/var/debug`: debug reports directory
-  - `/var/tmp`: temporary directory for your project
+    - `/var/cache`: cache directory
+    - `/var/debug`: debug reports directory
+    - `/var/tmp`: temporary directory for your project
 - `/vendor`: vendors (for composer)
 
 It's a basic hierarchy that lot of frameworks used. You will not loose if you come for one of them.

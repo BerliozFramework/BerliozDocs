@@ -13,7 +13,8 @@ They are also the specificity to be able to used instead of middleware with impl
 
 ## Installation of a package
 
-If the package respect [our recommandations](packages/creation.md), the installation is automatic ; but you can also declare package manualy.
+If the package respect [our recommandations](packages/creation.md), the installation is automatic ; but you can also
+declare package manualy.
 
 ## Manual installation of a package
 
@@ -24,7 +25,8 @@ If the package respect [our recommandations](packages/creation.md), the installa
     ```
 
 2. If you have a `packages.json` file in your [configuration directory](getting-started/directories.md), go to 4.
-   Else, create a file named `packages.json` in your [configuration directory](getting-started/directories.md) and add the default content:
+   Else, create a file named `packages.json` in your [configuration directory](getting-started/directories.md) and add
+   the default content:
 
    ```json
    {
