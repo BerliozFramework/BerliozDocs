@@ -1,8 +1,15 @@
-```index
-breadcrumb: Guides; Forms ; Inputs ; Week
+---
+breadcrumb:
+  - Guides
+  - Forms
+  - Inputs
+  - Week
 summary-visible: false
-keywords: form, input, week
-```
+keywords:
+  - form
+  - input
+  - week
+---
 
 # Week
 

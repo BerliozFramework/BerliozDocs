@@ -1,7 +1,10 @@
-```index
-breadcrumb: Guides; Packages; Creation
+---
+breadcrumb:
+  - Guides
+  - Packages
+  - Creation
 summary-visible: false
-```
+---
 
 # Creation of package
 

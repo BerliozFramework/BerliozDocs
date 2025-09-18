@@ -1,8 +1,11 @@
-```index
-breadcrumb: Guides; Maintenance mode
-keywords: maintenance
-summary-order: ; 7
-```
+---
+breadcrumb:
+  - Guides
+  - Maintenance mode
+keywords:
+  - maintenance
+summary-order: ;7
+---
 
 # Maintenance mode
 

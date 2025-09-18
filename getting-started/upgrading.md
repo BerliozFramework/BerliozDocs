@@ -1,8 +1,12 @@
-```index
-breadcrumb: Getting started; Upgrading
-keywords: installation, upgrade
+---
+breadcrumb:
+  - Getting started
+  - Upgrading
+keywords:
+  - installation
+  - upgrade
 summary-order: 2
-```
+---
 
 # Upgrading from version 1
 

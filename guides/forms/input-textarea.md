@@ -1,8 +1,15 @@
-```index
-breadcrumb: Guides; Forms ; Inputs ; TextArea
+---
+breadcrumb:
+  - Guides
+  - Forms 
+  - Inputs 
+  - TextArea
 summary-visible: false
-keywords: form, input, textarea
-```
+keywords:
+  - form
+  - input
+  - textarea
+---
 
 # TextArea
 

@@ -1,8 +1,14 @@
-```index
-breadcrumb: Guides; Forms ; Inputs
-summary-order: ; ; 2
-keywords: form, input, text
-```
+---
+breadcrumb:
+  - Guides
+  - Forms
+  - Inputs
+summary-order: ;;2
+keywords:
+  - form
+  - input
+  - text
+---
 
 # Inputs
 

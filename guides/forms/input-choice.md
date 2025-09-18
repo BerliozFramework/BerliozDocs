@@ -1,8 +1,15 @@
-```index
-breadcrumb: Guides; Forms ; Inputs ; Choice
+---
+breadcrumb:
+  - Guides
+  - Forms 
+  - Inputs 
+  - Choice
 summary-visible: false
-keywords: form, input, choice
-```
+keywords:
+  - form
+  - input
+  - choice
+---
 
 # Choice
 

@@ -1,8 +1,14 @@
-```index
-breadcrumb: Guides; Templating; Namespaces
-summary-order: ; ; 1
-keywords: templating, template, twig
-```
+---
+breadcrumb:
+  - Guides
+  - Templating
+  - Namespaces
+summary-order: ;;1
+keywords:
+  - templating
+  - template
+  - twig
+---
 
 # Twig namespaces
 

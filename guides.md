@@ -1,7 +1,8 @@
-```index
-breadcrumb: Guides
+---
+breadcrumb:
+  - Guides
 summary-order: 5
-```
+---
 
 # Guides
 

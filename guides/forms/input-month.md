@@ -1,8 +1,15 @@
-```index
-breadcrumb: Guides; Forms ; Inputs ; Month
+---
+breadcrumb:
+  - Guides
+  - Forms 
+  - Inputs 
+  - Month
 summary-visible: false
-keywords: form, input, month
-```
+keywords:
+  - form
+  - input
+  - month
+---
 
 # Month
 

@@ -1,7 +1,11 @@
-```index
-breadcrumb: HTTP Website; Exceptions
-keywords: exception, error
-```
+---
+breadcrumb:
+  - HTTP Website
+  - Exceptions
+keywords:
+  - exception
+  - error
+---
 
 # HTTP exceptions
 

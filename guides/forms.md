@@ -1,7 +1,9 @@
-```index
-breadcrumb: Guides; Forms
-summary-order: ; 3
-```
+---
+breadcrumb:
+  - Guides
+  - Forms
+summary-order: ;3
+---
 
 # Forms
 

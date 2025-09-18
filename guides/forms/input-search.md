@@ -1,8 +1,15 @@
-```index
-breadcrumb: Guides; Forms ; Inputs ; Search
+---
+breadcrumb:
+  - Guides
+  - Forms 
+  - Inputs 
+  - Search
 summary-visible: false
-keywords: form, input, search
-```
+keywords:
+  - form
+  - input
+  - search
+---
 
 # Search
 

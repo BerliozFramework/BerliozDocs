@@ -1,8 +1,14 @@
-```index
-breadcrumb: Guides; Templating; Extensions
-summary-order: ; ; 2
-keywords: templating, template, twig
-```
+---
+breadcrumb:
+  - Guides
+  - Templating
+  - Extensions
+summary-order: ;;2
+keywords:
+  - templating
+  - template
+  - twig
+---
 
 # Twig extensions
 

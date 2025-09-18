@@ -1,8 +1,15 @@
-```index
-breadcrumb: Guides; Forms ; Inputs ; Composite
+---
+breadcrumb:
+  - Guides
+  - Forms 
+  - Inputs 
+  - Composite
 summary-visible: false
-keywords: form, input, composite
-```
+keywords:
+  - form
+  - input
+  - composite
+---
 
 # Composite
 

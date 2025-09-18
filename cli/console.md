@@ -1,8 +1,11 @@
-```index
-breadcrumb: CLI Project; Console
-summary-order: 3; 3
-keywords: command
-```
+---
+breadcrumb:
+  - CLI Project
+  - Console
+summary-order: 3;3
+keywords:
+  - command
+---
 
 # Console
 

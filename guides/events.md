@@ -1,7 +1,9 @@
-```index
-breadcrumb: Guides; Events
-summary-order: ; 4
-```
+---
+breadcrumb:
+  - Guides
+  - Events
+summary-order: ;4
+---
 
 # Events
 

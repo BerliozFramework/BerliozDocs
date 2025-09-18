@@ -1,9 +1,11 @@
-```index
-breadcrumb: CLI Project
+---
+breadcrumb:
+  - CLI Project
 summary-order: 3
 description: Berlioz Framework allows you to manage your CLI projects with commands and other extras
-keywords: command
-```
+keywords:
+  - command
+---
 
 # CLI Project
 

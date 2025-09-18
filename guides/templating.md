@@ -1,8 +1,13 @@
-```index
-breadcrumb: Guides; Templating
-summary-order: ; 2
-keywords: templating, template, twig
-```
+---
+breadcrumb:
+  - Guides
+  - Templating
+summary-order: ;2
+keywords:
+  - templating
+  - template
+  - twig
+---
 
 # Templates
 

@@ -1,8 +1,15 @@
-```index
-breadcrumb: Guides; Forms ; Inputs ; Range
+---
+breadcrumb:
+  - Guides
+  - Forms 
+  - Inputs 
+  - Range
 summary-visible: false
-keywords: form, input, range
-```
+keywords:
+  - form
+  - input
+  - range
+---
 
 # Range
 

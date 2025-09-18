@@ -1,6 +1,8 @@
-```index
-breadcrumb: Getting started; Directories
-```
+---
+breadcrumb:
+  - Getting started
+  - Directories
+---
 
 # Hierarchy of directories
 

@@ -1,8 +1,11 @@
-```index
-breadcrumb: Getting started; Installation
-keywords: installation
+---
+breadcrumb:
+  - Getting started
+  - Installation
+keywords:
+  - installation
 summary-order: 1
-```
+---
 
 # Installation
 

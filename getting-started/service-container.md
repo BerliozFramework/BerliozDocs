@@ -1,7 +1,11 @@
-```index
-breadcrumb: Getting started; Service container
-keywords: service, container
-```
+---
+breadcrumb:
+  - Getting started
+  - Service container
+keywords:
+  - service
+  - container
+---
 
 # Service container
 

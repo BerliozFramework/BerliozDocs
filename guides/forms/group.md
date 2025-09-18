@@ -1,8 +1,13 @@
-```index
-breadcrumb: Guides; Forms ; Group
-summary-order: ; ; 3
-keywords: form, group
-```
+---
+breadcrumb:
+  - Guides
+  - Forms 
+  - Group
+summary-order: ;;3
+keywords:
+  - form
+  - group
+---
 
 # Group
 

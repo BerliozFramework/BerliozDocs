@@ -1,8 +1,15 @@
-```index
-breadcrumb: Guides; Forms ; Inputs ; Reset
+---
+breadcrumb:
+  - Guides
+  - Forms 
+  - Inputs 
+  - Reset
 summary-visible: false
-keywords: form, input, reset
-```
+keywords:
+  - form
+  - input
+  - reset
+---
 
 # Reset
 

@@ -1,8 +1,11 @@
-```index
-breadcrumb: HTTP Website; Controllers
-keywords: controller
+---
+breadcrumb:
+  - HTTP Website
+  - Controllers
 summary-order: 2; 1
-```
+keywords:
+  - controller
+---
 
 # Controllers
 

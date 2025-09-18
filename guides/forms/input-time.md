@@ -1,8 +1,15 @@
-```index
-breadcrumb: Guides; Forms ; Inputs ; Time
+---
+breadcrumb:
+  - Guides
+  - Forms
+  - Inputs
+  - Time
 summary-visible: false
-keywords: form, input, time
-```
+keywords:
+  - form
+  - input
+  - time
+---
 
 # Time
 

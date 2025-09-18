@@ -1,8 +1,15 @@
-```index
-breadcrumb: Guides; Forms ; Inputs ; Tel
+---
+breadcrumb:
+  - Guides
+  - Forms 
+  - Inputs 
+  - Tel
 summary-visible: false
-keywords: form, input, tel
-```
+keywords:
+  - form
+  - input
+  - tel
+---
 
 # Tel
 

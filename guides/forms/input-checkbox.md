@@ -1,8 +1,15 @@
-```index
-breadcrumb: Guides; Forms ; Inputs ; Checkbox
+---
+breadcrumb:
+  - Guides
+  - Forms 
+  - Inputs 
+  - Checkbox
 summary-visible: false
-keywords: form, input, checkbox
-```
+keywords:
+  - form
+  - input
+  - checkbox
+---
 
 # Checkbox
 

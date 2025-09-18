@@ -1,7 +1,10 @@
-```index
-breadcrumb: Guides; ORM; Atlas
-summary-order: ; ; 2
-```
+---
+breadcrumb:
+  - Guides
+  - ORM
+  - Atlas
+summary-order: ;;2
+---
 
 # Atlas
 

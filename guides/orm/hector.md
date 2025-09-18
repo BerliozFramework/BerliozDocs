@@ -1,7 +1,10 @@
-```index
-breadcrumb: Guides; ORM; Hector
-summary-order: ; ; 1
-```
+---
+breadcrumb:
+  - Guides
+  - ORM
+  - Hector
+summary-order: ;;1
+---
 
 # Hector ORM
 

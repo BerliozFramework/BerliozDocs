@@ -1,8 +1,11 @@
-```index
-breadcrumb: Guides; HTTP Redirections
-keywords: redirection
-summary-order: ; 6
-```
+---
+breadcrumb:
+  - Guides
+  - HTTP Redirections
+keywords:
+  - redirection
+summary-order: ;6
+---
 
 # HTTP Redirections
 
