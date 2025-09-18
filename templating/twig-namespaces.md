@@ -1,7 +1,10 @@
-```index
-breadcrumb: Templating; Namespaces
-keywords: templating
-```
+---
+breadcrumb:
+  - Templating
+  - Namespaces
+keywords:
+  - templating
+---
 
 # Twig namespaces
 

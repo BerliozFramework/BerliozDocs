@@ -1,7 +1,9 @@
-```index
-breadcrumb: Guides; Object-Relational Mapping
-summary-order: 6; 0
-```
+---
+breadcrumb:
+  - Guides
+  - Object-Relational Mapping
+summary-order: 6;0
+---
 
 # Object-Relational Mapping
 

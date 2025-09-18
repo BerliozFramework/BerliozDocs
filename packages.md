@@ -1,7 +1,9 @@
-```index
-breadcrumb: Packages; Introduction
-summary-order: 5; 1
-```
+---
+breadcrumb:
+  - Packages
+  - Introduction
+summary-order: 5;1
+---
 
 # Packages
 

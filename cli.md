@@ -1,8 +1,10 @@
-```index
-breadcrumb: CLI Commands; Introduction
-summary-order: 3; 1
+---
+breadcrumb:
+  - CLI Commands
+  - Introduction
+summary-order: 3;1
 description: Berlioz Framework allows you to manage your CLI projects with commands and other extras
-```
+---
 
 # CLI Project
 

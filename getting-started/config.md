@@ -1,6 +1,8 @@
-```index
-breadcrumb: Getting started; Configuration
-```
+---
+breadcrumb:
+  - Getting started
+  - Configuration
+---
 
 # Configuration
 

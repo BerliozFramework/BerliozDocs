@@ -1,7 +1,9 @@
-```index
-breadcrumb: Packages; Creation
+---
+breadcrumb:
+  - Packages
+  - Creation
 summary-visible: false
-```
+---
 
 # Creation of package
 

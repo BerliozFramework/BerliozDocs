@@ -1,6 +1,8 @@
-```index
-breadcrumb: HTTP Website; Redirections
-```
+---
+breadcrumb:
+  - HTTP Website
+  - Redirections
+---
 
 # HTTP Redirections
 

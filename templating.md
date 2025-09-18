@@ -1,8 +1,11 @@
-```index
-breadcrumb: Templating; Introduction
-summary-order: 4; 1
-keywords: templating
-```
+---
+breadcrumb:
+  - Templating
+  - Introduction
+summary-order: 4;1
+keywords:
+  - templating
+---
 
 # Templates
 

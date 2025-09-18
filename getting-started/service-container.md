@@ -1,6 +1,8 @@
-```index
-breadcrumb: Getting started; Service container
-```
+---
+breadcrumb:
+  - Getting started
+  - Service container
+---
 
 # Service container
 

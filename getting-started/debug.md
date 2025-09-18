@@ -1,6 +1,8 @@
-```index
-breadcrumb: Getting started; Debug
-```
+---
+breadcrumb:
+  - Getting started
+  - Debug
+---
 
 # Debug
 

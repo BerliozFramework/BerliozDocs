@@ -1,7 +1,9 @@
-```index
-breadcrumb: Getting started; Installation
+---
+breadcrumb:
+  - Getting started
+  - Installation
 summary-order: 1
-```
+---
 
 # Installation
 

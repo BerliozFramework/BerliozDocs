@@ -1,6 +1,8 @@
-```index
-breadcrumb: CLI Commands; Commands
-```
+---
+breadcrumb:
+  - CLI Commands
+  - Commands
+---
 
 # Commands
 
