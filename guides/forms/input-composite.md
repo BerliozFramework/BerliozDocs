@@ -1,8 +1,8 @@
 ---
 breadcrumb:
   - Guides
-  - Forms 
-  - Inputs 
+  - Forms
+  - Inputs
   - Composite
 summary-visible: false
 keywords:

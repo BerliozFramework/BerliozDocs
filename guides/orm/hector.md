@@ -51,7 +51,8 @@ Default configuration is:
 
 > **Warning**:
 >
-> Ignore this configuration file in your `.gitignore` file. It should contain passwords... and MUST NOT push on GIT repository!
+> Ignore this configuration file in your `.gitignore` file. It should contain passwords... and MUST NOT push on GIT
+> repository!
 
 ## Package additions
 
@@ -63,26 +64,31 @@ Default configuration is:
 
 ## Usage
 
-To know more on usage with the ORM, referrer you to the [official documentation of Hector ORM](https://gethectororm.com).
+To know more on usage with the ORM, referrer you to
+the [official documentation of Hector ORM](https://gethectororm.com).
 
 ## Events magic methods
 
 Save magic methods:
+
 - `Entity::onSave(): void` called after save (insert/update)
 - `Entity::onBeforeSave(): void` called before save (insert/update)
 - `Entity::onAfterSave(): void` called after save (insert/update)
 
 Insert magic methods:
+
 - `Entity::onInsert(): void` called after insert
 - `Entity::onBeforeInsert(): void` called before insert
 - `Entity::onAfterInsert(): void` called after insert
 
 Update magic methods:
+
 - `Entity::onUpdate(): void` called after update
 - `Entity::onBeforeUpdate(): void` called before update
 - `Entity::onAfterUpdate(): void` called after update
 
 Delete magic methods:
+
 - `Entity::onDelete(): void` called after delete
 - `Entity::onBeforeDelete(): void` called before delete
 - `Entity::onAfterDelete(): void` called after delete

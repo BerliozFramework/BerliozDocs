@@ -22,14 +22,14 @@ keywords:
 
 All [commons options](inputs.md#common-options), and:
 
-| Name | Type | Default value | Description |
-| ---- | ---- | ------------- | ----------- |
-| **multiple** | boolean | *none* | If multiple email accepted |
+| Name         | Type    | Default value | Description                |
+|--------------|---------|---------------|----------------------------|
+| **multiple** | boolean | *none*        | If multiple email accepted |
 
 ## Attributes
 
 List of attributes that interact with the forms library:
 
-| Name | Type | Default value | Description |
-| ---- | ---- | ------------- | ----------- |
-| **accept** | string | *none* | Format(s) of accepted file(s) |
+| Name       | Type   | Default value | Description                   |
+|------------|--------|---------------|-------------------------------|
+| **accept** | string | *none*        | Format(s) of accepted file(s) |

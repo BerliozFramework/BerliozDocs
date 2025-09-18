@@ -14,7 +14,8 @@ If you want use **Berlioz Framework** for CLI projects, go to [CLI Project](../c
 
 ## Berlioz Framework
 
-Installation of Berlioz Framework must be done by [Composer](https://getcomposer.org/), it's the recommended installation.
+Installation of Berlioz Framework must be done by [Composer](https://getcomposer.org/), it's the recommended
+installation.
 
 ```bash
 composer create-project berlioz/website-skeleton my-project --remove-vcs
@@ -88,7 +89,8 @@ For that, you must specify to Apache the fallback resource and disable `AllowOve
 
 [Nginx](https://www.nginx.com) is a high performance web server.
 
-To run PHP application with [Nginx](https://www.nginx.com), you need to use [PHP FPM](http://php.net/manual/book.fpm.php) (FastCGI Process Manager).
+To run PHP application with [Nginx](https://www.nginx.com), you need to
+use [PHP FPM](http://php.net/manual/book.fpm.php) (FastCGI Process Manager).
 
 ```nginx
 server {
@@ -124,7 +126,8 @@ server {
 
 ### PHP HTTP server
 
-If you want test application without Web Server to install, you can use [built-in web server](http://php.net/manual/features.commandline.webserver.php).
+If you want test application without Web Server to install, you can
+use [built-in web server](http://php.net/manual/features.commandline.webserver.php).
 
 To start server:
 

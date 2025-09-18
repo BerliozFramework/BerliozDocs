@@ -66,19 +66,20 @@ interface PackageInterface
 
 Second step is to declare in your `composer.json` file, that the project is a Berlioz package.
 
-So add `"type": "berlioz-package"` in your `composer.json` file. And add in "config" section the declaration of your package class.
+So add `"type": "berlioz-package"` in your `composer.json` file. And add in "config" section the declaration of your
+package class.
 
 Full example of your `composer.json` file:
 
 ```json
 {
-  "name": "project/my-berlioz-package",
-  "type": "berlioz-package",
-  ...
-  "config": {
-    "berlioz": {
-      "package": "My\\Project\\BerliozPackage"
+    "name": "project/my-berlioz-package",
+    "type": "berlioz-package",
+    ...
+    "config": {
+        "berlioz": {
+            "package": "My\\Project\\BerliozPackage"
+        }
     }
-  }
 }
 ```

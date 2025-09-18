@@ -12,19 +12,19 @@ We recommend using the default hierarchy of directories for your projects.
 
 Default hierarchy of directories:
 
-Path | Description
------|------------
-`/config` | Configurations of project
-`/public` | Public directory where your web server link visitors
-`/src` | Your project sources
-`/resources` | Resources of project
-`/resources/assets` | Assets of project
-`/resources/templates` | Your templates files
-`/var` | Var files
-`/var/cache` | Cache directory
-`/var/debug` | Debug reports directory
-`/var/tmp` | Temporary directory for your project
-`/vendor` | Vendors (for composer)
+ Path                   | Description                                          
+------------------------|------------------------------------------------------
+ `/config`              | Configurations of project                            
+ `/public`              | Public directory where your web server link visitors 
+ `/src`                 | Your project sources                                 
+ `/resources`           | Resources of project                                 
+ `/resources/assets`    | Assets of project                                    
+ `/resources/templates` | Your templates files                                 
+ `/var`                 | Var files                                            
+ `/var/cache`           | Cache directory                                      
+ `/var/debug`           | Debug reports directory                              
+ `/var/tmp`             | Temporary directory for your project                 
+ `/vendor`              | Vendors (for composer)                               
 
 It's a basic hierarchy that lot of frameworks used. You won't be lost if you come for any of them :).
 

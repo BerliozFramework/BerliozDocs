@@ -13,7 +13,8 @@ You can create some commands to call your functions or services to automate some
 
 ## Create a command
 
-You need to implement `\Berlioz\Cli\Core\Command\CommandInterface` interface or extends `\Berlioz\CliCore\Command\AbstractCommand` abstract class.
+You need to implement `\Berlioz\Cli\Core\Command\CommandInterface` interface or extends
+`\Berlioz\CliCore\Command\AbstractCommand` abstract class.
 
 Representation of the interface:
 
@@ -77,20 +78,21 @@ class MyCommand implements CommandInterface
 
 Options for arguments:
 
-Name | Type |Description
------|------|------------
-name | string | Name of argument
-prefix | string (default: null) | Prefix (one character)
-longPrefix | string (default: null) | Long prefix
-description | string (default: null) | Description, used for --help
-defaultValue | mixed (default: null) | Default value
-required | bool (default: false) | If argument is required
-noValue | bool (default: false) | If argument has no value
-castTo | string (default: null) | Cast to a specified type
+ Name         | Type                   | Description                  
+--------------|------------------------|------------------------------
+ name         | string                 | Name of argument             
+ prefix       | string (default: null) | Prefix (one character)       
+ longPrefix   | string (default: null) | Long prefix                  
+ description  | string (default: null) | Description, used for --help 
+ defaultValue | mixed (default: null)  | Default value                
+ required     | bool (default: false)  | If argument is required      
+ noValue      | bool (default: false)  | If argument has no value     
+ castTo       | string (default: null) | Cast to a specified type     
 
 ## Declare a command
 
-You need to declare each commands in a `commands.json` file in your [configuration directory](../getting-started/config.md).
+You need to declare each commands in a `commands.json` file in
+your [configuration directory](../getting-started/config.md).
 
 Example of file:
 

@@ -16,10 +16,10 @@ The class inherits [`Berlioz\Form\Group`](group.md), so you can add a form to an
 
 ## Options
 
-| Name | Type | Default value | Description |
-| ---- | ---- | ------------- | ----------- |
-| **method** | string | "post" | HTTP method for form |
-| **required** | boolean | true | Default requirement for all elements |
+| Name         | Type    | Default value | Description                          |
+|--------------|---------|---------------|--------------------------------------|
+| **method**   | string  | "post"        | HTTP method for form                 |
+| **required** | boolean | true          | Default requirement for all elements |
 
 ## Methods
 
@@ -27,7 +27,8 @@ The class inherits [`Berlioz\Form\Group`](group.md), so you can add a form to an
 - `Form::isSubmitted(): bool`: form is submitted
 - `Form::isValid(): bool`: all elements of form pass validation
 - `Form::getConstraints(): ConstraintInterface[]`: all the thrown constraints by the validation
-- `Form::getValue(): array`: form value (without treatment by transformers) ; if form is submitted, the value will be the user value else the default value
+- `Form::getValue(): array`: form value (without treatment by transformers) ; if form is submitted, the value will be
+  the user value else the default value
 - `Form::getFinalValue(): array`: same as `Form::getValue()` with treatment by transformers
 
 ## Example

@@ -26,8 +26,8 @@ No additional than [commons options](inputs.md#common-options).
 
 List of attributes that interact with the forms library:
 
-| Name | Type | Default value | Description |
-| ---- | ---- | ------------- | ----------- |
-| **max** | string | *none* | Max value |
-| **min** | string | *none* | Min value |
-| **step** | string | *none* | Step |
+| Name     | Type   | Default value | Description |
+|----------|--------|---------------|-------------|
+| **max**  | string | *none*        | Max value   |
+| **min**  | string | *none*        | Min value   |
+| **step** | string | *none*        | Step        |

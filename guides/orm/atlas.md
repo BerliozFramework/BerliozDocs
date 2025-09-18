@@ -42,7 +42,8 @@ Create a `atlas.json` file in your [configuration directory](../../getting-start
 
 > **Warning**:
 >
-> Ignore this configuration file in your `.gitignore` file. It should contain passwords... and MUST NOT push on GIT repository!
+> Ignore this configuration file in your `.gitignore` file. It should contain passwords... and MUST NOT push on GIT
+> repository!
 
 ## Usage
 

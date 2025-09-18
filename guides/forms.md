@@ -18,14 +18,14 @@ composer require berlioz/form
 ## Description
 
 Library `berlioz/form` permit you to create HTML forms from your PHP application.
-Use Twig extension to transpose into HTML. 
+Use Twig extension to transpose into HTML.
 
 Forms are composed of:
 
 - [Form](forms/form.md)
-  - [Inputs](forms/inputs.md)
-  - [Collection](forms/collection.md)
-  - [Group](forms/group.md)
+    - [Inputs](forms/inputs.md)
+    - [Collection](forms/collection.md)
+    - [Group](forms/group.md)
 
 ## Validators
 

@@ -21,7 +21,8 @@ summary-order: 2
 - Namespace `Berlioz\HttpCore` moved to `Berlioz\Http\Core`
 - Namespace `Berlioz\Router` moved to `Berlioz\Http\Router`
 - Magic methods `_b_pre()` and `_b_post()` of controllers are removed in favor of [middlewares](../http/middleware.md)
-- Remove usage of PhpDoc annotations in favor of [PHP 8 attributes](https://www.php.net/manual/language.attributes.php), like [routes annotations](../http/routing.md)
+- Remove usage of PhpDoc annotations in favor of [PHP 8 attributes](https://www.php.net/manual/language.attributes.php),
+  like [routes annotations](../http/routing.md)
 - Method `AbstractController::getService()` renamed to `AbstractController::get()`
 - `ErrorHandler`
 
@@ -38,4 +39,6 @@ summary-order: 2
 4. Move directories "assets" and "templates" into new "resources" directory
 5. Update your webpack config if necessary
 6. Fixes breaking changes
-7. Update files "public/index.php" like [WebsiteSkeleton](https://github.com/BerliozFramework/WebsiteSkeleton/tree/2.x/public) (do not forget .htaccess file)
+7. Update files "public/index.php"
+   like [WebsiteSkeleton](https://github.com/BerliozFramework/WebsiteSkeleton/tree/2.x/public) (do not forget .htaccess
+   file)

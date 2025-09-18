@@ -1,7 +1,7 @@
 ---
 breadcrumb:
   - Guides
-  - Forms 
+  - Forms
   - Collection
 summary-order: ;;4
 keywords:
@@ -17,13 +17,13 @@ Use class `Berlioz\Form\Collection` to construct a collection of inputs.
 
 ## Options
 
-| Name | Type | Default value | Description |
-| ---- | ---- | ------------- | ----------- |
-| **prototype** | `ElementInterface` | *none* | The element template that will be cloned to create collection elements |
-| **editable** | boolean | true | If collection is editable (can add/remove element) |
-| **min_elements** | int | *none* | The minimum number of elements in collection |
-| **max_elements** | int | *none* | The maximum number of elements in collection |
-| **type** | string | "collection" | The type name of collection (to personalize template) |
+| Name             | Type               | Default value | Description                                                            |
+|------------------|--------------------|---------------|------------------------------------------------------------------------|
+| **prototype**    | `ElementInterface` | *none*        | The element template that will be cloned to create collection elements |
+| **editable**     | boolean            | true          | If collection is editable (can add/remove element)                     |
+| **min_elements** | int                | *none*        | The minimum number of elements in collection                           |
+| **max_elements** | int                | *none*        | The maximum number of elements in collection                           |
+| **type**         | string             | "collection"  | The type name of collection (to personalize template)                  |
 
 ## Creation of sub objects
 

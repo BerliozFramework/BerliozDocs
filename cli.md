@@ -15,7 +15,8 @@ In some case, you don't have any rendering functionality or HTTP support. The **
 
 ## Installation
 
-Installation of **Berlioz/CliCore** must be done by [Composer](https://getcomposer.org/), it's the recommended installation.
+Installation of **Berlioz/CliCore** must be done by [Composer](https://getcomposer.org/), it's the recommended
+installation.
 
 First, create your classical project with composer support. And executes this command:
 

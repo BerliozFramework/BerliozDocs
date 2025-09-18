@@ -22,9 +22,9 @@ keywords:
 
 All [commons options](inputs.md#common-options), and:
 
-| Name | Type | Default value | Description |
-| ---- | ---- | ------------- | ----------- |
-| **value** | string | *none* | Value for button |
+| Name      | Type   | Default value | Description      |
+|-----------|--------|---------------|------------------|
+| **value** | string | *none*        | Value for button |
 
 ## Attributes
 

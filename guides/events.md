@@ -58,11 +58,11 @@ Subscribers must be declared in configuration:
 
 ```json
 {
-  "events": {
-    "subscribers": [
-      "MySubscriber"
-    ]
-  }
+    "events": {
+        "subscribers": [
+            "MySubscriber"
+        ]
+    }
 }
 ```
 
@@ -77,18 +77,18 @@ If you want listen event without subscriber, you need to declare event and callb
 
 ```json
 {
-  "events": {
-    "listeners": {
-      "AnEvent": "MyWebsite\\Event\\MyListener::doSomething",
-      "ASecondEvent": [
-        "MyWebsite\\Event\\MyListener::doSomethingElse",
-        {
-          "callback": "MyWebsite\\Event\\MyListener::doSomethingElse",
-          "priority": 10
+    "events": {
+        "listeners": {
+            "AnEvent": "MyWebsite\\Event\\MyListener::doSomething",
+            "ASecondEvent": [
+                "MyWebsite\\Event\\MyListener::doSomethingElse",
+                {
+                    "callback": "MyWebsite\\Event\\MyListener::doSomethingElse",
+                    "priority": 10
+                }
+            ]
         }
-      ]
     }
-  }
 }
 ```
 
