@@ -5,6 +5,7 @@ breadcrumb:
 keywords:
   - installation
   - upgrade
+  - migration
 summary-order: 2
 ---
 

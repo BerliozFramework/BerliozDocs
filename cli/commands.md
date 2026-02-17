@@ -14,7 +14,7 @@ You can create some commands to call your functions or services to automate some
 ## Create a command
 
 You need to implement `\Berlioz\Cli\Core\Command\CommandInterface` interface or extends
-`\Berlioz\CliCore\Command\AbstractCommand` abstract class.
+`\Berlioz\Cli\Core\Command\AbstractCommand` abstract class.
 
 Representation of the interface:
 

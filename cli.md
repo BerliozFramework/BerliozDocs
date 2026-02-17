@@ -57,7 +57,7 @@ To clear the cache.
 
 Parameters (version `^2.2`):
 
-- `-all`
+- `--all`
   To clear all contents of cache directory (except hidden items)
 - `...`
   To specify directories name to clear.

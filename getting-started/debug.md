@@ -14,7 +14,7 @@ The toolbar shown at left bottom of your page, and indicate the time of page exe
 
 ![Debug toolbar](../_assets/debug-toolbar.png)
 
-> If an error occurred during script execution, the check icon transform to cross icon ;)
+> **Info:** If an error occurred during script execution, the check icon transform to cross icon ;)
 
 Two icons appears on hover. The first to hide the toolbar, and the second to switch at right the toolbar (this action is
 saved into a cookie to reproduce the position).

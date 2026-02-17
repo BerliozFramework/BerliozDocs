@@ -27,7 +27,9 @@ Create a `hector.json` file in your [configuration directory](../../getting-star
 ```json
 {
     "hector": {
-        "dsn": "mysql:dbname=mydbname;host=127.0.0.1;port=3306;charset=UTF8;user=username;password=password",
+        "dsn": "mysql:dbname=mydbname;host=127.0.0.1;port=3306;charset=UTF8",
+        "username": "username",
+        "password": "password",
         "schemas": [
             "mydbname"
         ]
@@ -42,6 +44,8 @@ Default configuration is:
     "hector": {
         "dsn": null,
         "read_dsn": null,
+        "username": null,
+        "password": null,
         "schemas": [],
         "dynamic_events": true,
         "types": []
@@ -93,4 +97,25 @@ Delete magic methods:
 - `Entity::onBeforeDelete(): void` called before delete
 - `Entity::onAfterDelete(): void` called after delete
 
+
 All methods are called from service container, so the dependency injection is enabled :).
+
+## CLI commands
+
+The Hector package registers the following CLI commands:
+
+### `hector:cache-clear`
+
+Clear the Hector ORM cache.
+
+```bash
+$ vendor/bin/berlioz hector:cache-clear
+```
+
+### `hector:generate-schema`
+
+Generate the schema for Hector ORM entities. This command initializes the ORM and triggers schema generation.
+
+```bash
+$ vendor/bin/berlioz hector:generate-schema
+```

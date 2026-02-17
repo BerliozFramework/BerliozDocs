@@ -18,8 +18,6 @@ We provide a **Twig** package. Twig is a PHP template engine with its own syntax
 
 ## Integration in Berlioz
 
-If you use the main repository of Berlioz : **berlioz/berlioz**, the package it's already available.
-
 If you use customizable repositories, you need to [install the package](packages.md) by yourself:
 
 ```bash
@@ -66,7 +64,7 @@ Twig package have some methods:
 
 - `Twig::render(string $name, array $variables = []): string`
 
-  > Add global variable.
+  > Render a template.
 
 - `Twig::hasBlock(string $name, string $blockName): bool`
 
@@ -84,7 +82,7 @@ Twig package have some methods:
 {
   "berlioz": {
     "directories": {
-      "templates": "{config: berlioz.directories.app}/templates"
+      "templates": "{config: berlioz.directories.app}/resources/templates"
     }
   },
   "twig": {
@@ -93,8 +91,9 @@ Twig package have some methods:
       "Berlioz-TwigPackage": "{config: berlioz.directories.vendor}/berlioz/twig-package/resources"
     },
     "options": {
+      "debug": "{config: berlioz.debug.enable}",
       "cache": "{config: berlioz.directories.cache}/twig",
-      "optimizers": null
+      "optimizations": -1
     },
     "extensions": [
       "Berlioz\\Package\\Twig\\Extension\\AssetExtension",
@@ -104,6 +103,22 @@ Twig package have some methods:
     "globals": {}
   }
 }
+```
+
+### Global variable `app`
+
+The HTTP core package registers an `AppProfile` object as a Twig global variable `app`. It's available in all
+templates:
+
+```twig
+{{ app.env }}                {# Current environment (e.g. "prod", "dev") #}
+{{ app.locale }}             {# Current locale #}
+{{ app.debugEnabled }}       {# Boolean: is debug enabled? #}
+{{ app.request }}            {# Current ServerRequestInterface #}
+{{ app.route }}              {# Current matched RouteInterface #}
+{{ app.config('key') }}      {# Get a configuration value #}
+{{ app.flashBag }}           {# FlashBag instance #}
+{{ app.assets }}             {# Assets instance #}
 ```
 
 ### Cache

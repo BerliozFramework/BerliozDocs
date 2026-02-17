@@ -8,7 +8,7 @@ keywords:
 
 # Middlewares
 
-**Berlioz 2** introduce the middlewares concept into the framework. The implementation is based
+**Berlioz v2** introduce the middlewares concept into the framework. The implementation is based
 on [PSR-15](https://www.php-fig.org/psr/psr-15/) recommendation.
 
 > A middleware component is an individual component participating,

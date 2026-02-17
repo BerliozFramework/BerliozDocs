@@ -61,7 +61,11 @@ file where you can write your sensitive data...
 
 ## Default configuration of Berlioz
 
-Your configuration is automatically extends from a default configuration:
+Your configuration is automatically extends from a default configuration.
+
+### Core configuration
+
+This is the base configuration provided by **berlioz/core**:
 
 ```json
 {
@@ -72,38 +76,75 @@ Your configuration is automatically extends from a default configuration:
       "enable": false,
       "ip": []
     },
-    "maintenance": false,
     "directories": {
       "app": "{var: berlioz.directories.app}",
       "cache": "{var: berlioz.directories.cache}",
       "config": "{var: berlioz.directories.config}",
       "debug": "{var: berlioz.directories.debug}",
       "log": "{var: berlioz.directories.log}",
-      "templates": "{config:berlioz.directories.app}/resources/templates",
       "tmp": "{config: berlioz.directories.var}/tmp",
       "var": "{var: berlioz.directories.var}",
       "vendor": "{var: berlioz.directories.vendor}",
       "working": "{var: berlioz.directories.working}"
     },
     "assets": {
-      "manifest": "{config:berlioz.directories.app}/public/assets/manifest.json",
-      "entrypoints": "{config:berlioz.directories.app}/public/assets/entrypoints.json",
+      "manifest": null,
+      "entrypoints": null,
       "entrypoints_key": null
-    },
-    "http": {
-      "errors": {
-        "default": "Berlioz\\Http\\Core\\Http\\Error\\DefaultErrorHandler"
-      },
-      "redirections": {},
-      "middlewares": {
-        "00": {
-          "maintenance": "Berlioz\\Http\\Core\\Http\\Middleware\\MaintenanceMiddleware"
-        },
-        "99": {
-          "redirection": "Berlioz\\Http\\Core\\Http\\Middleware\\RedirectionMiddleware"
-        }
-      }
     }
+  },
+  "events": {
+    "listeners": {},
+    "subscribers": []
+  },
+  "container": {
+    "services": {},
+    "providers": []
   }
+}
+```
+
+### HTTP configuration
+
+When using **berlioz/http-core**, the following configuration is merged on top:
+
+```json
+{
+    "berlioz": {
+        "directories": {
+            "templates": "{config:berlioz.directories.app}/resources/templates"
+        },
+        "assets": {
+            "manifest": "{config:berlioz.directories.app}/public/assets/manifest.json",
+            "entrypoints": "{config:berlioz.directories.app}/public/assets/entrypoints.json"
+        },
+        "http": {
+            "errors": {
+                "default": "Berlioz\\Http\\Core\\Http\\Handler\\Error\\DefaultErrorHandler"
+            },
+            "redirections": {},
+            "middlewares": {
+                "00": {
+                    "maintenance": "Berlioz\\Http\\Core\\Http\\Middleware\\MaintenanceMiddleware"
+                },
+                "99": {
+                    "redirection": "Berlioz\\Http\\Core\\Http\\Middleware\\RedirectionMiddleware"
+                }
+            }
+        },
+        "router": {},
+        "maintenance": false
+    },
+    "controllers": [
+        "Berlioz\\Http\\Core\\Controller\\DebugController"
+    ],
+    "twig": {
+        "paths": {
+            "Berlioz-HttpCore": "{config:berlioz.directories.vendor}/berlioz/http-core/resources"
+        },
+        "globals": {
+            "app": "@AppProfile"
+        }
+    }
 }
 ```

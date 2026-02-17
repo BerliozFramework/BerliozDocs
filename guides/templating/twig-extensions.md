@@ -48,3 +48,4 @@ Functions provided:
 
 - `path()`
 - `path_exists()`
+- `finalize_path()`

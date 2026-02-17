@@ -194,25 +194,25 @@ An example of `routes.json` file:
 
 ```json
 {
-  "routes": [
-    {
-      "path": "/my-route",
-      "context": [
-        "My\\Project\\Controller\\MyController",
-        "myMethod"
-      ]
-    },
-    {
-      "path": "/my-route/{attribute}",
-      "requirements": {
-        "attribute": "\\d+"
-      },
-      "priority": 0,
-      "context": [
-        "My\\Project\\Controller\\MyController",
-        "mySecondMethod"
-      ]
-    }
-  ]
+    "routes": [
+        {
+            "path": "/my-route",
+            "context": [
+                "My\\Project\\Controller\\MyController",
+                "myMethod"
+            ]
+        },
+        {
+            "path": "/my-route/{attribute}",
+            "requirements": {
+                "attribute": "\\d+"
+            },
+            "priority": 0,
+            "context": [
+                "My\\Project\\Controller\\MyController",
+                "mySecondMethod"
+            ]
+        }
+    ]
 }
 ```
