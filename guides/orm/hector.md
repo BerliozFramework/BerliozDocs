@@ -8,7 +8,9 @@ summary-order: ;;1
 
 # Hector ORM
 
-A Berlioz package exist for **Hector ORM** library to easier the interactions and configuration between them.
+**Hector ORM** is the default and recommended ORM for Berlioz Framework. The **berlioz/hector-package** provides
+seamless integration between the framework and the ORM: automatic configuration, event subscription, cache management,
+debug console page, and CLI commands.
 
 ## Installation
 
@@ -18,7 +20,7 @@ Use composer to install package:
 composer require berlioz/hector-package
 ```
 
-For more detail package installation, referred to the [package description](packages.md) page.
+For more detail package installation, referred to the [package description](../packages.md) page.
 
 ## Configuration
 
@@ -96,7 +98,6 @@ Delete magic methods:
 - `Entity::onDelete(): void` called after delete
 - `Entity::onBeforeDelete(): void` called before delete
 - `Entity::onAfterDelete(): void` called after delete
-
 
 All methods are called from service container, so the dependency injection is enabled :).
 

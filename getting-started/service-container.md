@@ -10,7 +10,7 @@ keywords:
 # Service container
 
 The default service container of Berlioz Framework is the package
-[**berlioz/service-container**](https://github.com/BerliozFramework/ServiceContainer).
+[**berlioz/service-container**](../components/service-container.md).
 
 **Berlioz Service Container** is a PHP library to manage your services with dependencies injection, respecting PSR-11 (
 Container interface) standard.
@@ -80,7 +80,7 @@ Remember the 3 main methods:
   > Go next on the page to know more.
 
 Others methods of **Service Container** in many cases, are not necessaries for projects. If you want to know more, go
-on [repository documentation](https://github.com/BerliozFramework/ServiceContainer).
+on [component documentation](../components/service-container.md).
 
 > **Tips**:
 >

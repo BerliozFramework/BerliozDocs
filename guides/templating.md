@@ -18,6 +18,8 @@ We provide a **Twig** package. Twig is a PHP template engine with its own syntax
 
 ## Integration in Berlioz
 
+If you use the main repository of Berlioz : **berlioz/berlioz**, the package it's already available.
+
 If you use customizable repositories, you need to [install the package](packages.md) by yourself:
 
 ```bash

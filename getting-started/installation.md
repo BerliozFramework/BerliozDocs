@@ -24,7 +24,7 @@ composer create-project berlioz/website-skeleton my-project --remove-vcs
 You can specify the version to composer:
 
 ```bash
-composer create-project berlioz/website-skeleton my-project "2.0" --remove-vcs
+composer create-project berlioz/website-skeleton my-project "3.0" --remove-vcs
 ```
 
 > **Info**:

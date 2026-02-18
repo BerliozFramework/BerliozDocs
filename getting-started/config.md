@@ -7,7 +7,7 @@ breadcrumb:
 # Configuration
 
 The default configuration manager of Berlioz Framework is the package
-[**berlioz/config**](https://github.com/BerliozFramework/Config).
+[**berlioz/config**](../components/config.md).
 
 ## Write configuration
 
@@ -110,41 +110,41 @@ When using **berlioz/http-core**, the following configuration is merged on top:
 
 ```json
 {
-    "berlioz": {
-        "directories": {
-            "templates": "{config:berlioz.directories.app}/resources/templates"
-        },
-        "assets": {
-            "manifest": "{config:berlioz.directories.app}/public/assets/manifest.json",
-            "entrypoints": "{config:berlioz.directories.app}/public/assets/entrypoints.json"
-        },
-        "http": {
-            "errors": {
-                "default": "Berlioz\\Http\\Core\\Http\\Handler\\Error\\DefaultErrorHandler"
-            },
-            "redirections": {},
-            "middlewares": {
-                "00": {
-                    "maintenance": "Berlioz\\Http\\Core\\Http\\Middleware\\MaintenanceMiddleware"
-                },
-                "99": {
-                    "redirection": "Berlioz\\Http\\Core\\Http\\Middleware\\RedirectionMiddleware"
-                }
-            }
-        },
-        "router": {},
-        "maintenance": false
+  "berlioz": {
+    "directories": {
+      "templates": "{config:berlioz.directories.app}/resources/templates"
     },
-    "controllers": [
-        "Berlioz\\Http\\Core\\Controller\\DebugController"
-    ],
-    "twig": {
-        "paths": {
-            "Berlioz-HttpCore": "{config:berlioz.directories.vendor}/berlioz/http-core/resources"
+    "assets": {
+      "manifest": "{config:berlioz.directories.app}/public/assets/manifest.json",
+      "entrypoints": "{config:berlioz.directories.app}/public/assets/entrypoints.json"
+    },
+    "http": {
+      "errors": {
+        "default": "Berlioz\\Http\\Core\\Http\\Handler\\Error\\DefaultErrorHandler"
+      },
+      "redirections": {},
+      "middlewares": {
+        "00": {
+          "maintenance": "Berlioz\\Http\\Core\\Http\\Middleware\\MaintenanceMiddleware"
         },
-        "globals": {
-            "app": "@AppProfile"
+        "99": {
+          "redirection": "Berlioz\\Http\\Core\\Http\\Middleware\\RedirectionMiddleware"
         }
+      }
+    },
+    "router": {},
+    "maintenance": false
+  },
+  "controllers": [
+    "Berlioz\\Http\\Core\\Controller\\DebugController"
+  ],
+  "twig": {
+    "paths": {
+      "Berlioz-HttpCore": "{config:berlioz.directories.vendor}/berlioz/http-core/resources"
+    },
+    "globals": {
+      "app": "@AppProfile"
     }
+  }
 }
 ```

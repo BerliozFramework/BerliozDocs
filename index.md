@@ -43,6 +43,13 @@ You must understand some concepts of the **Berlioz Framework**:
 - [ORM](guides/orm.md)
 - [Forms](guides/forms.md)
 
+## Standalone components
+
+**Berlioz Framework** is built on top of standalone PHP components. Each component can be used independently in any PHP
+project:
+
+- [Components overview](components.md)
+
 ## Advanced usage
 
 If you want go further with **Berlioz Framework**, you can consult:
@@ -51,3 +58,4 @@ If you want go further with **Berlioz Framework**, you can consult:
 - [Commands](cli/commands.md)
 - [Console](cli/console.md)
 - [Package creation](guides/packages/creation.md)
+- [Upgrading from version 2](getting-started/upgrading.md)

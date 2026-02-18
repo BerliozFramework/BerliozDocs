@@ -36,9 +36,12 @@ summary-order: ;1
 >
 > Source: [Wikipedia](https://en.wikipedia.org/wiki/Object-relational_mapping)
 
-## List
+## Integration
 
-Berlioz purposes some packages:
+The default and recommended ORM integration for Berlioz is [**Hector ORM**](orm/hector.md).
 
-- [Hector ORM](orm/hector.md)
-- [Atlas ORM](orm/atlas.md)
+The **berlioz/hector-package** provides seamless integration: automatic configuration, event subscription with the
+framework event manager, cache management, debug console, and CLI commands.
+
+> **Note:** The Atlas ORM package (`berlioz/atlas-package`) that was available in version 2.x has been removed in
+> version 3.0. If you were using Atlas, you will need to migrate to Hector ORM or manage your ORM integration manually.

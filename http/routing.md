@@ -8,8 +8,7 @@ breadcrumb:
 
 Routes redirect HTTP requests to the good controller and method of him.
 
-The default router of Berlioz Framework is the package [**
-berlioz/router**](https://github.com/BerliozFramework/Router) (version ^2.0).
+The default router of Berlioz Framework is the package [**berlioz/router**](../components/router.md).
 
 ## Basic declaration
 

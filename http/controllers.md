@@ -99,7 +99,7 @@ From `ReloadHelperTrait`:
 
 - `addFlash(string $type, string $message): static`
 
-  > Add a flash message to the [flash bag](https://github.com/BerliozFramework/FlashBag).
+  > Add a flash message to the [flash bag](../components/flash-bag.md).
 
 ### Service access
 

@@ -55,9 +55,18 @@ Parameters:
 
 To clear the cache.
 
-Parameters (version `^2.2`):
+Parameters:
 
 - `--all`
   To clear all contents of cache directory (except hidden items)
 - `...`
   To specify directories name to clear.
+
+## Package commands
+
+Additional CLI commands are available when optional packages are installed:
+
+- **[Queue commands](cli/queues.md)** — `queue:worker`, `queue:purge`, `queue:size` (provided by
+  **berlioz/queue-manager-package**)
+- **Hector ORM commands** — `hector:cache-clear`, `hector:generate-schema` (provided by **berlioz/hector-package**,
+  see [Hector ORM](guides/orm/hector.md#cli-commands))
