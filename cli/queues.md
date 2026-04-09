@@ -83,7 +83,9 @@ A confirmation prompt is shown before purging. Only queues implementing `Purgeab
 
 ## `queue:size`
 
-Display the size of queues:
+> 🆕 **Info**: *Since version 3.1*
+
+Display queue monitoring metrics:
 
 ```bash
 $ vendor/bin/berlioz queue:size --format json --total
@@ -98,13 +100,16 @@ Parameters:
 | `--total` | — | Include total count | `false` |
 | `--prometheus-labels` | — | Additional Prometheus labels | — |
 
+The command always reports queue `size`, and can also expose `waitTime` and `delayed` metrics when the selected
+backend implements `MonitorableQueueInterface`.
+
 Output examples:
 
 **Table (default):**
 
 ```
-emails           12
-notifications     3
+emails           12 (wait: 34s, delayed: 2)
+notifications     3 (wait: n/a, delayed: n/a)
 ```
 
 **JSON** (`--format json --total`):
@@ -112,8 +117,16 @@ notifications     3
 ```json
 {
     "queues": {
-        "emails": 12,
-        "notifications": 3
+        "emails": {
+            "size": 12,
+            "waitTime": 34,
+            "delayed": 2
+        },
+        "notifications": {
+            "size": 3,
+            "waitTime": null,
+            "delayed": null
+        }
     },
     "total": 15
 }
@@ -123,9 +136,13 @@ notifications     3
 
 ```
 job_queue_length{queue_name="emails",env="production"} 12
+job_queue_wait_time_seconds{queue_name="emails",env="production"} 34
+job_queue_delayed{queue_name="emails",env="production"} 2
 job_queue_length{queue_name="notifications",env="production"} 3
 job_queue_length_total{env="production"} 15
 ```
+
+Metrics with unavailable values are omitted in Prometheus output.
 
 ## Production deployment
 

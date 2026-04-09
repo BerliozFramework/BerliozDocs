@@ -18,7 +18,7 @@ keywords:
 - Configuration-based queue setup (Database, AWS SQS, Memory)
 - Automatic service container registration (`QueueManager`, `JobHandlerManager`, `Worker`)
 - Built-in job handlers for running Berlioz commands and system commands asynchronously
-- [CLI commands](../cli/queues.md) for running workers, purging queues, and monitoring queue sizes
+- [CLI commands](../cli/queues.md) for running workers, purging queues, and monitoring queue metrics
 
 ## Installation
 
@@ -94,6 +94,10 @@ schema.
 
 ### AWS SQS queue
 
+> 🆕 **Info**: *Since version 3.1*
+>
+> You can optionally configure a `cloudwatch_client` to expose `waitTime()` monitoring metrics for SQS queues.
+
 ```json
 {
     "berlioz": {
@@ -102,6 +106,10 @@ schema.
                 {
                     "type": "Berlioz\\QueueManager\\Queue\\AwsSqsQueue",
                     "client": {
+                        "region": "eu-west-1",
+                        "version": "latest"
+                    },
+                    "cloudwatch_client": {
                         "region": "eu-west-1",
                         "version": "latest"
                     },
@@ -117,7 +125,11 @@ schema.
 }
 ```
 
-The `client` key is passed directly to the `SqsClient` constructor. The `name` key is a map of queue name to SQS URL.
+The `client` key is passed directly to the `SqsClient` constructor. The optional `cloudwatch_client` key is passed to a
+`CloudWatchClient` instance used for monitoring metrics. The `name` key is a map of queue name to SQS URL.
+
+Each queue entry must resolve to a valid SQS URL. If a queue is misconfigured without a URL, the factory now throws a
+clear configuration exception.
 
 ### Memory queue
 
@@ -317,12 +329,24 @@ The package registers three CLI commands for managing queues. See the dedicated
 
 - **`queue:worker`** — Start a worker to process queue jobs
 - **`queue:purge`** — Purge all jobs from queues
-- **`queue:size`** — Display queue sizes
+- **`queue:size`** — Display queue monitoring metrics
+
+### Queue monitoring
+
+> 🆕 **Info**: *Since version 3.1*
+
+The `queue:size` command can now expose more than queue length. Depending on the backend, it can report:
+
+- `size`: number of jobs ready to be consumed
+- `waitTime`: age in seconds of the oldest consumable job
+- `delayed`: number of delayed jobs waiting to become available
+
+See the [Queue CLI commands](../cli/queues.md#queuesize) page for output formats and Prometheus examples.
 
 ## Custom queue factories
 
-The package includes factories for Database, AWS SQS, and Memory queues. To use other backends (Redis, AMQP, or your
-own), you can write a custom factory.
+The package includes factories for Database, AWS SQS, and Memory queues. To use other backends (Redis, RabbitMQ/AMQP,
+or your own), you can write a custom factory.
 
 A factory must implement the `QueueFactory` interface:
 

@@ -366,8 +366,14 @@ $redis->connect('127.0.0.1', 6379);
 $queue = new RedisQueue(
   redis: $redis,    // Redis connection
   name: 'default',  // Queue name
+  deletedJobsTtl: 86400,
 );
 ```
+
+> 🆕 **Info**: *Since version 3.1*
+>
+> `RedisQueue` accepts a `deletedJobsTtl` constructor argument to control how long deleted jobs metadata is kept in
+> Redis. Use `0` to disable expiration.
 
 Tips:
 
@@ -424,6 +430,40 @@ $queue = new AmqpQueue(
 );
 ```
 
+#### RabbitMqQueue
+
+> 🆕 **Info**: *Since version 3.1*
+
+The `RabbitMqQueue` extends `AmqpQueue` with monitoring metrics exposed through the RabbitMQ Management API.
+
+It is useful when you want RabbitMQ-backed queues while also collecting queue wait time and delayed jobs metrics.
+
+```php
+use AMQPConnection;
+use Berlioz\QueueManager\Queue\RabbitMqQueue;
+
+$connection = new AMQPConnection([
+  'host' => 'localhost',
+  'port' => 5672,
+  'login' => 'guest',
+  'password' => 'guest',
+  'vhost' => '/',
+]);
+$connection->connect();
+
+$queue = new RabbitMqQueue(
+  connection: $connection,
+  name: 'default',
+  managementApiBaseUrl: 'http://localhost:15672',
+  managementApiUsername: 'guest',
+  managementApiPassword: 'guest',
+  vhost: '/',
+);
+```
+
+The management API credentials are optional. When they are not configured, queue processing still works, but
+monitoring-specific metrics such as `waitTime()` and `delayed()` will return `null`.
+
 ## QueueManager
 
 The `QueueManager` wraps one or more queues and acts as a unified facade. It implements `QueueInterface` and
@@ -446,13 +486,47 @@ $job = $manager->consume();                        // Consume from any queue (re
 $manager->purge();                                 // Purge all purgeable queues
 ```
 
-The `stats()` method returns the size of each queue:
+## Queue Monitoring
+
+> 🆕 **Info**: *Since version 3.1*
+
+Supported backends can expose monitoring metrics in addition to the basic queue size.
+
+### MonitorableQueueInterface
+
+The `MonitorableQueueInterface` is implemented by queue backends that can expose operational metrics:
+
+- `waitTime(): ?int` returns the age in seconds of the oldest consumable job
+- `delayed(): ?int` returns the number of delayed jobs not yet available for consumption
+
+These metrics may return `null` when the backend cannot expose them or when additional monitoring configuration is
+missing.
+
+Supported backends include:
+
+- `DbQueue`
+- `MemoryQueue`
+- `RedisQueue`
+- `AwsSqsQueue`
+- `RabbitMqQueue`
+
+Example:
 
 ```php
-foreach ($manager->stats() as $name => $size) {
-    echo "$name: $size jobs\n";
+use Berlioz\QueueManager\Queue\MonitorableQueueInterface;
+
+foreach ($manager->getQueues() as $queue) {
+    printf("%s: %d jobs\n", $queue->getName(), $queue->size());
+
+    if ($queue instanceof MonitorableQueueInterface) {
+        printf("  wait time: %s\n", $queue->waitTime() ?? 'n/a');
+        printf("  delayed: %s\n", $queue->delayed() ?? 'n/a');
+    }
 }
 ```
+
+The legacy `QueueManager::stats()` helper is deprecated. For queue-by-queue monitoring, iterate over
+`QueueManager::getQueues()` directly.
 
 ## Payload
 
@@ -590,7 +664,9 @@ A confirmation prompt is shown before purging.
 
 ### `queue:size`
 
-Display the size of queues:
+> 🆕 **Info**: *Since version 3.1*
+
+Display queue metrics such as size, wait time, and delayed jobs:
 
 ```bash
 $ vendor/bin/berlioz queue:size -q emails --format json --total
@@ -602,3 +678,9 @@ Parameters:
 - `-f` `--format`: Output format (`json`, `prometheus`, or default table)
 - `--total`: Include total count
 - `--prometheus-labels`: Additional Prometheus labels
+
+Depending on the queue backend, the command can expose these metrics:
+
+- `size`: available jobs count
+- `waitTime`: age in seconds of the oldest consumable job
+- `delayed`: delayed jobs count

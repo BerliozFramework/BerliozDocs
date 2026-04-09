@@ -63,10 +63,15 @@ $config = new \Berlioz\Config\Config(/* ... */);
 $config->get('foo'); // Returns value of key 'foo'
 $config->get('foo.bar'); // Returns value of nested key 'foo.bar'
 $config->get('baz', true); // Returns value of key 'baz' or TRUE default value if key does not exist
+$config->get(); // Returns the full compiled configuration array
 ```
 
 The second parameter of `ConfigInterface::get()` method is the default value if key does not exist. Default value of
 this parameter is `NULL`.
+
+> 🆕 **Info**: *Since version 3.1*
+>
+> Calling `get()` without a key returns the full compiled configuration array.
 
 You can also test if a key exist:
 
@@ -76,17 +81,16 @@ $config = new \Berlioz\Config\Config(/* ... */);
 $exists = $config->has('foo'); // Returns boolean
 ```
 
-You can get a value or throw an exception if the value is falsy:
+You can get a value or throw an exception if the key is missing or if the resolved value is `null`:
 
 ```php
 $config = new \Berlioz\Config\Config(/* ... */);
 
-$value = $config->getOrFail('database.host'); // Throws ConfigException if value is falsy
+$value = $config->getOrFail('database.host'); // Throws ConfigException if key is missing or value is null
 ```
 
-> **Note:** `getOrFail()` uses the `?:` operator, so it throws not only when the key is missing, but also when the
-> value is any falsy value (`false`, `0`, `""`, `[]`, `null`). This method is only available on the concrete `Config`
-> class, not on `ConfigInterface`.
+> **Note:** `getOrFail()` does not reject valid falsy values such as `false`, `0`, `""`, or `[]`. This method is only
+> available on the concrete `Config` class, not on `ConfigInterface`.
 
 ## Functions
 
@@ -125,6 +129,11 @@ print $config->get('baz'); // Print "value2"
 print $config->get('qux'); // Print "bar value"
 print_r($config->get('bar')); // Print array "['foo' => 'value2']"
 ```
+
+> 🆕 **Info**: *Since version 3.1*
+>
+> Circular references in `{config: ...}` expressions are detected and throw a `ConfigException` with the resolution
+> chain.
 
 ## Variables
 
