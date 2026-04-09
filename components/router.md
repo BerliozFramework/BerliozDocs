@@ -38,7 +38,8 @@ Constructor arguments are:
 - **requirements**: an associated array to restrict the format of attributes. Key is the name of attribute and value is
   the validation regex
 - **name**: name of route
-- **method**: an array of allowed HTTP methods, or just a method
+- **method**: an array of allowed HTTP methods, or just a method. When omitted, the route accepts `GET`, `HEAD`,
+  `POST`, `OPTIONS`, `CONNECT`, `TRACE`, `PUT`, `PATCH`, and `DELETE`
 - **host**: an array of allowed hosts, or just a host
 - **priority**: you can specify the priority for a route (default: -1)
 
@@ -76,12 +77,16 @@ $route = new \Berlioz\Router\Route('/path/{attributeName::int}');
 Supported defined types:
 
 - `int` (equivalent of `\d+`)
-- `float` (equivalent of `\d+(\.\d+)`)
+- `float` (equivalent of `\d+(?:\.\d+)?`, so integer values are accepted too)
 - `uuid4` (equivalent of `[0-9A-Fa-f]{8}\-[0-9A-Fa-f]{4}\-[0-9A-Fa-f]{4}\-[0-9A-Fa-f]{4}\-[0-9A-Fa-f]{12}`)
 - `slug` (equivalent of `[a-z0-9]+(?:-[a-z0-9]+)*`)
 - `md5` (equivalent of `[0-9a-fA-F]{32}`)
 - `sha1` (equivalent of `[0-9a-fA-F]{40}`)
 - `domain` (equivalent of `([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}`)
+
+> 🆕 **Info**: *Since version 3.1*
+>
+> Duplicate attribute names in the same route path now throw a `RoutingException` during route construction.
 
 ## Router
 

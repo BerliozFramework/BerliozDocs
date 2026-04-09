@@ -182,3 +182,8 @@ Some advanced behaviors are available during dispatch:
 - If a listener returns `false`, the propagation is stopped immediately.
 - If a listener returns a different event object, it is recursively dispatched and its result is returned.
 - If a listener returns the same event object (mutated), subsequent listeners receive the mutated event.
+
+> 🆕 **Info**: *Since version 3.1*
+>
+> Recursive redispatch is guarded by a maximum dispatch depth to prevent infinite loops. When this limit is exceeded,
+> the dispatcher throws a `LogicException`.
