@@ -108,7 +108,12 @@ $mail->addHeader('X-Tag', 'second'); // Multi-value: both values are sent
 $mail->addHeader('X-Tag', 'replaced', replace: true); // Replaces all previous values
 ```
 
-Reserved headers (`Subject`, `From`, `To`, `Cc`, `Bcc`) cannot be set this way.
+Reserved headers (`Subject`, `From`, `To`, `Cc`, `Bcc`) cannot be set this way — the check is case-insensitive.
+
+> 🆕 **Info**: *Since version 3.1*
+>
+> Header names and values must not contain CR (`\r`) or LF (`\n`) characters; an `InvalidArgumentException` is thrown
+> otherwise.
 
 > **Note:** header values must be MIME-encoded by the caller if they contain non-ASCII characters.
 
@@ -131,6 +136,11 @@ $mailer->massSend($mail, $addresses, function ($address, $index) {
 Each recipient receives an individual mail. The callback is optional and receives the address and the zero-based index.
 
 ## Transports
+
+> 🆕 **Info**: *Since version 3.1*
+>
+> A sender address (`setFrom()`) is now required. Both transports throw a `TransportException` if no sender is defined
+> when `send()` is called.
 
 #### Defaults transports
 
