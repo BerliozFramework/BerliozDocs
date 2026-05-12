@@ -41,7 +41,16 @@ To plan a maintenance, define the configuration like this:
 }
 ```
 
-All options are optionals.
+All options are optional.
+
+> 🆕 **Info**: *Since version 3.1*
+>
+> When `start` and/or `end` are specified, maintenance mode is only active **between** those dates. Before `start` or
+> after `end`, the application continues to serve requests normally.
+>
+> - If only `start` is set, maintenance begins at that time and continues indefinitely.
+> - If only `end` is set, maintenance is active immediately until that time.
+> - If neither is set (or `maintenance` is simply `true`), maintenance is always active.
 
 The default handler class: `\Berlioz\Http\Core\Http\Handler\MaintenanceHandler`.
 Like [HTTP errors](../http/error-handler.md), you can set your own handler to display a maintenance page.
