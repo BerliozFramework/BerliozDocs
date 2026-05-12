@@ -54,7 +54,11 @@ $route = new Route('/path');
 $route->addRoute($route2 = new Route('/path2')); // Path will be: /path/path2
 ```
 
-Children routes inherit parent route attributes, requirements, ...
+Children routes inherit parent route attributes, requirements, methods, host restrictions, options, and context.
+
+> 🆕 **Info**: *Since version 3.1*
+>
+> Host restrictions declared on a parent route group are now inherited by child routes.
 
 #### Attributes
 

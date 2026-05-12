@@ -183,7 +183,11 @@ class MyController
 ```
 
 All the parameters will be merged with the parameters of the route, except the path which will be concatenated with the
-path of the route.
+path of the route. This includes `requirements`, `defaults`, `method`, and `host` restrictions.
+
+> 🆕 **Info**: *Since version 3.1*
+>
+> Host restrictions declared on a `RouteGroup` are inherited by all child routes.
 
 ## Declaration of routes in configuration
 
