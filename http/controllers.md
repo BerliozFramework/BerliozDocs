@@ -38,6 +38,22 @@ class MyController extends AbstractController
 }
 ```
 
+## Return values
+
+Controller methods do not have to return a `ResponseInterface`. The framework automatically converts the return value:
+
+| Return type | Behavior |
+|---|---|
+| `ResponseInterface` | Passed through directly |
+| `null` or empty string | Returns a **204 No Content** response |
+| Scalar (`string`, `int`, ...) | Returns a **200** response with the value as body |
+| Other (array, object, ...) | JSON-encoded with a `Content-Type: application/json` header. If encoding fails, a **500** error is thrown |
+
+> 🆕 **Info**: *Since version 3.1*
+>
+> If `json_encode()` fails on a non-scalar return value, an `InternalServerErrorHttpException` is thrown instead of
+> returning a silent empty response.
+
 ## Parameters
 
 Parameters of the controllers methods are automatically inject by the
