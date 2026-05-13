@@ -22,8 +22,12 @@ Use class `Berlioz\Form\Collection` to construct a collection of inputs.
 | **prototype**    | `ElementInterface` | *none*        | The element template that will be cloned to create collection elements |
 | **editable**     | boolean            | true          | If collection is editable (can add/remove element)                     |
 | **min_elements** | int                | *none*        | The minimum number of elements in collection                           |
-| **max_elements** | int                | *none*        | The maximum number of elements in collection                           |
+| **max_elements** | int                | *none*        | The maximum number of elements in collection (enforced on submission)  |
 | **type**         | string             | "collection"  | The type name of collection (to personalize template)                  |
+
+> 🆕 **Info**: *Since version 3.1*
+>
+> The `max_elements` limit is now enforced: submitted data exceeding this limit is silently truncated.
 
 ## Creation of sub objects
 
