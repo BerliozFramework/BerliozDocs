@@ -20,6 +20,11 @@ keywords:
 All messages are stored in session of user. So you be able to get the messages after a reload of page or redirect.
 When you got the messages, they are deleted on the stack and no longer available.
 
+> 🆕 **Info**: *Since version 3.1*
+>
+> `FlashBag` requires PHP sessions. The constructor will start a session automatically if none is active. An `Exception`
+> is thrown if sessions are disabled or if headers have already been sent.
+
 ## Add message
 
 It's very simple to add messages:
