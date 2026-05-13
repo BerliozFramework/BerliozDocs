@@ -60,7 +60,8 @@ Parameters:
 - `--all`
   To clear all contents of cache directory (except hidden items)
 - `...`
-  To specify directories name to clear.
+  To specify directories name to clear. When specific names are provided, all matching directories are cleared,
+  including hidden ones.
 
 ## Package commands
 
