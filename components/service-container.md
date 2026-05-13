@@ -121,6 +121,14 @@ $myService = $container->get(MyService::class);
 Auto-wired instances are cached: the same instance is returned for any class or interface it implements. Auto-wiring has
 the lowest priority — explicitly registered services and providers are always preferred.
 
+> 🆕 **Info**: *Since version 3.1*
+>
+> **Union types** are supported: when a constructor parameter has a union type (e.g., `FooInterface|BarClass`), the
+> container tries each type in order until one resolves successfully.
+>
+> **Intersection types** and **DNF types** (e.g., `Countable&Iterator`) are gracefully skipped by auto-wiring; if the
+> parameter has a default value, that value is used instead.
+
 To disable auto-wiring:
 
 ```php
