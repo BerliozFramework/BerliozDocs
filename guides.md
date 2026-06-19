@@ -22,6 +22,10 @@ The guides are designed to help you use the framework in a specific situation or
 
   Learn how manage packages and how create one.
 
+- [Cache](guides/cache.md)
+
+  Configure the PSR-16 cache and its drivers (file, memory, Redis, fallback).
+
 ## HTTP projects
 
 - [Redirections](guides/redirections.md)

@@ -28,6 +28,9 @@ Default hierarchy of directories:
 
 It's a basic hierarchy that lot of frameworks used. You won't be lost if you come for any of them :).
 
+The `/var/cache` directory is used by the default file cache. See the [Cache guide](../guides/cache.md) to learn how to
+configure other cache drivers (memory, Redis, fallback…).
+
 ## Custom hierarchy
 
 You are able to change default hierarchy by your own.

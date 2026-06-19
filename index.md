@@ -36,6 +36,7 @@ You must understand some concepts of the **Berlioz Framework**:
 - [Configuration](getting-started/config.md)
 - [Service Container](getting-started/service-container.md)
 - [Packages](guides/packages.md)
+- [Cache](guides/cache.md)
 - [Controllers](http/controllers.md)
 - [Middlewares](http/middleware.md)
 - [Routing](http/routing.md)
