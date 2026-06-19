@@ -131,7 +131,13 @@ Refers to the documentation of **elgigi/har-parser** library: https://github.com
 
 #### Usage
 
-Default adapter used by library is `CurlAdapter` (if CURL extension is installed), else the `StreamAdapter` is used.
+Default adapter used by library is the `AutoAdapter`, which picks the best available transport automatically: it
+prefers `CurlAdapter` when the CURL extension is installed, and falls back to the `StreamAdapter` otherwise.
+
+> 🆕 **Info**: *Since version 3.2*
+>
+> The default adapter is now the `AutoAdapter`. In previous versions, the client used `CurlAdapter` directly when the
+> CURL extension was installed, and `StreamAdapter` otherwise.
 
 You can specify adapters to the client constructor, with argument `adapter`:
 
@@ -158,9 +164,41 @@ $client->get('https://getberlioz.com', options: ['adapter' => 'stream']);
 
 List of adapters:
 
+- **auto**: `Berlioz\Http\Client\Adapter\AutoAdapter` *(since version 3.2)*
 - **curl**: `Berlioz\Http\Client\Adapter\CurlAdapter`
 - **stream**: `Berlioz\Http\Client\Adapter\StreamAdapter`
 - **har**: `Berlioz\Http\Client\Adapter\HarAdapter`
+
+#### AutoAdapter
+
+> 🆕 **Info**: *Since version 3.2*
+
+The `AutoAdapter` selects the best available transport automatically: `CurlAdapter` is preferred when the CURL
+extension is loaded, otherwise the `StreamAdapter` is used as a fallback. It's the default adapter of the client.
+
+```php
+use Berlioz\Http\Client\Client;
+use Berlioz\Http\Client\Adapter\AutoAdapter;
+
+$client = new Client(adapter: new AutoAdapter());
+$client->get('https://getberlioz.com'); // Uses curl if available, else stream
+```
+
+Because the resolved adapter reports its own name (`curl` or `stream`), forcing an adapter by name in the request
+options keeps working as expected.
+
+You can also pass pre-configured adapters that the `AutoAdapter` should use once resolved:
+
+```php
+use Berlioz\Http\Client\Adapter\AutoAdapter;
+use Berlioz\Http\Client\Adapter\CurlAdapter;
+use Berlioz\Http\Client\Adapter\StreamAdapter;
+
+$adapter = new AutoAdapter(
+    curl: new CurlAdapter([CURLOPT_TIMEOUT => 20]),
+    stream: new StreamAdapter(timeout: 5),
+);
+```
 
 #### HarAdapter
 
