@@ -92,3 +92,35 @@ CIDR ranges) under `berlioz.proxies.trusted`. Only then is the forwarded client 
 ```
 
 When no trusted proxy is configured, the forwarded headers are ignored and `REMOTE_ADDR` is used as the client IP.
+
+## Snapshot retention
+
+> 🆕 **Info**: *Since version 3.2*
+
+When debug mode is enabled, Berlioz records a snapshot (debug report) for each request. To prevent the debug directory
+from growing indefinitely, old snapshots are garbage collected **probabilistically on write**, according to a
+retention policy configured under `berlioz.debug.gc`:
+
+```json
+{
+  "berlioz": {
+    "debug": {
+      "enable": true,
+      "gc": {
+        "probability": 1,
+        "divisor": 100,
+        "max_age": 7,
+        "max_files": 100
+      }
+    }
+  }
+}
+```
+
+- **`probability`** / **`divisor`**: the garbage collector runs with a probability of `probability / divisor` on each
+  snapshot write (default `1 / 100`, i.e. ~1% of requests). Set `probability` to `0` to disable automatic collection.
+- **`max_age`**: delete snapshots older than this number of days (`null` to disable).
+- **`max_files`**: keep at most this number of snapshots, deleting the oldest ones beyond the limit (`null` to
+  disable).
+
+You can also trigger the cleanup manually with the [`berlioz:debug-clear`](../cli.md#berliozdebug-clear) CLI command.

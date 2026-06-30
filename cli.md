@@ -63,6 +63,22 @@ Parameters:
   To specify directories name to clear. When specific names are provided, all matching directories are cleared,
   including hidden ones.
 
+### `berlioz:debug-clear`
+
+> 🆕 **Info**: *Since version 3.2*
+
+To clear the recorded debug reports (snapshots).
+
+Parameters:
+
+- `--all`
+  To delete **all** debug reports
+- `--days=N`
+  To delete reports older than `N` days
+
+When called without any parameter, the command applies the configured retention policy
+(`berlioz.debug.gc.max_age` and `berlioz.debug.gc.max_files`, see [Debug](getting-started/debug.md#snapshot-retention)).
+
 ## Package commands
 
 Additional CLI commands are available when optional packages are installed:
