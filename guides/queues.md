@@ -17,7 +17,7 @@ keywords:
 
 - Configuration-based queue setup (Database, AWS SQS, Memory)
 - Automatic service container registration (`QueueManager`, `JobHandlerManager`, `Worker`)
-- Built-in job handlers for running Berlioz commands and system commands asynchronously
+- Built-in job handlers for running Berlioz commands (and, opt-in, system commands) asynchronously
 - [CLI commands](../cli/queues.md) for running workers, purging queues, and monitoring queue metrics
 
 ## Installation
@@ -43,8 +43,7 @@ Default configuration provided by the package:
         "queues": {
             "queues": [],
             "handlers": {
-                "berlioz:command": "Berlioz\\Package\\QueueManager\\Handler\\BerliozCommandJobHandler",
-                "berlioz:system": "Berlioz\\Package\\QueueManager\\Handler\\BerliozSystemJobHandler"
+                "berlioz:command": "Berlioz\\Package\\QueueManager\\Handler\\BerliozCommandJobHandler"
             },
             "factories": [
                 "Berlioz\\Package\\QueueManager\\Factory\\MemoryQueueFactory",
@@ -307,7 +306,14 @@ $queueManager->push($job);
 
 ### `berlioz:system`
 
-Executes a system command via `passthru()`. The payload `command` key is an array of arguments joined with spaces:
+> 🆕 **Info**: *Since version 3.2*
+>
+> The `berlioz:system` handler is **no longer registered by default** and must be enabled explicitly. The command is
+> now executed with `proc_open()` using an **array of arguments** (no shell): shell metacharacters such as `|`, `;`,
+> `&&`, `$()` or `>` are treated as literal arguments and are never interpreted.
+
+Executes a system command. The payload `command` key is an array of arguments passed directly to the binary (the first
+element is the executable, the rest are its arguments):
 
 ```php
 use Berlioz\QueueManager\Job\JobDescriptor;
@@ -319,8 +325,24 @@ $job = new JobDescriptor('berlioz:system', [
 $queueManager->push($job);
 ```
 
+Because it can run arbitrary executables on the worker host, this handler is **opt-in**. Register it in your
+configuration only if you need it and you fully control the job payloads:
+
+```json
+{
+    "berlioz": {
+        "queues": {
+            "handlers": {
+                "berlioz:system": "Berlioz\\Package\\QueueManager\\Handler\\BerliozSystemJobHandler"
+            }
+        }
+    }
+}
+```
+
 > ⚠️ **Warning**: The `berlioz:system` handler executes arbitrary system commands. Ensure job payloads are never built
-> from untrusted user input.
+> from untrusted user input. Running it without a shell prevents metacharacter injection, but the executable and its
+> arguments are still fully controlled by the payload.
 
 ## CLI commands
 
