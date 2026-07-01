@@ -362,8 +362,9 @@ Depending on the backend, the following metrics are available:
 - `waitTime`: age in seconds of the oldest consumable job
 - `delayed`: number of delayed jobs waiting to become available
 
-`waitTime` and `delayed` are only reported for backends implementing `MonitorableQueueInterface`; unavailable values
-are omitted.
+`waitTime` and `delayed` are only reported for backends implementing `MonitorableQueueInterface`. For such a queue they
+are always exposed, defaulting to `0` when the queue is empty, so known metric series never disappear. Non-monitorable
+queues omit these metrics entirely.
 
 ### CLI
 

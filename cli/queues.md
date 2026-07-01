@@ -100,8 +100,11 @@ Parameters:
 | `--total` | — | Include total count | `false` |
 | `--prometheus-labels` | — | Additional Prometheus labels | — |
 
-The command always reports queue `size`, and can also expose `waitTime` and `delayed` metrics when the selected
-backend implements `MonitorableQueueInterface`.
+The command always reports queue `size`. It also exposes `waitTime` and `delayed` for queues whose backend implements
+`MonitorableQueueInterface`: for such a queue the metrics are always reported, defaulting to `0` when the queue is
+empty. Queues that are not monitorable report `n/a` (table) / `null` (JSON) and are omitted from the Prometheus output.
+
+In the examples below, `emails` is a monitorable queue while `notifications` is not.
 
 Output examples:
 
@@ -155,7 +158,8 @@ job_queue_length_total{env="production"} 15
 > The Prometheus output now includes `# HELP` / `# TYPE` metadata lines. Label values are escaped per the exposition
 > format.
 
-Metrics with unavailable values are omitted in Prometheus output.
+A monitorable but empty queue still exposes its `wait_time_seconds` / `delayed` series with a value of `0`, so known
+series never disappear. Only non-monitorable queues are omitted from the Prometheus output.
 
 These metrics can also be served over HTTP for a Prometheus server to scrape directly — see the
 [Monitoring and metrics](../guides/queues.md#monitoring-and-metrics) section of the Queues guide.
