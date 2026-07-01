@@ -353,25 +353,37 @@ The package registers three CLI commands for managing queues. See the dedicated
 - **`queue:purge`** — Purge all jobs from queues
 - **`queue:size`** — Display queue monitoring metrics
 
-### Queue monitoring
+## Monitoring and metrics
 
-> 🆕 **Info**: *Since version 3.1*
-
-The `queue:size` command can now expose more than queue length. Depending on the backend, it can report:
+Queue metrics can be consumed in two ways: on demand through the CLI, or scraped over HTTP by a Prometheus server.
+Depending on the backend, the following metrics are available:
 
 - `size`: number of jobs ready to be consumed
 - `waitTime`: age in seconds of the oldest consumable job
 - `delayed`: number of delayed jobs waiting to become available
 
+`waitTime` and `delayed` are only reported for backends implementing `MonitorableQueueInterface`; unavailable values
+are omitted.
+
+### CLI
+
+> 🆕 **Info**: *Since version 3.1*
+
+The `queue:size` command reports the metrics above for the selected queues:
+
+```bash
+$ vendor/bin/berlioz queue:size --format prometheus --total
+```
+
 See the [Queue CLI commands](../cli/queues.md#queuesize) page for output formats and Prometheus examples.
 
-### HTTP metrics endpoint
+### HTTP endpoint
 
 > 🆕 **Info**: *Since version 3.2*
 
-The same metrics exposed by `queue:size --format prometheus` can be served over HTTP, so a Prometheus server can scrape
-them directly. The endpoint is **disabled by default** and served by a middleware — no route is declared, and any
-existing application route on the same path always takes precedence.
+The same metrics can be served over HTTP, so a Prometheus server can scrape them directly. The endpoint is **disabled by
+default** and served by a middleware — no route is declared, and any existing application route on the same path always
+takes precedence.
 
 > ℹ️ **Note**: The endpoint requires **berlioz/http-core** (declared as a `suggest` dependency of the package). In
 > CLI-only projects the HTTP wiring stays inert.
@@ -436,8 +448,8 @@ scrape_configs:
       - targets: ['app.example.com']
 ```
 
-The exposed metrics are the same as the CLI command; see the
-[Queue CLI commands](../cli/queues.md#queuesize) page for the metric names and output examples.
+The exposed metrics are the same as the CLI; see the
+[Queue CLI commands](../cli/queues.md#queuesize) page for output examples.
 
 ## Custom queue factories
 

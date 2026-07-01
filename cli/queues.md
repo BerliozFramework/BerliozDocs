@@ -158,7 +158,7 @@ job_queue_length_total{env="production"} 15
 Metrics with unavailable values are omitted in Prometheus output.
 
 These metrics can also be served over HTTP for a Prometheus server to scrape directly — see the
-[HTTP metrics endpoint](../guides/queues.md#http-metrics-endpoint) section of the Queues guide.
+[Monitoring and metrics](../guides/queues.md#monitoring-and-metrics) section of the Queues guide.
 
 ## Production deployment
 
