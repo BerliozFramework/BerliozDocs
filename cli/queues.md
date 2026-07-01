@@ -132,17 +132,33 @@ notifications     3 (wait: n/a, delayed: n/a)
 }
 ```
 
-**Prometheus** (`--format prometheus --prometheus-labels 'env="production"'`):
+**Prometheus** (`--format prometheus --prometheus-labels 'env="production"' --total`):
 
 ```
+# HELP job_queue_length Number of jobs waiting in the queue.
+# TYPE job_queue_length gauge
 job_queue_length{queue_name="emails",env="production"} 12
-job_queue_wait_time_seconds{queue_name="emails",env="production"} 34
-job_queue_delayed{queue_name="emails",env="production"} 2
 job_queue_length{queue_name="notifications",env="production"} 3
+# HELP job_queue_wait_time_seconds Age in seconds of the oldest consumable job in the queue.
+# TYPE job_queue_wait_time_seconds gauge
+job_queue_wait_time_seconds{queue_name="emails",env="production"} 34
+# HELP job_queue_delayed Number of delayed jobs in the queue.
+# TYPE job_queue_delayed gauge
+job_queue_delayed{queue_name="emails",env="production"} 2
+# HELP job_queue_length_total Total number of jobs waiting across all queues.
+# TYPE job_queue_length_total gauge
 job_queue_length_total{env="production"} 15
 ```
 
+> 🆕 **Info**: *Since version 3.2*
+>
+> The Prometheus output now includes `# HELP` / `# TYPE` metadata lines. Label values are escaped per the exposition
+> format.
+
 Metrics with unavailable values are omitted in Prometheus output.
+
+These metrics can also be served over HTTP for a Prometheus server to scrape directly — see the
+[HTTP metrics endpoint](../guides/queues.md#http-metrics-endpoint) section of the Queues guide.
 
 ## Production deployment
 

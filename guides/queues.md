@@ -365,6 +365,80 @@ The `queue:size` command can now expose more than queue length. Depending on the
 
 See the [Queue CLI commands](../cli/queues.md#queuesize) page for output formats and Prometheus examples.
 
+### HTTP metrics endpoint
+
+> 🆕 **Info**: *Since version 3.2*
+
+The same metrics exposed by `queue:size --format prometheus` can be served over HTTP, so a Prometheus server can scrape
+them directly. The endpoint is **disabled by default** and served by a middleware — no route is declared, and any
+existing application route on the same path always takes precedence.
+
+> ℹ️ **Note**: The endpoint requires **berlioz/http-core** (declared as a `suggest` dependency of the package). In
+> CLI-only projects the HTTP wiring stays inert.
+
+Configure it under the `berlioz.queues.metrics` key:
+
+```json
+{
+    "berlioz": {
+        "queues": {
+            "metrics": {
+                "enable": true,
+                "path": "/metrics/queues",
+                "format": "prometheus",
+                "ip": ["127.0.0.1", "10.0.0.0/8"],
+                "token": "{env: QUEUE_METRICS_TOKEN}",
+                "prometheus_labels": {
+                    "env": "production",
+                    "host": "web1"
+                },
+                "total": true
+            }
+        }
+    }
+}
+```
+
+| Key | Description | Default |
+|---|---|---|
+| `enable` | Enable the HTTP endpoint | `false` |
+| `path` | Path served by the middleware | `/metrics/queues` |
+| `format` | Output format: `prometheus` or `json` | `prometheus` |
+| `ip` | Client IP allow-list (exact IPs, CIDR, or hostnames); empty means no IP restriction | `[]` |
+| `token` | Optional bearer token required in the `Authorization` header | `null` |
+| `prometheus_labels` | Extra Prometheus labels (object of name/value) appended to every metric | `{}` |
+| `total` | Append the aggregated `job_queue_length_total` metric | `false` |
+
+Access control is **layered and cumulative**:
+
+- **IP allow-list** (`ip`): when set, only these client IPs may reach the endpoint. The client IP is resolved exactly
+  like the debug console — `X-Forwarded-For` is only trusted behind a configured trusted proxy
+  (`berlioz.proxies.trusted`), so an allow-listed IP cannot be spoofed.
+- **Bearer token** (`token`): when set, requests must send `Authorization: Bearer <token>` **in addition** to passing
+  the IP check. Prefer resolving it from the environment (`{env: QUEUE_METRICS_TOKEN}`) to keep the secret out of your
+  versioned configuration.
+
+The endpoint is read-only: only `GET` (and its `HEAD` counterpart) requests are served. A `HEAD` request returns the
+same status and `Content-Type` as `GET` with an empty body, and does not query the queue backends. Any unmet condition
+(wrong HTTP method, disabled, IP not allowed, missing/invalid token) results in a `404`, without disclosing the
+endpoint.
+
+Example Prometheus scrape configuration:
+
+```yaml
+scrape_configs:
+  - job_name: berlioz-queues
+    metrics_path: /metrics/queues
+    authorization:
+      type: Bearer
+      credentials: <your-token>   # only if a token is configured
+    static_configs:
+      - targets: ['app.example.com']
+```
+
+The exposed metrics are the same as the CLI command; see the
+[Queue CLI commands](../cli/queues.md#queuesize) page for the metric names and output examples.
+
 ## Custom queue factories
 
 The package includes factories for Database, AWS SQS, and Memory queues. To use other backends (Redis, RabbitMQ/AMQP,
