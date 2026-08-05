@@ -220,9 +220,15 @@ CREATE TABLE `queue_jobs`
     `lock_time`         timestamp    NULL     DEFAULT NULL,
     `payload`           json         NOT NULL,
     PRIMARY KEY (`job_id`),
-    KEY `INDEX_job` (`queue`, `availability_time`, `lock_time`, `attempts`)
+    KEY `INDEX_job` (`queue`, `availability_time`, `job_id`, `attempts`, `lock_time`)
 ) ENGINE = InnoDB;
 ```
+
+> ⚠️ The index **must** start with `queue`, `availability_time`, `job_id` in that order. When consuming, `DbQueue`
+> runs `... WHERE queue = ? AND availability_time <= ? ... ORDER BY availability_time, job_id LIMIT 1 FOR UPDATE SKIP LOCKED`.
+> With this prefix, MySQL serves the `ORDER BY` directly from the index and stops at the first matching row. If `job_id`
+> is missing from the index, the sort cannot be index-served, forcing a full scan and a `filesort` that becomes very
+> expensive as soon as the queue holds a large backlog of pending jobs.
 
 If you want to keep the jobs treated:
 
