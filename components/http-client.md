@@ -82,7 +82,7 @@ List of options:
 - **baseUri** (string|null): Base of URI if not given in requests (default: null)
 - **followLocation** (int|false): Maximum number of redirections to follow, or `false` to disable (default: 5)
 - **redirectSensitiveHeaders** (string[]): Additional credential headers to remove on cross-origin redirects
-  (default: `[]`; see [Redirect security](#redirect-security), unreleased)
+  (default: `[]`; since version 3.3; see [Redirect security](#redirect-security))
 - **sleepTime** (int): Minimum sleep time between requests in milliseconds (default: 0)
 - **logFile** (string|null): Log file path for request/response logging (default: null)
 - **exceptions** (bool): Throw exceptions on HTTP error status (4xx/5xx) (default: true)
@@ -101,9 +101,7 @@ Passing an `Options` object supplies a complete options object rather than mergi
 
 ## Redirect security
 
-> 🆕 **Info**: *Unreleased*
->
-> This policy accompanies [BerliozFramework/Berlioz#74](https://github.com/BerliozFramework/Berlioz/pull/74).
+> 🆕 **Info**: *Since version 3.3*
 
 The client follows responses with a `Location` header for status codes 201, 301, 302, 303, 307 and 308 by default.
 Set `followLocation` to `false` to return the response without following it.
