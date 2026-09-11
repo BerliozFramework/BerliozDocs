@@ -81,19 +81,105 @@ List of options:
 
 - **baseUri** (string|null): Base of URI if not given in requests (default: null)
 - **followLocation** (int|false): Maximum number of redirections to follow, or `false` to disable (default: 5)
+- **redirectSensitiveHeaders** (string[]): Additional credential headers to remove on cross-origin redirects
+  (default: `[]`; since version 3.3; see [Redirect security](#redirect-security))
 - **sleepTime** (int): Minimum sleep time between requests in milliseconds (default: 0)
 - **logFile** (string|null): Log file path for request/response logging (default: null)
 - **exceptions** (bool): Throw exceptions on HTTP error status (4xx/5xx) (default: true)
 - **retry** (int|false): Maximum number of retry attempts on network errors, or `false` to disable (default: 3)
 - **retryTime** (int): Wait time between retries in milliseconds (default: 1000)
-- **cookies** (null|false|CookiesManager): `null` to use default cookie manager; `false` to disable cookies; a `CookiesManager` instance to use
+- **cookies** (null|false|CookiesManager): `null` to use the default cookie manager; `false` to disable automatic cookie
+  sending and collection; a `CookiesManager` instance to use
 - **history** (int|float): Maximum number of history entries to retain, `INF` for unlimited (default: INF)
 - **callback** (Closure|null): Callback after each successful request `fn(RequestInterface, ResponseInterface): void`
 - **callbackException** (Closure|null): Callback on HTTP error instead of throwing `fn(HttpException, Options): ResponseInterface`
-- **headers** (array): Default headers merged into every request
+- **headers** (array): Default headers added to requests, subject to the redirect credential policy
 - **context** (HttpContext|null): SSL/TLS and proxy configuration
 
-Options passed in argument replace default options of client.
+Array options override client defaults; headers are merged by name and `redirectSensitiveHeaders` is additive.
+Passing an `Options` object supplies a complete options object rather than merging it with client defaults.
+
+## Redirect security
+
+> 🆕 **Info**: *Since version 3.3*
+
+The client follows responses with a `Location` header for status codes 201, 301, 302, 303, 307 and 308 by default.
+Set `followLocation` to `false` to return the response without following it.
+
+### Origins and credentials
+
+Redirect destinations are resolved against the current request URI before comparing origins. Two HTTP URIs have
+the same origin when their scheme, case-insensitive host and effective port match. An omitted port is equivalent
+to 80 for HTTP or 443 for HTTPS. A different subdomain, port or scheme is a different origin.
+
+On the first cross-origin redirect, the client removes these headers from the options used by the redirect chain:
+
+- `Authorization`
+- `Proxy-Authorization`
+- Manually supplied `Cookie`
+- Application-specific headers listed in `redirectSensitiveHeaders`
+
+Header names are compared case-insensitively. Removed credentials stay removed for the rest of that call, including
+network retries and redirects back to the initial origin. Client defaults and caller-supplied options are preserved;
+a subsequent independent call uses its normal credentials again.
+
+Credentials supplied in a redirect's `Location` URI are removed. Credentials inherited from the current URI may be
+retained for a same-origin relative redirect, but are removed after any origin change. Redirect URI fragments are
+also removed.
+
+### Application-specific secrets
+
+Declare custom authentication headers explicitly; their names cannot be inferred from their values:
+
+```php
+use Berlioz\Http\Client\Client;
+
+$client = new Client([
+    'headers' => [
+        'Authorization' => 'Bearer example-token',
+        'X-Api-Key' => 'example-api-key',
+    ],
+    'redirectSensitiveHeaders' => ['X-Api-Key'],
+]);
+
+$response = $client->get('https://api.example.test/resource', options: [
+    'headers' => ['X-Access-Token' => 'example-access-token'],
+    'redirectSensitiveHeaders' => ['X-Access-Token'],
+]);
+```
+
+In this example, all three authentication headers are removed if the request is redirected to another origin.
+The additional names in array options are merged with the client's list, normalized and deduplicated; an empty
+list does not clear the inherited list. The three mandatory headers are always filtered, even with no custom list.
+When passing a complete `Options` object, include all applicable custom sensitive headers in that object.
+
+Headers configured through options or default-header setters are reapplied on same-origin redirects. Headers set
+only on the original PSR-7 request are not automatically copied when a redirect request is rebuilt.
+
+### Referer and cookies
+
+For each followed redirect, the client replaces any configured `Referer` with a value based on the previous URI:
+
+| Redirect | Generated `Referer` |
+| --- | --- |
+| Same origin | Previous URI without user information or fragment; path and query are retained |
+| Different origin | Previous origin only, without user information, path or query |
+| HTTPS to HTTP | No header |
+
+This follows `strict-origin-when-cross-origin` semantics. A suppressed default `Referer` is not reapplied on the
+next iteration.
+
+Managed cookies are selected again for each destination using the cookie manager's domain, path, expiration and
+Secure rules. They are distinct from manually supplied `Cookie` headers. Setting `cookies` to `false` disables
+automatic cookie sending and collection; a manually supplied header still follows the credential policy above.
+
+### Request bodies
+
+For 307 and 308, the client preserves the method, body and content type, including across origins. Other followed
+statuses rebuild the request as GET without the original body. Content length is recalculated for each redirect.
+The credential policy filters headers and URI credentials; it does not inspect or redact request bodies. To handle
+body replay decisions yourself, disable automatic redirects with `followLocation: false` in an `Options` object,
+or `'followLocation' => false` in array options.
 
 ## Session
 
