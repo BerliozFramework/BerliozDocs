@@ -203,9 +203,45 @@ $history = $client->getSession()->getHistory();
 A cookie manager is available to manage cookies of session and between requests. The manager is available
 with `Session::getCookies()` method.
 
-If you serialize the object `Session`, the cookies are preserves.
+Serializing a `Session` preserves its cookies.
+
+##### Cookie scope
+
+Cookies received without `Domain` are restricted to the exact response host (`Cookie::isHostOnly()`).
+An explicit `Domain` must match that host or a parent domain, with a DNS label boundary. Cookies for
+unrelated domains are rejected before storage, replacement or deletion; other valid cookies from the
+same response are retained. IP addresses only match exactly.
+
+Cookie paths respect segment boundaries: `Path=/admin` matches `/admin` and `/admin/users`, but not
+`/administrator`. When `Path` is absent or invalid, it is derived from the request path: a response to
+`/account/login` defaults to `/account`.
+
+The optional PHP `intl` extension provides non-transitional IDNA normalization for internationalized
+cookie domains. Without IDNA support, ASCII domains (including ASCII Punycode representations) and IP
+addresses remain supported; Unicode domains are rejected. Malformed domains and hosts with trailing
+dots are rejected.
+
+##### Public suffix limitation
+
+Public suffixes are **not checked**: a response from `tenant.github.io` could set `Domain=github.io`,
+or a response from `example.co.uk` could set `Domain=co.uk`. This version does not include a PSL
+validator, dependency or bundled database.
+
+##### Session serialization
+
+`Session` serializes an array of `Cookie` objects and rebuilds `CookiesManager` using its constructor,
+preserving the host-only flag and the other cookie attributes.
+
+Sessions saved in the old format containing a cookie manager discard their cookies on restoration,
+because the original host-only scope and response provenance cannot be recovered reliably.
+Applications using those saved sessions may need to authenticate again.
 
 #### HAR file
+
+HAR exports omit the domain for host-only cookies and prefix explicit domain-cookie scopes with a dot.
+On import, cookies are validated against their entry URI. Missing or undotted domain metadata is treated
+conservatively as host-only for that entry host; this may narrow the scope of cookies in older or external HAR files.
+Invalid cookie domains are ignored individually during import and replay, preserving other valid cookies.
 
 HAR file of session is accessible with method `Session::getHar()`.
 
