@@ -232,6 +232,10 @@ validator, dependency or bundled database.
 `Session` serializes an array of `Cookie` objects and rebuilds `CookiesManager` using its constructor,
 preserving the host-only flag and the other cookie attributes.
 
+The `CookiesManager` constructor accepts a snapshot already deduplicated by cookie name, domain and path.
+It validates that every element is a `Cookie` and restores the array in linear time, preserving order and
+object identity without updating cookies. Use `addCookie()` for insertions that require replacement checks.
+
 Sessions saved in the old format containing a cookie manager discard their cookies on restoration,
 because the original host-only scope and response provenance cannot be recovered reliably.
 Applications using those saved sessions may need to authenticate again.
