@@ -120,6 +120,7 @@ $route = $router->handle($serverRequest);
 | Options            | Type           | Description                                                                               |
 |--------------------|----------------|-------------------------------------------------------------------------------------------|
 | X-Forwarded-Prefix | boolean/string | Default to **false**, **true** to use "X-Forwarded-Prefix" value or custom name of header | 
+| trustedProxies | array | IPs, CIDRs or helper aliases allowed to supply the prefix; defaults to an empty list (since version 3.3) |
 
 #### Generate path
 
@@ -162,16 +163,76 @@ The return of method is a `boolean` value.
 
 #### Finalize path
 
-The `finalizePath()` method applies reverse-proxy prefix rewriting to a path:
+The `finalizePath()` method applies a reverse-proxy mount to an internal path.
+
+> 🆕 **Info**: *Since version 3.3*
 
 ```php
+use Berlioz\Router\Router;
+
+$router = new Router([
+    'X-Forwarded-Prefix' => true,
+    'trustedProxies' => ['10.0.0.1'],
+]);
+$router->setServerParams([
+    'REMOTE_ADDR' => '10.0.0.1',
+    'HTTP_X_FORWARDED_PREFIX' => '/app',
+]);
 $path = $router->finalizePath('/users/1');
-// If X-Forwarded-Prefix is "/app", returns "/app/users/1"
-// Absolute URLs (containing "://") are returned unchanged
+// Returns "/app/users/1". Absolute URLs with a scheme are returned unchanged.
 ```
 
 This method is the universal path-rewriting hook for the framework — routes, assets, entry points, and preload links
 all pass through it.
+
+Only a trusted direct peer's header is used. An absent or empty trust list ignores the prefix. `true` selects the
+standard header; a string selects a custom header. Prefer explicit IPs/CIDRs; `*` trusts every direct peer.
+
+Internal paths always receive the mount, even when they start with the same segment:
+`finalizePath('/app/articles')` with mount `/app` returns `/app/app/articles`.
+This method does not infer whether its input is already a public path.
+
+##### Request context
+
+Resolution priority is:
+
+1. Explicit server parameters passed as the second argument of `finalizePath()`.
+2. Parameters set with `setServerParams()`.
+3. `$_SERVER` when no request context is set.
+
+An explicit empty array prevents fallback to globals. `setServerParams(null)` clears the context and restores
+fallback. The context is excluded from router serialization and must be renewed by persistent request handlers.
+HTTP Core does this on each `handle()` call; standalone callers should set it when processing each request.
+
+`ForwardedPrefixResolver` centralizes trust and validation without retaining request data. The concrete router's
+`getForwardedPrefixResolver()` exposes the resolver built from its effective options. Prefixes such as `/my%20app`
+are accepted; malformed escapes, query/fragment delimiters, controls, backslashes, dot segments, header lists,
+empty internal segments, encoded separators and encoded percent signs are ignored. Surrounding slashes are normalized.
+
+See [HTTP request URI rewriting](../http/routing.md#request-uri-rewriting) for controller-visible paths and the
+deprecation, since version 3.3, of handling trusted prefixes without rewriting the request URI.
+
+### Notes for custom routers
+
+> 🆕 **Info**: *Since version 3.3*
+
+Version 3.3 adds these methods to the `RouterInterface` contract:
+
+```php
+public function finalizePath(string $path, ?array $serverParams = null): string;
+public function setServerParams(?array $serverParams): void;
+```
+
+Custom implementations must provide both methods. Subclasses overriding `Router::finalizePath()` must add the
+optional parameter and forward it to the parent. Existing one-argument calls remain valid; these contract changes
+are intentional compatibility changes for custom extensions.
+
+Neither prefix resolution nor `getForwardedPrefixResolver()` is required by `RouterInterface`.
+HTTP Core's default resolver service comes from the concrete `Router`; applications replacing that service with
+another implementation must wire a matching resolver for prefix handling and URI rewriting.
+
+After upgrading, rebuild persisted router/configuration caches so the new trusted-proxy configuration takes effect.
+The existing cached route options otherwise continue to apply.
 
 ## RouteAttributes interface
 
