@@ -25,6 +25,13 @@ To open console, you need to click on the toolbar.
 
 ![Debug Console](../_assets/debug-console.png)
 
+### HTTP response
+
+> 🆕 **Info**: *Since version 3.3*
+
+The **HTTP / Router** section also displays the response status code, reason phrase, HTTP protocol version
+and headers, allowing you to inspect the response alongside the request and routing information.
+
 ## Enable/Disable debug mode
 
 In your configuration file, you need to specify the activation of debug, by default, the debug mode is not enable.

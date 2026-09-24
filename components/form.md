@@ -69,11 +69,14 @@ $form = new Form('my_form', null, ['method' => 'post']);
 
 `add` method accept 3 parameters:
 
-- Name of control (must be the same that the mapped element)
+- Name of control (used as the mapped property name by default)
 - Type (class name or object)
 - Array of options
 
 Options are different between controls.
+
+Use the `mapped` option to target a different property, disable mapping or provide custom read/write logic.
+See [Mapping fields to an object](../guides/forms.md#mapping-fields-to-an-object).
 
 Example:
 

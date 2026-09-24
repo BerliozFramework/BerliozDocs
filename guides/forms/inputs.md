@@ -72,6 +72,12 @@ Options available:
 | **transformer**      | `TransformerInterface` | *Depends of input type* | Convert format into another         |
 | **validators**       | `ValidatorInterface[]` | *Depends of input type* | Valid data from user form           |
 
+### Mapping
+
+The `mapped` option accepts a boolean, a property name or, since version 3.3, a `FormMapping` instance.
+It defaults to `true` for ordinary inputs; button types disable mapping by default.
+See [Mapping fields to an object](../forms.md#mapping-fields-to-an-object) for details and examples.
+
 ## Attributes
 
 Some attributes are used by forms library to do validations or interactions. Refers to the input description.
