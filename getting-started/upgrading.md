@@ -11,6 +11,16 @@ summary-order: 2
 
 # Upgrading
 
+## Upgrading from version 3.2 to 3.3
+
+- **Reverse proxies:** If your application uses `X-Forwarded-Prefix`, review your trusted proxy configuration
+  and enable request URI rewriting. See [Reverse-proxy prefixes](../http/routing.md#reverse-proxy-prefixes).
+- **Custom routers:** Review the [compatibility notes for custom routers](../components/router.md#notes-for-custom-routers).
+- **Custom form elements:** Review the
+  [compatibility notes for custom form elements](../guides/forms.md#notes-for-custom-form-elements).
+
+---
+
 ## Upgrading from version 2
 
 Version 3.0 marks the transition to a **monorepo** structure. All Berlioz components are now developed, tested and
