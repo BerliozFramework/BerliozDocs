@@ -54,6 +54,17 @@ class MyHttpErrorHandler extends AbstractController implements ErrorHandlerInter
 }
 ```
 
+## Error logging
+
+> 🆕 **Info**: *Since version 3.3*
+
+The framework error handler logs caught server exceptions to the configured PHP error log, even when debug
+mode is disabled. This includes non-HTTP exceptions, HTTP exceptions with a status code of 500 or higher,
+and failures in custom or default error handlers. HTTP exceptions below 500, such as a missing page (404),
+are not logged as server errors.
+
+Logging uses PHP's `error_log()` function and its configured destination; enabling the debug toolbar is not required.
+
 ## Configuration
 
 Your error handler must be declared in your configuration file like this:
