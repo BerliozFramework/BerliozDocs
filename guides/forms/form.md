@@ -16,10 +16,11 @@ The class inherits [`Berlioz\Form\Group`](group.md), so you can add a form to an
 
 ## Options
 
-| Name         | Type    | Default value | Description                          |
-|--------------|---------|---------------|--------------------------------------|
-| **method**   | string  | "post"        | HTTP method for form                 |
-| **required** | boolean | true          | Default requirement for all elements |
+| Name             | Type             | Default value        | Description                                               |
+|------------------|------------------|----------------------|-----------------------------------------------------------|
+| **method**       | string           | "post"               | HTTP method for form                                      |
+| **required**     | boolean          | true                 | Default requirement for all elements                      |
+| **dataProvider** | FormDataProvider | `FormDataProvider`   | Extracts submitted data, see [Data providers](data-providers.md) |
 
 ## Methods
 
