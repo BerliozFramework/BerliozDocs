@@ -11,6 +11,15 @@ summary-order: 2
 
 # Upgrading
 
+## Upgrading from version 3.3 to 3.4
+
+- **API forms:** Constructing `ApiDataProvider` without `strictJson: true` is deprecated. Pass
+  `strictJson: true` and check that your forms accept nested JSON objects as `stdClass`. See
+  [Strict JSON](../guides/forms/data-providers.md#strict-json).
+- **API forms:** `ApiDataProvider` now also handles `PATCH` and `DELETE` requests.
+
+---
+
 ## Upgrading from version 3.2 to 3.3
 
 - **Reverse proxies:** If your application uses `X-Forwarded-Prefix`, review your trusted proxy configuration
