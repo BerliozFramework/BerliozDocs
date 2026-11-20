@@ -157,6 +157,33 @@ The `Worker` handles PCNTL signals (`SIGTERM`, `SIGQUIT`) to ensure a clean exit
 
 *Note: The `pcntl` extension must be enabled for this feature.*
 
+> 🆕 **Info**: *Since version 3.4*
+>
+> The signal handlers are installed when `run()` starts, no longer when the `Worker` is instantiated.
+
+#### Drain a queue
+
+> 🆕 **Info**: *Since version 3.4*
+
+`Worker::drain()` processes the jobs of a queue until it is empty, then returns the number of processed jobs. Unlike
+`run()`, it does not sleep, has no memory, job or kill file limit, and does not install signal handlers: it is intended
+to consume a queue inside another process, for example after an HTTP response (see the
+[deferred queues](../guides/queues.md#deferred-queues) of the framework).
+
+```php
+// Process all jobs, including the ones pushed meanwhile
+$nbJobs = $worker->drain($queue);
+
+// Stop after 10 seconds (a job already started is not interrupted)
+$nbJobs = $worker->drain($queue, timeLimit: 10);
+
+// Options used for failed jobs (backoff before retry)
+$nbJobs = $worker->drain($queue, options: new WorkerOptions(backoffTime: 5));
+```
+
+Each job is processed by `Worker::processJob()`, also used by `run()`: the job is executed, then deleted, or released
+with the backoff delay on failure (unless the handler already deleted or released it).
+
 #### Remote Stop (Kill File)
 
 You can stop a worker remotely by creating a specific file. Configure the path in `WorkerOptions`:

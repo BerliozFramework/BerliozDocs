@@ -43,6 +43,17 @@ summary-order: 2
   them to a service provider listed in `container.providers`. See
   [Migrating from `container.services`](service-container.md#migrating-from-containerservices).
 
+- **Front controller:** Call `$app->terminate()` after `$app->print($response)` in your `public/index.php`, to run
+  terminate listeners and [deferred queues](../guides/queues.md#deferred-queues). See
+  [After the response](../http/terminate.md#front-controller).
+- **Connection closed after the response:** With PHP-FPM or LiteSpeed, `HttpApp::print()` now closes the connection
+  with the client once the response is printed: anything printed afterwards is no longer sent. Set
+  `berlioz.http.finish_request` to `false` to keep the previous behavior.
+- **Queue workers:** `Worker` installs its signal handlers when `run()` starts, no longer in its constructor. See
+  [Graceful Shutdown](../components/queue-manager.md#graceful-shutdown).
+- **Debug console:** An unknown snapshot now returns a `404` error, and the toolbar shows the response time instead of
+  the total time. See [Debug](debug.md#response-time).
+
 ## Upgrading from version 3.2 to 3.3
 
 - **Reverse proxies:** If your application uses `X-Forwarded-Prefix`, review your trusted proxy configuration

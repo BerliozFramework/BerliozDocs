@@ -96,6 +96,20 @@ If you want listen event without subscriber, you need to declare event and callb
 >
 > Prefers subscribers to have the best performances.
 
+## Framework events
+
+### Terminate
+
+> 🆕 **Info**: *Since version 3.4*
+
+A `Berlioz\Core\Event\TerminateEvent` is dispatched once, when the application is terminated:
+
+- `Berlioz\Http\Core\Event\HttpTerminateEvent`, after the HTTP response has been sent (gives the request and the
+  response metadata);
+- `Berlioz\Cli\Core\Event\CliTerminateEvent`, at the end of a CLI command (gives the exit code).
+
+Listen to `TerminateEvent` to be called in both contexts. See [After the response](../http/terminate.md).
+
 ## Trigger an event
 
 You can trigger a specific event with `trigger` method.

@@ -40,6 +40,7 @@ You must understand some concepts of the **Berlioz Framework**:
 - [Controllers](http/controllers.md)
 - [Middlewares](http/middleware.md)
 - [Routing](http/routing.md)
+- [After the response](http/terminate.md)
 - [Templates](guides/templating.md)
 - [ORM](guides/orm.md)
 - [Forms](guides/forms.md)

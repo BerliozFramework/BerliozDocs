@@ -19,6 +19,37 @@ The toolbar shown at left bottom of your page, and indicate the time of page exe
 Two icons appears on hover. The first to hide the toolbar, and the second to switch at right the toolbar (this action is
 saved into a cookie to reproduce the position).
 
+### Response time
+
+> 🆕 **Info**: *Since version 3.4*
+
+The toolbar displays the **response time**: the time until the response has been sent to the client. Work done
+[after the response](../http/terminate.md) is not included. The console displays both the response time and the
+**total time** of the request (dashboard and performances), and the activities timeline marks the moment the response
+has been sent.
+
+### Snapshot in progress
+
+> 🆕 **Info**: *Since version 3.4*
+
+The snapshot is saved at the very end of the request, after the work done after the response. Meanwhile, the toolbar
+shows a clock icon with the response time, and the console a "Snapshot in progress" page: both reload automatically
+once the snapshot is saved.
+
+If the snapshot is never saved before a delay, because the process has been interrupted (timeout, memory limit, killed
+worker...), the console displays "Snapshot incomplete" and the toolbar a cross icon. This delay is configured with
+`berlioz.debug.pending_ttl`, in seconds; by default, the PHP `max_execution_time`, or 300 seconds if unlimited:
+
+```json
+{
+  "berlioz": {
+    "debug": {
+      "pending_ttl": 60
+    }
+  }
+}
+```
+
 ## Console
 
 To open console, you need to click on the toolbar.
