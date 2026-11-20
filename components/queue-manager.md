@@ -85,6 +85,49 @@ class FooJobHandler implements JobHandlerInterface
 
 TIP: `JobHandlerManager` accept a wildcard "*" at the end of job name.
 
+#### Last attempt
+
+> 🆕 **Info**: *Since version 3.4*
+
+A consumed job knows its current attempt with `JobInterface::getAttempts()`, the maximum number of attempts allowed by
+its queue with `JobInterface::getMaxAttempts()`, and whether the current attempt is the last one with
+`JobInterface::isLastAttempt()`. A handler can use it to behave differently when the job will not be retried:
+
+```php
+use Berlioz\QueueManager\Handler\JobHandlerInterface;
+use Berlioz\QueueManager\Job\JobInterface;
+use Throwable;
+
+class FooJobHandler implements JobHandlerInterface
+{
+    public function handle(JobInterface $job): void
+    {
+        try {
+            // Process the job
+        } catch (Throwable $exception) {
+            if ($job->isLastAttempt()) {
+                // No more retry: fallback, notify...
+                return;
+            }
+
+            throw $exception; // The worker releases the job for a new attempt
+        }
+    }
+}
+```
+
+`getMaxAttempts()` returns `null` when the maximum is unknown, and `isLastAttempt()` then returns `false`:
+
+| Queue                            | Maximum attempts                                                                    |
+|----------------------------------|-------------------------------------------------------------------------------------|
+| `DbQueue`, `MemoryQueue`         | `maxAttempts` of the queue                                                          |
+| `AmqpQueue`, `RabbitMqQueue`     | `maxAttempts` of the queue                                                          |
+| `AwsSqsQueue`                    | `maxAttempts` of the queue, or `maxReceiveCount` of the SQS redrive policy          |
+| `RedisQueue`                     | `null` (no attempt limit)                                                           |
+
+With `AwsSqsQueue`, if `maxAttempts` is not given, the redrive policy is read from SQS (one API call) only when the job
+is asked for it. The attempt count of an SQS job is the approximate receive count given by SQS.
+
 ## Worker
 
 The `Worker` class is the main part of the **Berlioz Queue Manager** and is responsible for processing jobs from a queue
@@ -364,6 +407,7 @@ $queue = new AwsSqsQueue(
     name: 'default',               // Queue name
     queueUrl: '...',               // AWS queue URL
     retryTime: 30,                 // Time to wait after failed job
+    maxAttempts: null,             // Maximum attempts of a job (since 3.4), default from the redrive policy
 );
 ```
 
