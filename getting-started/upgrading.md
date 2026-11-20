@@ -54,6 +54,10 @@ summary-order: 2
 - **Debug console:** An unknown snapshot now returns a `404` error, and the toolbar shows the response time instead of
   the total time. See [Debug](debug.md#response-time).
 
+- **Custom queue jobs:** `JobInterface` has two new methods, `getMaxAttempts()` and `isLastAttempt()`. Custom
+  implementations not extending `Berlioz\QueueManager\Job\Job` must implement them. See
+  [Last attempt](../components/queue-manager.md#last-attempt).
+
 ## Upgrading from version 3.2 to 3.3
 
 - **Reverse proxies:** If your application uses `X-Forwarded-Prefix`, review your trusted proxy configuration
