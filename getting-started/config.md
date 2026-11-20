@@ -104,6 +104,9 @@ This is the base configuration provided by **berlioz/core**:
 }
 ```
 
+> ⚠️ **Warning**: The `container.services` key is deprecated since version 3.4. Declare your services in a provider
+> listed in `container.providers`. See [Service container](service-container.md#migrating-from-containerservices).
+
 ### HTTP configuration
 
 When using **berlioz/http-core**, the following configuration is merged on top:
