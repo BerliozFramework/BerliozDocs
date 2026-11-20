@@ -78,6 +78,27 @@ The `mapped` option accepts a boolean, a property name or, since version 3.3, a 
 It defaults to `true` for ordinary inputs; button types disable mapping by default.
 See [Mapping fields to an object](../forms.md#mapping-fields-to-an-object) for details and examples.
 
+### Non-scalar values
+
+> 🆕 **Info**: *Since version 3.4*
+
+Inputs expect a single scalar value. When an array or an object is submitted to an input (for example
+`?user[name][]=foo`, or a JSON array in an API body), the input is invalid with a
+`Berlioz\Form\Validator\Constraint\ScalarConstraint` ("The field "name" has an invalid value.") and the value is not
+hydrated into the mapped object.
+
+This check is done by `Berlioz\Form\Validator\ScalarValidator`, added by default to all inputs except
+[`File`](input-file.md) and [`Choice`](input-choice.md), which handle multiple values by design.
+An `Email` input with the `multiple` option still receives a single comma-separated string.
+
+To receive several values, use a [`Collection`](collection.md) of inputs, a multiple [`Choice`](input-choice.md),
+or `Berlioz\Form\Type\RawType` for a free-form value (a JSON structure, for example).
+
+> ⚠️ **Warning**: The `scalar` option is deprecated since version 3.4 and will be removed in version 4, where
+> non-scalar values will always be rejected. Setting it triggers an `E_USER_DEPRECATED` notice: `scalar: false`
+> disables the check (behavior before 3.4) and only eases the migration, `scalar: true` is the default behavior and
+> can be removed.
+
 ## Attributes
 
 Some attributes are used by forms library to do validations or interactions. Refers to the input description.
