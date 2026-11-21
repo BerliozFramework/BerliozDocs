@@ -30,7 +30,9 @@ summary-order: 2
   Update narrower overrides to match or widen these types. Subclasses overriding
   `Berlioz\Package\Twig\Twig::__debugInfo()` must now declare the `array` return type.
 
----
+- **SMTP transport:** The `options` argument of `Smtp` is deprecated, use the `timeout` argument instead. Consider
+  enabling encryption with the new `encryption` argument. See
+  [SMTP connection modes](../components/mailer.md#smtp-connection-modes).
 
 ## Upgrading from version 3.2 to 3.3
 
