@@ -32,6 +32,13 @@ The class inherits [`Berlioz\Form\Group`](group.md), so you can add a form to an
   the user value else the default value
 - `Form::getFinalValue(): array`: same as `Form::getValue()` with treatment by transformers
 
+## Request lifetime
+
+Create a fresh form instance for each request, including in long-running application processes. Calling
+`handle()` again on the same instance does not reset every child's submitted state: an omitted field can retain
+its previous submitted value. Do not register a mutable form as a shared service across requests; use a factory
+to build a new form instead.
+
 ## Example
 
 Creation of a form.

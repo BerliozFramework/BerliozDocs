@@ -50,11 +50,11 @@ Uploaded files are merged into the submitted data.
 
 > 🆕 **Info**: *Since version 3.4*
 
-By default, every JSON object of the body is converted to an associative array: a nested `{}` cannot be
+By default, when the parsed body is an object, it and its nested objects are converted to associative arrays: a nested `{}` cannot be
 distinguished from `[]`, and an object with numeric keys becomes a list.
 
 With `strictJson: true`, only the root object is converted to an array; nested objects stay `stdClass` and arrays
-stay arrays. A field can then require a JSON object:
+stay arrays. Custom validation can then distinguish a JSON object from an array:
 
 ```php
 use Berlioz\Form\DataProvider\ApiDataProvider;
@@ -66,6 +66,10 @@ $provider = new ApiDataProvider(strictJson: true);
 
 [Groups](group.md) accept a submitted `stdClass` and [collections](collection.md) iterate over its properties, so
 existing form structures keep working.
+
+`strictJson` controls the representation of submitted data, not field validation. It does not require exact scalar
+types (for example, an integer rather than a numeric string), prevent field transformers from converting values,
+or automatically require an object for a particular field. Add custom validation where your API requires those rules.
 
 > ⚠️ **Warning**: Constructing `ApiDataProvider` without `strictJson: true` is deprecated since version 3.4 and
 > triggers an `E_USER_DEPRECATED` notice. Strict JSON will be the only behavior in version 4, where the parameter
