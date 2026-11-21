@@ -135,6 +135,15 @@ The `client` key is passed directly to the `SqsClient` constructor. The optional
 Each queue entry must resolve to a valid SQS URL. If a queue is misconfigured without a URL, the factory now throws a
 clear configuration exception.
 
+> 🆕 **Info**: *Since version 3.4*
+>
+> The optional `max_attempts` key (global or per queue) gives the maximum attempts of a job, returned by
+> `JobInterface::getMaxAttempts()`. It should match the `maxReceiveCount` of the SQS redrive policy; if not given, it
+> is read from the redrive policy when needed. Retries themselves are still managed by SQS.
+
+Automatic discovery requires `sqs:GetQueueAttributes` permission on the queue. An explicit `max_attempts` avoids
+that API lookup, but does not modify the SQS redrive policy. Keep it aligned with the actual `maxReceiveCount`.
+
 ### Memory queue
 
 Useful for testing or short-lived tasks:
@@ -355,6 +364,36 @@ Handler classes are resolved from the service container, so dependency injection
 
 The `JobHandlerManager` supports wildcard matching: a handler registered as `order.*` will match job names like
 `order.confirmation`, `order.shipped`, etc.
+
+### Handling the last attempt
+
+> 🆕 **Info**: *Since version 3.4*
+
+When a handler throws, the worker releases the job for a new attempt, until the `max_attempts` of the queue is reached.
+Use `JobInterface::isLastAttempt()` to behave differently when the job will not be retried:
+
+```php
+public function handle(JobInterface $job): void
+{
+    try {
+        $this->mailer->sendOrderConfirmation($order, $email);
+    } catch (MailerException $exception) {
+        if ($job->isLastAttempt()) {
+            $this->orders->flagConfirmationFailure($order);
+            return;
+        }
+
+        throw $exception;
+    }
+}
+```
+
+`isLastAttempt()` returns `false` when the maximum number of attempts is unknown (`getMaxAttempts()` returns `null`).
+See [Attempts and retry time](../components/queue-manager.md#attempts-and-retry-time) for details per queue type.
+
+Returning normally after the fallback marks the job as handled; the worker deletes it. Also make handlers
+[idempotent](../components/queue-manager.md#delivery-guarantees-and-idempotency): broker redeliveries or an expired
+retry/visibility timeout can cause duplicate execution, including while an earlier handler is still running.
 
 ## Built-in job handlers
 
