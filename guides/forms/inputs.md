@@ -91,11 +91,17 @@ This check is done by `Berlioz\Form\Validator\ScalarValidator`, added by default
 [`File`](input-file.md) and [`Choice`](input-choice.md), which handle multiple values by design.
 An `Email` input with the `multiple` option still receives a single comma-separated string.
 
+The scalar check accepts `null` and scalar values (`string`, `int`, `float`, `bool`); the usual required,
+format and other validators still apply. It does not enforce an exact JSON scalar type or preserve integers
+through field transformations. In particular, it does not distinguish `3` from `"3"` as a type requirement.
+Use custom validation for API-specific type rules; [`strictJson`](data-providers.md#strict-json) only preserves
+the provider's object/array representation.
+
 To receive several values, use a [`Collection`](collection.md) of inputs, a multiple [`Choice`](input-choice.md),
 or `Berlioz\Form\Type\RawType` for a free-form value (a JSON structure, for example).
 
 > ⚠️ **Warning**: The `scalar` option is deprecated since version 3.4 and will be removed in version 4, where
-> non-scalar values will always be rejected. Setting it triggers an `E_USER_DEPRECATED` notice: `scalar: false`
+> these scalar-only inputs will always reject non-scalar values. Setting it triggers an `E_USER_DEPRECATED` notice: `scalar: false`
 > disables the check (behavior before 3.4) and only eases the migration, `scalar: true` is the default behavior and
 > can be removed.
 
