@@ -63,6 +63,9 @@ Default configuration is:
 
 ### PDO options
 
+> 🆕 **Info**: *Since version 3.4*, `berlioz/hector-package` requires HectorORM **1.5 or later**.
+> HectorORM 1.5 introduced PDO connection options; earlier versions do not forward them to PDO.
+
 PDO connection options are given under `hector.options`. They are passed to the PDO constructor and shared by the
 read/write and read-only (`read_dsn`) connections.
 
