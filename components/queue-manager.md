@@ -116,17 +116,8 @@ class FooJobHandler implements JobHandlerInterface
 }
 ```
 
-`getMaxAttempts()` returns `null` when the maximum is unknown, and `isLastAttempt()` then returns `false`:
-
-| Queue                            | Maximum attempts                                                                    |
-|----------------------------------|-------------------------------------------------------------------------------------|
-| `DbQueue`, `MemoryQueue`         | `maxAttempts` of the queue                                                          |
-| `AmqpQueue`, `RabbitMqQueue`     | `maxAttempts` of the queue                                                          |
-| `AwsSqsQueue`                    | `maxAttempts` of the queue, or `maxReceiveCount` of the SQS redrive policy          |
-| `RedisQueue`                     | `null` (no attempt limit)                                                           |
-
-With `AwsSqsQueue`, if `maxAttempts` is not given, the redrive policy is read from SQS (one API call) only when the job
-is asked for it. The attempt count of an SQS job is the approximate receive count given by SQS.
+`getMaxAttempts()` returns the maximum attempts of the job queue (see [Attempts and retry time](#attempts-and-retry-time)).
+When it is `null` (no limit or unknown limit), `isLastAttempt()` returns `false`.
 
 ## Worker
 
@@ -241,6 +232,30 @@ To stop the worker, just run: `touch /tmp/stop_worker_1`. The worker will check 
 job.
 
 ## Queues
+
+#### Attempts and retry time
+
+> 🆕 **Info**: *Since version 3.4*
+
+Every queue exposes its retry policy through `QueueInterface`:
+
+- `getMaxAttempts(): ?int`: maximum number of attempts of a job, `null` if the queue has no limit or if it is unknown;
+- `getRetryTime(): ?int`: time (in seconds) after which a consumed job, neither deleted nor released (e.g. after a
+  worker crash), becomes available again; `null` if the queue does not make such jobs available again after a delay.
+
+Use them to derive your own settings from the queue, e.g. a processing timeout lower than the retry time, instead of
+configuring the same values twice.
+
+| Queue                        | `getMaxAttempts()`                                                         | `getRetryTime()`                     |
+|------------------------------|----------------------------------------------------------------------------|--------------------------------------|
+| `DbQueue`, `MemoryQueue`     | `maxAttempts`                                                              | `retryTime` (lock time)              |
+| `AwsSqsQueue`                | `maxAttempts`, or `maxReceiveCount` of the SQS redrive policy, or `null`   | `retryTime` (visibility timeout)     |
+| `AmqpQueue`, `RabbitMqQueue` | `maxAttempts`                                                              | `null` (requeued by the broker when the connection closes) |
+| `RedisQueue`                 | `maxAttempts`                                                              | `null` (consumed jobs are not recovered) |
+| `NullQueue`, `QueueManager`  | `null`                                                                     | `null`                               |
+
+With `AwsSqsQueue`, if `maxAttempts` is not given, the redrive policy is read from SQS (one API call) only when asked;
+a job caches it. The attempt count of an SQS job is the approximate receive count given by SQS.
 
 #### DbQueue
 
@@ -444,8 +459,14 @@ $queue = new RedisQueue(
   redis: $redis,    // Redis connection
   name: 'default',  // Queue name
   deletedJobsTtl: 86400,
+  maxAttempts: 5,   // Maximum attempts of a job (since 3.4)
 );
 ```
+
+> 🆕 **Info**: *Since version 3.4*
+>
+> A job that reached `maxAttempts` is no longer released: it is moved to the `<name>:dead` list. Before 3.4, failed
+> Redis jobs were retried indefinitely.
 
 > 🆕 **Info**: *Since version 3.1*
 >

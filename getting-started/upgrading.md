@@ -58,6 +58,15 @@ summary-order: 2
   implementations not extending `Berlioz\QueueManager\Job\Job` must implement them. See
   [Last attempt](../components/queue-manager.md#last-attempt).
 
+- **Custom queues:** `QueueInterface` has two new methods, `getMaxAttempts()` and `getRetryTime()`. Custom
+  implementations must implement them. See
+  [Attempts and retry time](../components/queue-manager.md#attempts-and-retry-time).
+- **Custom queue jobs:** `JobInterface` has two new methods, `getMaxAttempts()` and `isLastAttempt()`. Custom
+  implementations not extending `Berlioz\QueueManager\Job\Job` must implement them. See
+  [Last attempt](../components/queue-manager.md#last-attempt).
+- **Redis queues:** failed jobs are no longer retried indefinitely: after `maxAttempts` (5 by default), they are moved
+  to the `<name>:dead` list. Set `maxAttempts` on `RedisQueue` if you need more attempts.
+
 ## Upgrading from version 3.2 to 3.3
 
 - **Reverse proxies:** If your application uses `X-Forwarded-Prefix`, review your trusted proxy configuration

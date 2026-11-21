@@ -385,8 +385,8 @@ public function handle(JobInterface $job): void
 }
 ```
 
-`isLastAttempt()` returns `false` when the maximum number of attempts is unknown (`getMaxAttempts()` returns `null`),
-e.g. with a Redis queue. See [Queue Manager](../components/queue-manager.md) for details per queue type.
+`isLastAttempt()` returns `false` when the maximum number of attempts is unknown (`getMaxAttempts()` returns `null`).
+See [Attempts and retry time](../components/queue-manager.md#attempts-and-retry-time) for details per queue type.
 
 ## Built-in job handlers
 
