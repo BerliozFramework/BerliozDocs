@@ -72,6 +72,11 @@ summary-order: 2
 - **Retry safety:** Make handlers idempotent and keep job processing time below the retry/visibility timeout;
   duplicate or concurrent processing is possible. See
   [Delivery guarantees and idempotency](../components/queue-manager.md#delivery-guarantees-and-idempotency).
+- **Queue factories:** `berlioz/queue-manager-package` now provides factories for Redis, AMQP, RabbitMQ and Null
+  queues, registered by default. A factory you wrote for one of these queue classes keeps precedence over the built-in
+  one: you can keep it, or remove it and use the built-in configuration. See
+  [Redis queue](../guides/queues.md#redis-queue), [AMQP queue](../guides/queues.md#amqp-queue) and
+  [Custom queue factories](../guides/queues.md#custom-queue-factories).
 
 - **HTTP QUERY method:** Routes declared without `method` now also accept `QUERY` requests
   ([RFC 10008](https://www.rfc-editor.org/info/rfc10008/)). If such a controller reads the request body, it now

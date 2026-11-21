@@ -245,10 +245,46 @@ Requires the `ext-amqp` PHP extension. The connection is configured with a DSN, 
 - The DSN accepts the `amqp://` and `amqps://` schemes (default port `5672` and `5671`). The vhost, login and password
   must be URL-encoded (`%2F` for the `/` vhost); an empty path means the `/` vhost. Query parameters are not supported.
 - Explicit keys (`host`, `port`, `vhost`, `login`, `password`) override the values of the DSN.
-- Any other key (`heartbeat`, `read_timeout`, `cacert`, `cert`, `key`, `verify`…) is passed as is to `AMQPConnection`.
-  With `amqps://`, give the TLS options (`cacert`…) explicitly.
+- Any other key (`heartbeat`, `read_timeout`, `connect_timeout`, `cacert`, `cert`, `key`, `verify`…) is passed as is
+  to `AMQPConnection`.
+- Omitted keys take the value of the corresponding `amqp.*` INI setting of the extension (`amqp.login`,
+  `amqp.vhost`, `amqp.cacert`…).
 
 All queues in the same definition share the same connection. `max_attempts` can be given globally or per queue.
+
+#### TLS connection
+
+The `amqps://` scheme **requires** a verified TLS connection. The port alone does not enable encryption: the `ext-amqp`
+extension only uses TLS when a CA certificate is given. Before connecting, the factory checks the effective settings
+(options or `amqp.*` INI settings) and throws a `ConfigException`, without opening any connection, when:
+
+- no CA certificate is given (`cacert` option or `amqp.cacert` INI setting);
+- the verification is disabled (`verify` option or `amqp.verify` INI setting set to `false`);
+- only one of the `cert` and `key` options is given.
+
+Explicit `host` or `port` keys do not remove this requirement.
+
+```json
+{
+    "amqp": {
+        "dsn": "amqps://myuser:mypassword@rabbitmq.example.com:5671/my-vhost",
+        "cacert": "/etc/ssl/rabbitmq/ca.pem",
+        "verify": true
+    }
+}
+```
+
+- **`cacert`**: path to the CA certificate (PEM) that signed the broker certificate. No system CA path is assumed:
+  give the CA explicitly, even for a broker certificate signed by a public authority (for example the CA bundle of
+  your system).
+- **`verify`**: verification of the broker certificate **and** hostname, enabled by default. Connect with the hostname
+  present in the broker certificate. Never disable it in production: without verification, anyone able to intercept
+  the connection can impersonate the broker and receive the credentials and the jobs.
+- **`cert`** / **`key`**: optional client certificate and private key, for brokers requiring mutual TLS. They
+  authenticate the client to the broker, and do not replace the CA certificate.
+
+> ⚠️ **Warning**: With the `amqp://` scheme, no TLS is required: a missing CA certificate means a plain connection.
+> Always use `amqps://` when the connection must be encrypted.
 
 ### RabbitMQ queue
 
@@ -280,8 +316,10 @@ for monitoring metrics (`waitTime()`, `delayed()`…):
 }
 ```
 
-When `username` or `password` are not given, the AMQP login and password are used. The vhost of the connection is used
-for management API calls.
+When `username` or `password` are not given, the login and password of the effective AMQP connection are used,
+whether they come from the DSN, the explicit keys or the `amqp.login` / `amqp.password` INI settings. Explicit
+`management.username` and `management.password` override them. Management API calls use the vhost of the effective
+connection (including the `amqp.vhost` INI setting). The `amqps://` [TLS requirements](#tls-connection) also apply.
 
 ### Null queue
 
