@@ -17,45 +17,215 @@ Container interface) standard.
 
 ## Configuration
 
-You can define services in the configuration file.
-
-Example:
+Declare your application services in a [service provider](../components/service-container.md#service-provider), and
+register the provider in the configuration with the `container.providers` key.
 
 ```json
 {
   "container": {
     "providers": [
-      "MyService\\Provider",
-      ...
-    ],
+      "App\\Container\\AppServiceProvider"
+    ]
+  }
+}
+```
+
+```php
+namespace App\Container;
+
+use Berlioz\ServiceContainer\Container;
+use Berlioz\ServiceContainer\Provider\AbstractServiceProvider;
+use Berlioz\ServiceContainer\Service\Service;
+use MyService\ClassName;
+
+class AppServiceProvider extends AbstractServiceProvider
+{
+    // Classes and aliases provided by this provider
+    protected array $provides = [ClassName::class, 'myServiceAlias'];
+
+    public function register(Container $container): void
+    {
+        $service = new Service(ClassName::class, 'myServiceAlias');
+        $service->addArguments(['foo' => 'value', 'bar' => 'value']);
+        $service->addCall('myMethodName', ['baz' => 'value', 'qux' => 'value']);
+
+        $container->addService($service);
+    }
+}
+```
+
+In the example, when you get service `myServiceAlias` or `MyService\ClassName::class`, the instantiator will:
+
+- Instantiate class with constructor arguments `foo` and `bar`
+- Call method `myMethodName` with arguments `baz` and `qux`, after instantiation
+
+Providers listed in `container.providers` are instantiated by the container, so their constructor can receive
+services like `Berlioz\Core\Core` by auto-wiring.
+
+### Migrating from `container.services`
+
+> ⚠️ **Warning**: Declaring services in the `container.services` configuration key is deprecated since version 3.4
+> and triggers an `E_USER_DEPRECATED` notice. It will be removed in version 4. `container.providers` is not
+> deprecated.
+
+Each entry of `container.services` becomes a service declared in the `register()` method of a provider. The class
+and the alias of each service, and its `provides` values, must also be listed in the `$provides` property of the
+provider.
+
+The examples below show the configuration before, then the `register()` method after migration.
+
+#### Class or alias
+
+```json
+{
+  "container": {
     "services": {
-      "myServiceAlias": {
-        "class": "MyService\\ClassName",
-        "arguments": {
-          "foo": "value",
-          "bar": "value"
-        },
-        "calls": [
-          {
-            "method": "myMethodName",
-            "arguments": {
-              "baz": "value",
-              "qux": "value"
-            }
-          }
-        ]
-      },
-      ...
+      "mailer": "App\\Service\\Mailer"
     }
   }
 }
 ```
 
-In the example, when you got service `myServiceAlias` or `MyService\ClassName::class`, the instantiator will take
-configuration, and do:
+```php
+public function register(Container $container): void
+{
+    $container->add(Mailer::class, 'mailer');
+}
+```
 
-- Instantiate class with constructor arguments `foo` and `bar`
-- Call method `myMethodName` with arguments `baz` and `qux`, after instantiation
+#### Factory, arguments and calls
+
+Argument values keep the same syntax, including references to other services like `@alias`.
+
+```json
+{
+  "container": {
+    "services": {
+      "client": {
+        "class": "App\\Service\\Client",
+        "factory": "App\\Service\\ClientFactory::create",
+        "arguments": {
+          "baseUri": "https://example.com",
+          "logger": "@logger"
+        },
+        "calls": [
+          {
+            "method": "setTimeout",
+            "arguments": {
+              "timeout": 30
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+```php
+public function register(Container $container): void
+{
+    $service = new Service(
+        class: Client::class,
+        alias: 'client',
+        factory: ClientFactory::class . '::create',
+    );
+    $service->addArguments(['baseUri' => 'https://example.com', 'logger' => '@logger']);
+    $service->addCall('setTimeout', ['timeout' => 30]);
+
+    $container->addService($service);
+}
+```
+
+#### Provides
+
+```json
+{
+  "container": {
+    "services": {
+      "storage": {
+        "class": "App\\Storage\\LocalStorage",
+        "provides": ["App\\Storage\\StorageInterface"]
+      }
+    }
+  }
+}
+```
+
+```php
+protected array $provides = [LocalStorage::class, 'storage', StorageInterface::class];
+
+public function register(Container $container): void
+{
+    $container
+        ->add(LocalStorage::class, 'storage')
+        ->addProvide(StorageInterface::class);
+}
+```
+
+#### Cache
+
+The `cache` option used the Core cache with a TTL: an ISO 8601 duration string, a number of seconds, or `true`
+for no expiration. Create a `CacheStrategy` with the Core cache, injected in the provider constructor.
+
+```json
+{
+  "container": {
+    "services": {
+      "catalog": {
+        "class": "App\\Catalog\\Catalog",
+        "cache": "PT1H"
+      }
+    }
+  }
+}
+```
+
+```php
+use Berlioz\Core\Core;
+use Berlioz\ServiceContainer\Service\CacheStrategy;
+use DateInterval;
+
+class AppServiceProvider extends AbstractServiceProvider
+{
+    protected array $provides = [Catalog::class, 'catalog'];
+
+    public function __construct(private Core $core)
+    {
+    }
+
+    public function register(Container $container): void
+    {
+        $container->addService(
+            new Service(
+                class: Catalog::class,
+                alias: 'catalog',
+                cacheStrategy: new CacheStrategy($this->core->getCache(), new DateInterval('PT1H')),
+            )
+        );
+    }
+}
+```
+
+#### Per-environment declarations
+
+If a configuration file of a given environment (like a local `config.json` not committed) overrides
+`container.services`, use one of these options:
+
+- Create a dedicated provider, and list it in `container.providers` of that configuration file only.
+- Check the environment in the provider with `Core::getEnv()`, which returns the `berlioz.environment` value:
+
+  ```php
+  public function register(Container $container): void
+  {
+      if (Core::ENV_DEV === $this->core->getEnv()) {
+          $container->add(FakeMailer::class, 'mailer');
+          return;
+      }
+
+      $container->add(Mailer::class, 'mailer');
+  }
+  ```
 
 ## Usage
 

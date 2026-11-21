@@ -39,6 +39,10 @@ summary-order: 2
   instead; the deprecated `scalar: false` option restores the previous behavior until version 4. See
   [Non-scalar values](../guides/forms/inputs.md#non-scalar-values).
 
+- **Service declarations:** Declaring services in the `container.services` configuration key is deprecated. Move
+  them to a service provider listed in `container.providers`. See
+  [Migrating from `container.services`](service-container.md#migrating-from-containerservices).
+
 ## Upgrading from version 3.2 to 3.3
 
 - **Reverse proxies:** If your application uses `X-Forwarded-Prefix`, review your trusted proxy configuration
