@@ -251,7 +251,7 @@ configuring the same values twice.
 | `DbQueue`, `MemoryQueue`     | `maxAttempts`                                                              | `retryTime` (lock time)              |
 | `AwsSqsQueue`                | `maxAttempts`, or `maxReceiveCount` of the SQS redrive policy, or `null`   | `retryTime` (visibility timeout)     |
 | `AmqpQueue`, `RabbitMqQueue` | `maxAttempts`                                                              | `null` (requeued by the broker when the connection closes) |
-| `RedisQueue`                 | `maxAttempts`                                                              | `null` (consumed jobs are not recovered) |
+| `RedisQueue`                 | `maxAttempts`                                                              | `retryTime` (processing time limit)  |
 | `NullQueue`, `QueueManager`  | `null`                                                                     | `null`                               |
 
 With `AwsSqsQueue`, if `maxAttempts` is not given, the redrive policy is read from SQS (one API call) only when asked;
@@ -460,13 +460,18 @@ $queue = new RedisQueue(
   name: 'default',  // Queue name
   deletedJobsTtl: 86400,
   maxAttempts: 5,   // Maximum attempts of a job (since 3.4)
+  retryTime: 30,    // Time to wait after a job consumed but neither deleted nor released (since 3.4)
 );
 ```
 
 > 🆕 **Info**: *Since version 3.4*
 >
-> A job that reached `maxAttempts` is no longer released: it is moved to the `<name>:dead` list. Before 3.4, failed
-> Redis jobs were retried indefinitely.
+> - A job that reached `maxAttempts` is no longer released: it is moved to the `<name>:dead` list. Before 3.4, failed
+>   Redis jobs were retried indefinitely.
+> - A consumed job is kept in the `<name>:processing` sorted set until it is deleted or released. If the worker dies
+>   during the processing, the job is made available again after `retryTime`, as a failed attempt (or moved to the
+>   `<name>:dead` list once `maxAttempts` is reached). Before 3.4, such a job was lost. Like with `DbQueue`, `retryTime`
+>   must be greater than the longest processing time of a job.
 
 > 🆕 **Info**: *Since version 3.1*
 >
@@ -507,6 +512,9 @@ How it works:
 - **Retries**: When a job fails, it can be retried with a delay and with a lower priority.
 - **Dead-Letter**: If the number of attempts exceeds `maxAttempts`, the job is sent to the dead-letter queue for
   inspection.
+- **Broker redeliveries**: Since version 3.4, a message redelivered by the broker (the consumer died without deleting
+  or releasing the job) counts as a failed attempt: it is published again with incremented attempts, or sent to the
+  dead-letter queue once `maxAttempts` is reached.
 
 ```php
 use Berlioz\QueueManager\Queue\AmqpQueue;

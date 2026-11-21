@@ -65,7 +65,11 @@ summary-order: 2
   implementations not extending `Berlioz\QueueManager\Job\Job` must implement them. See
   [Last attempt](../components/queue-manager.md#last-attempt).
 - **Redis queues:** failed jobs are no longer retried indefinitely: after `maxAttempts` (5 by default), they are moved
-  to the `<name>:dead` list. Set `maxAttempts` on `RedisQueue` if you need more attempts.
+  to the `<name>:dead` list. Set `maxAttempts` on `RedisQueue` if you need more attempts. Consumed jobs are now made
+  available again if neither deleted nor released within `retryTime` (30 seconds by default): set a `retryTime` greater
+  than your longest job.
+- **AMQP queues:** messages redelivered by the broker after a consumer crash now count as attempts and end in the
+  dead-letter queue after `maxAttempts`.
 
 ## Upgrading from version 3.2 to 3.3
 
