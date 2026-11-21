@@ -24,6 +24,9 @@ Some middlewares are configured by default:
 
 - `Berlioz\Http\Core\Http\Middleware\MaintenanceMiddleware`:
   stop execution of controllers and display maintenance page if [maintenance is enabled](../guides/maintenance.md).
+- `Berlioz\Http\Core\Http\Middleware\AcceptQueryMiddleware` *(since version 3.4)*:
+  handle the `acceptQuery` route option of the [QUERY method](routing.md#query-method): `Accept-Query` header and
+  rejection of `QUERY` requests with a missing or unsupported content type. Does nothing for routes without the option.
 - `Berlioz\Http\Core\Http\Middleware\RedirectionMiddleware`:
   do [redirections configured](../guides/redirections.md) in configuration if no controller found.
 

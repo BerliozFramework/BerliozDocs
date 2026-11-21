@@ -40,12 +40,14 @@ $response = $client->sendRequest($request);
 print $response->getBody();
 ```
 
-#### Get/Post/Patch/Put/Delete/Options/Head/Connect/Trace
+#### Get/Post/Query/Patch/Put/Delete/Options/Head/Connect/Trace
 
 Methods are available to do request with defined HTTP method:
 
 - `Client::get(...)`
 - `Client::post(...)`
+- `Client::query(...)` *(since version 3.4)*: HTTP `QUERY` method ([RFC 10008](https://www.rfc-editor.org/info/rfc10008/)),
+  the query is sent in the body
 - `Client::patch(...)`
 - `Client::put(...)`
 - `Client::delete(...)`
@@ -177,6 +179,10 @@ automatic cookie sending and collection; a manually supplied header still follow
 
 For 307 and 308, the client preserves the method, body and content type, including across origins. Other followed
 statuses rebuild the request as GET without the original body. Content length is recalculated for each redirect.
+
+> 🆕 **Info**: *Since version 3.4*, `QUERY` requests also keep their method, body and content type on 301 and 302,
+> as required by RFC 10008; only 303 switches them to GET.
+
 The credential policy filters headers and URI credentials; it does not inspect or redact request bodies. To handle
 body replay decisions yourself, disable automatic redirects with `followLocation: false` in an `Options` object,
 or `'followLocation' => false` in array options.
