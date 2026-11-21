@@ -16,10 +16,11 @@ The class inherits [`Berlioz\Form\Group`](group.md), so you can add a form to an
 
 ## Options
 
-| Name         | Type    | Default value | Description                          |
-|--------------|---------|---------------|--------------------------------------|
-| **method**   | string  | "post"        | HTTP method for form                 |
-| **required** | boolean | true          | Default requirement for all elements |
+| Name             | Type             | Default value        | Description                                               |
+|------------------|------------------|----------------------|-----------------------------------------------------------|
+| **method**       | string           | "post"               | HTTP method for form                                      |
+| **required**     | boolean          | true                 | Default requirement for all elements                      |
+| **dataProvider** | FormDataProvider | `FormDataProvider`   | Extracts submitted data, see [Data providers](data-providers.md) |
 
 ## Methods
 
@@ -30,6 +31,13 @@ The class inherits [`Berlioz\Form\Group`](group.md), so you can add a form to an
 - `Form::getValue(): array`: form value (without treatment by transformers) ; if form is submitted, the value will be
   the user value else the default value
 - `Form::getFinalValue(): array`: same as `Form::getValue()` with treatment by transformers
+
+## Request lifetime
+
+Create a fresh form instance for each request, including in long-running application processes. Calling
+`handle()` again on the same instance does not reset every child's submitted state: an omitted field can retain
+its previous submitted value. Do not register a mutable form as a shared service across requests; use a factory
+to build a new form instead.
 
 ## Example
 

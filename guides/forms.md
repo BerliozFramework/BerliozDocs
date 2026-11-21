@@ -26,6 +26,7 @@ Forms are composed of:
     - [Inputs](forms/inputs.md)
     - [Collection](forms/collection.md)
     - [Group](forms/group.md)
+    - [Data providers](forms/data-providers.md)
 
 ## Mapping fields to an object
 
