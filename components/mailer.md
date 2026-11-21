@@ -218,7 +218,7 @@ negotiation fails, sending fails with a `TransportException`. The transport neve
 and authentication and message delivery only happen over the encrypted connection.
 
 TLS 1.2 and TLS 1.3 are used by default. The server certificate and the host name are validated against the system
-certificate authorities.
+certificate authorities. STARTTLS and implicit TLS require the PHP `openssl` extension.
 
 > ⚠️ **Warning**: The plain mode sends credentials and message contents unencrypted. Use it only with a local server
 > or a trusted network, e.g. a development mail catcher (Mailpit, MailHog...).
@@ -253,9 +253,10 @@ $smtp = new Smtp(
 
 You can also pin the server certificate with the `peer_fingerprint` option.
 
-> ⚠️ **Warning**: Setting `verify_peer` or `verify_peer_name` to `false`, or `allow_self_signed` to `true`, disables
-> protection against man-in-the-middle attacks. The transport logs a warning in this case. Prefer `cafile` or
-> `peer_fingerprint`.
+> ⚠️ **Warning**: Setting `verify_peer` or `verify_peer_name` to `false`, or `allow_self_signed` to `true`, weakens
+> certificate validation and may expose the connection to man-in-the-middle attacks. The transport logs a warning
+> in this case. Keep validation enabled and configure `cafile` for private certificates; use `peer_fingerprint`
+> when certificate pinning is required.
 
 #### Create a new transport
 
