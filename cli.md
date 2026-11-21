@@ -40,6 +40,14 @@ Printed result!
 
 For more details of commands usage, referrer you to the [Commands page](cli/commands.md).
 
+> 🆕 **Info**: *Since version 3.4*
+>
+> After each command, even a failed one, the `berlioz` binary terminates the application: a `CliTerminateEvent` is
+> dispatched and the [deferred queues](guides/queues.md#deferred-queues) are consumed. The event exposes the exit code
+> returned by command handling; it is `null` if handling did not complete normally, even though the binary exits
+> with code `1` when it catches an exception. See
+> [Framework events](guides/events.md#terminate).
+
 ## Default commands
 
 ### `berlioz:config`

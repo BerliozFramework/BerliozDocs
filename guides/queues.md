@@ -49,7 +49,11 @@ Default configuration provided by the package:
                 "Berlioz\\Package\\QueueManager\\Factory\\MemoryQueueFactory",
                 "Berlioz\\Package\\QueueManager\\Factory\\AwsSqsQueueFactory",
                 "Berlioz\\Package\\QueueManager\\Factory\\DbQueueFactory"
-            ]
+            ],
+            "deferred": {
+                "queues": [],
+                "time_limit": null
+            }
         }
     }
 }
@@ -58,6 +62,7 @@ Default configuration provided by the package:
 - **`queues`**: Array of queue definitions, each with a `type` key matching a queue class
 - **`handlers`**: Map of job name to handler class
 - **`factories`**: Array of factory classes that know how to create queues from configuration
+- **`deferred`**: Queues consumed after the response, see [Deferred queues](#deferred-queues)
 
 ### Database queue
 
@@ -238,6 +243,72 @@ class EmailJobDescriptor extends JobDescriptor implements JobForQueue
 
 When pushed through the `QueueManager`, this job will automatically be routed to the `emails` queue regardless of the
 default.
+
+## Deferred queues
+
+> 🆕 **Info**: *Since version 3.4*
+
+A deferred queue is consumed **in the same process, after the response has been sent to the client** (or at the end of
+a CLI command), instead of by a [worker](../cli/queues.md). It suits short tasks that should not delay the response:
+sending a confirmation email, calling a webhook, refreshing a cache...
+
+Declare a memory queue and list it under `berlioz.queues.deferred.queues`:
+
+```json
+{
+    "berlioz": {
+        "queues": {
+            "queues": [
+                {
+                    "type": "Berlioz\\QueueManager\\Queue\\MemoryQueue",
+                    "name": "deferred",
+                    "max_attempts": 1
+                }
+            ],
+            "deferred": {
+                "queues": ["deferred"],
+                "time_limit": 20
+            }
+        }
+    }
+}
+```
+
+| Key | Description | Default |
+|---|---|---|
+| `queues` | Names of the queues consumed on terminate; empty disables the feature | `[]` |
+| `time_limit` | Maximum time in seconds to consume the queues; a job already started is not interrupted | `null` (no limit) |
+
+Then push jobs to this queue, as usual:
+
+```php
+$this->queueManager->push(
+    new JobDescriptor('order.confirmation', ['order_id' => $orderId]),
+    queue: 'deferred',
+);
+```
+
+The jobs are processed by the same [job handlers](#creating-job-handlers) as any other queue. They require the
+application to be terminated: see [After the response](../http/terminate.md) for the front controller. The `berlioz` CLI
+binary terminates the application automatically after each command.
+
+How the deferred queues are consumed:
+
+- Jobs are processed until the queues are empty, including jobs pushed meanwhile, or until `time_limit` is reached.
+- A failed job is released according to the queue `max_attempts` (retried immediately, without backoff). Prefer
+  `"max_attempts": 1` for deferred memory queues.
+- Memory queues are **purged** afterwards: remaining jobs (delayed, failed, or not consumed before the time limit) are
+  lost. Persistent queues are left untouched.
+- Errors never reach the client: failed jobs are logged if a `Psr\Log\LoggerInterface` service is available, and
+  everything is visible in the [debug console](../getting-started/debug.md) (`Terminate` group of activities).
+
+> 💡 **Tip**: Since the jobs do not depend on how they are consumed, you can move them to a persistent queue (Redis,
+> database, SQS...) consumed by a worker when they become too heavy or critical: change the queue `type` in your
+> configuration and remove it from `berlioz.queues.deferred.queues`. No code change is needed.
+
+> ⚠️ **Warning**: Jobs of a memory queue are lost if the process ends unexpectedly (timeout, memory limit, killed
+> worker). Use a persistent queue for jobs that must not be lost. See also the
+> [caveats of the work after the response](../http/terminate.md#caveats).
 
 ## Creating job handlers
 
@@ -531,4 +602,5 @@ into `RateLimiterInterface` instances.
 - [Queue Manager component](../components/queue-manager.md) — Full API reference (queues, jobs, workers, payloads,
   rate limiters)
 - [Queue CLI commands](../cli/queues.md) — Running workers, purging queues, monitoring sizes, production deployment
+- [After the response](../http/terminate.md) — Terminate lifecycle and its caveats
 - [Packages](packages.md) — How Berlioz packages work
