@@ -106,7 +106,8 @@ A `Berlioz\Core\Event\TerminateEvent` is dispatched once, when the application i
 
 - `Berlioz\Http\Core\Event\HttpTerminateEvent`, after the HTTP response has been sent (gives the request and the
   response metadata);
-- `Berlioz\Cli\Core\Event\CliTerminateEvent`, at the end of a CLI command (gives the exit code).
+- `Berlioz\Cli\Core\Event\CliTerminateEvent`, at the end of a CLI command (gives the returned exit code, or `null` if
+  command handling did not complete normally).
 
 Listen to `TerminateEvent` to be called in both contexts. See [After the response](../http/terminate.md).
 

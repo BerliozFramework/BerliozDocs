@@ -38,13 +38,15 @@ $app->terminate();
 ## How it works
 
 1. **`HttpApp::print()`** sends the headers and the body, then closes the connection with the client using
-   `fastcgi_finish_request()` (PHP-FPM, FrankenPHP) or `litespeed_finish_request()` (LiteSpeed) when available. The
+   `fastcgi_finish_request()` (PHP-FPM or a compatible SAPI) or `litespeed_finish_request()` (LiteSpeed) when available. The
    client gets the full response and does not wait for what follows.
 2. **`HttpApp::terminate()`** releases the session lock (`session_write_close()`), then dispatches an
    `HttpTerminateEvent`. Its listeners run while the client is already done.
 
-`terminate()` dispatches the event only once, and never throws: an exception thrown by a listener is added to the
-[debug report](../getting-started/debug.md) and raised as a PHP warning (`E_USER_WARNING`).
+`terminate()` dispatches the event only once. Exceptions thrown by listeners are caught, added to the
+[debug report](../getting-started/debug.md) and reported as PHP warnings (`E_USER_WARNING`). A custom PHP error
+handler that converts warnings into exceptions can still interrupt termination. A failing listener can also prevent
+later listeners from running, so handle expected failures within your own listener.
 
 ## Listen to the terminate event
 
@@ -117,8 +119,16 @@ The terminate event is still dispatched, but the client waits until the end of t
 - **Output after `print()` is lost**: once the connection is closed, anything printed is no longer sent to the client.
 - **The PHP worker stays busy**: a PHP-FPM worker running terminate work cannot serve other requests. Keep this work
   short, and use a [worker](../cli/queues.md) for heavy or critical jobs.
-- **Execution limits still apply**: `max_execution_time` and PHP-FPM `request_terminate_timeout` include the work done
-  after the response.
+- **PHP execution limits still apply**: `max_execution_time` can stop terminate work, but it is not a reliable
+  wall-clock limit for blocking jobs. On Unix-like systems, time spent sleeping or waiting on streams and database
+  operations is generally excluded. Configure timeouts on network clients and other blocking operations as well.
+- **PHP-FPM timeout after the response**: `request_terminate_timeout` is **not** enforced after
+  `fastcgi_finish_request()` by default. Set `request_terminate_timeout_track_finished = yes` in the FPM pool to
+  enforce it during after-response work too, together with a suitable `request_terminate_timeout`.
+  See the [PHP-FPM configuration reference](https://www.php.net/manual/en/install.fpm.configuration.php).
+- **Deferred drain limit**: `berlioz.queues.deferred.time_limit` is checked between jobs. It prevents starting another
+  job after the limit, but never interrupts an already-started handler or a blocked queue operation. It does not
+  replace per-operation timeouts or a process-level limit.
 - **Errors are invisible to the client**: log them, the response has already been sent.
 - **No guarantee of execution**: if the process is killed, the work is lost (no retry, unlike a persistent queue).
 - **Session written before terminate**: changes made to `$_SESSION` in terminate listeners are not saved.

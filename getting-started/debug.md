@@ -50,6 +50,10 @@ worker...), the console displays "Snapshot incomplete" and the toolbar a cross i
 }
 ```
 
+The pending TTL only controls when the console labels an unfinished snapshot as incomplete; it does not stop PHP
+or cancel deferred jobs. Choose a TTL that covers your expected after-response work. A snapshot saved later still
+becomes available normally.
+
 ## Console
 
 To open console, you need to click on the toolbar.
