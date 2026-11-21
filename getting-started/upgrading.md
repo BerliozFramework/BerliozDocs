@@ -73,6 +73,12 @@ summary-order: 2
   duplicate or concurrent processing is possible. See
   [Delivery guarantees and idempotency](../components/queue-manager.md#delivery-guarantees-and-idempotency).
 
+- **HTTP QUERY method:** Routes declared without `method` now also accept `QUERY` requests
+  ([RFC 10008](https://www.rfc-editor.org/info/rfc10008/)). If such a controller reads the request body, it now
+  receives `QUERY` requests too: restrict `method` on routes that must not accept them, and reject a `QUERY` request
+  without `Content-Type`, or use the `acceptQuery` route option. See [QUERY method](../http/routing.md#query-method).
+- **HTTP client redirections:** `QUERY` requests now keep their method and body on 301 and 302 redirections.
+
 ---
 
 ## Upgrading from version 3.2 to 3.3
