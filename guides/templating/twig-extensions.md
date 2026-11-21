@@ -34,7 +34,7 @@ Parameters are added to the header (`true` adds the parameter without value, `fa
 A link is sent only once per response, and nothing is sent once headers are already sent.
 
 ```twig
-<link rel="stylesheet" href="{{ preload(asset('website.css'), {as: 'style'}) }}">
+<link rel="stylesheet" href="{{ preload('/assets/css/website.css', {as: 'style'}) }}">
 <script src="{{ preload('/assets/js/app.js', {as: 'script', crossorigin: true}) }}"></script>
 ```
 
@@ -46,12 +46,12 @@ for JS files. An array can be given to add parameters to each preload header:
 {{ entrypoints('website', 'js', {preload: {crossorigin: true}, defer: true}) }}
 ```
 
-> 🆕 **Info**: *Since version 3.3.3*
+> 🆕 **Info**: *Since version 3.4*
 >
 > Every file rendered by `entrypoints()` is preloaded (previously only the first one), and the `Link` header is sent on
 > every response. The HTTP/2 Server Push cache (`h2pushes` cookies) has been removed.
 
-> ⚠️ **Deprecated**: *Since version 3.3.3*
+> ⚠️ **Deprecated**: *Since version 3.4*
 >
 > The `nopush` parameter is deprecated, HTTP/2 Server Push is no longer supported by browsers. It will be removed in
 > version 4.

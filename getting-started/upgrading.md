@@ -17,6 +17,14 @@ summary-order: 2
   `strictJson: true` and check that your forms accept nested JSON objects as `stdClass`. See
   [Strict JSON](../guides/forms/data-providers.md#strict-json).
 - **API forms:** `ApiDataProvider` now also handles `PATCH` and `DELETE` requests.
+- **Twig preloads:** Every file rendered by `entrypoints()` with preload enabled now receives a preload hint.
+  The obsolete `h2pushes` cookie cache is removed and the `Link` header is sent on every response. Remove the deprecated
+  `nopush` parameter; see [Preload](../guides/templating/twig-extensions.md#preload).
+- **Custom Twig extensions:** If you override `DefaultExtension::filterDateFormat()`, its first parameter now accepts
+  `DateTimeInterface|string|int` instead of `DateTime|string|int`. Overrides of
+  `RouterRuntimeExtension::functionPathExists()` must accept `array|RouteAttributes` for the parameters argument.
+  Update narrower overrides to match or widen these types. Subclasses overriding
+  `Berlioz\Package\Twig\Twig::__debugInfo()` must now declare the `array` return type.
 
 ---
 
