@@ -141,6 +141,9 @@ clear configuration exception.
 > `JobInterface::getMaxAttempts()`. It should match the `maxReceiveCount` of the SQS redrive policy; if not given, it
 > is read from the redrive policy when needed. Retries themselves are still managed by SQS.
 
+Automatic discovery requires `sqs:GetQueueAttributes` permission on the queue. An explicit `max_attempts` avoids
+that API lookup, but does not modify the SQS redrive policy. Keep it aligned with the actual `maxReceiveCount`.
+
 ### Memory queue
 
 Useful for testing or short-lived tasks:
@@ -387,6 +390,10 @@ public function handle(JobInterface $job): void
 
 `isLastAttempt()` returns `false` when the maximum number of attempts is unknown (`getMaxAttempts()` returns `null`).
 See [Attempts and retry time](../components/queue-manager.md#attempts-and-retry-time) for details per queue type.
+
+Returning normally after the fallback marks the job as handled; the worker deletes it. Also make handlers
+[idempotent](../components/queue-manager.md#delivery-guarantees-and-idempotency): broker redeliveries or an expired
+retry/visibility timeout can cause duplicate execution, including while an earlier handler is still running.
 
 ## Built-in job handlers
 

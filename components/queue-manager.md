@@ -119,6 +119,10 @@ class FooJobHandler implements JobHandlerInterface
 `getMaxAttempts()` returns the maximum attempts of the job queue (see [Attempts and retry time](#attempts-and-retry-time)).
 When it is `null` (no limit or unknown limit), `isLastAttempt()` returns `false`.
 
+Returning normally from the handler, including from a last-attempt fallback, tells the worker that the job was
+handled: it is deleted unless the handler already deleted or released it. Rethrow the exception if you want the
+backend's failure/dead-letter behavior instead.
+
 ## Worker
 
 The `Worker` class is the main part of the **Berlioz Queue Manager** and is responsible for processing jobs from a queue
@@ -251,11 +255,31 @@ configuring the same values twice.
 | `DbQueue`, `MemoryQueue`     | `maxAttempts`                                                              | `retryTime` (lock time)              |
 | `AwsSqsQueue`                | `maxAttempts`, or `maxReceiveCount` of the SQS redrive policy, or `null`   | `retryTime` (visibility timeout)     |
 | `AmqpQueue`, `RabbitMqQueue` | `maxAttempts`                                                              | `null` (requeued by the broker when the connection closes) |
-| `RedisQueue`                 | `maxAttempts`                                                              | `retryTime` (processing time limit)  |
+| `RedisQueue`                 | `maxAttempts`                                                              | `retryTime` (recovery delay)         |
 | `NullQueue`, `QueueManager`  | `null`                                                                     | `null`                               |
 
 With `AwsSqsQueue`, if `maxAttempts` is not given, the redrive policy is read from SQS (one API call) only when asked;
 a job caches it. The attempt count of an SQS job is the approximate receive count given by SQS.
+
+Automatic SQS redrive-policy discovery requires the **`sqs:GetQueueAttributes`** IAM permission on that queue.
+Supplying `maxAttempts` explicitly avoids this lookup. Keep it consistent with the queue's actual
+`maxReceiveCount`: the value is metadata for the handler and does not create or update the SQS redrive policy.
+
+### Delivery guarantees and idempotency
+
+Persistent queues do not imply exactly-once execution. Design handlers for at-least-once delivery: processing the
+same job again must not duplicate its business effects.
+
+- With Redis, database queues or SQS, a job running longer than its retry/visibility timeout may be consumed by
+  another worker while the first handler is still running. The timeout does not interrupt the first handler.
+  Set it above the longest expected processing time, including blocking operations, and set operation timeouts.
+- AMQP recovery republishes a redelivered message before acknowledging the old delivery. A crash between those
+  operations can leave two messages for the same job. Recovery may also change the order of jobs.
+- Use a stable business operation identifier (for example, an order's confirmation ID) as an idempotency key.
+  Persist completed operations with a unique constraint or transaction where appropriate, and use downstream
+  idempotency keys when calling external APIs.
+- A [deferred memory queue](../guides/queues.md#deferred-queues) is not durable. Work can be lost if the process dies,
+  and remaining memory jobs are purged after draining. Use persistent queues and workers for critical jobs.
 
 #### DbQueue
 
@@ -421,7 +445,7 @@ $queue = new AwsSqsQueue(
     sqsClient: new SqsClient(...), // Database connection
     name: 'default',               // Queue name
     queueUrl: '...',               // AWS queue URL
-    retryTime: 30,                 // Time to wait after failed job
+    retryTime: 30,                 // Visibility timeout after consuming a job
     maxAttempts: null,             // Maximum attempts of a job (since 3.4), default from the redrive policy
 );
 ```
@@ -460,7 +484,7 @@ $queue = new RedisQueue(
   name: 'default',  // Queue name
   deletedJobsTtl: 86400,
   maxAttempts: 5,   // Maximum attempts of a job (since 3.4)
-  retryTime: 30,    // Time to wait after a job consumed but neither deleted nor released (since 3.4)
+  retryTime: 30,    // Recovery delay for a job neither deleted nor released (since 3.4)
 );
 ```
 
@@ -472,6 +496,9 @@ $queue = new RedisQueue(
 >   during the processing, the job is made available again after `retryTime`, as a failed attempt (or moved to the
 >   `<name>:dead` list once `maxAttempts` is reached). Before 3.4, such a job was lost. Like with `DbQueue`, `retryTime`
 >   must be greater than the longest processing time of a job.
+
+Redis checks for expired processing entries when a consumer calls `consume()`; `retryTime` is not a background
+timer or a hard execution limit. See [Delivery guarantees and idempotency](#delivery-guarantees-and-idempotency).
 
 > 🆕 **Info**: *Since version 3.1*
 >

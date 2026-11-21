@@ -54,10 +54,6 @@ summary-order: 2
 - **Debug console:** An unknown snapshot now returns a `404` error, and the toolbar shows the response time instead of
   the total time. See [Debug](debug.md#response-time).
 
-- **Custom queue jobs:** `JobInterface` has two new methods, `getMaxAttempts()` and `isLastAttempt()`. Custom
-  implementations not extending `Berlioz\QueueManager\Job\Job` must implement them. See
-  [Last attempt](../components/queue-manager.md#last-attempt).
-
 - **Custom queues:** `QueueInterface` has two new methods, `getMaxAttempts()` and `getRetryTime()`. Custom
   implementations must implement them. See
   [Attempts and retry time](../components/queue-manager.md#attempts-and-retry-time).
@@ -70,6 +66,14 @@ summary-order: 2
   than your longest job.
 - **AMQP queues:** messages redelivered by the broker after a consumer crash now count as attempts and end in the
   dead-letter queue after `maxAttempts`.
+- **SQS attempt metadata:** Reading the maximum attempts from the redrive policy requires `sqs:GetQueueAttributes`.
+  Grant that permission, or configure `max_attempts` explicitly to match the actual SQS redrive policy.
+  See [Attempts and retry time](../components/queue-manager.md#attempts-and-retry-time).
+- **Retry safety:** Make handlers idempotent and keep job processing time below the retry/visibility timeout;
+  duplicate or concurrent processing is possible. See
+  [Delivery guarantees and idempotency](../components/queue-manager.md#delivery-guarantees-and-idempotency).
+
+---
 
 ## Upgrading from version 3.2 to 3.3
 
