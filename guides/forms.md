@@ -116,6 +116,9 @@ interface ValidatorInterface
 
 Method `ValidatorInterface::validate(): array` must return the thrown constraints.
 
+> 🆕 **Info**: *Since version 3.4*, inputs reject non-scalar submitted values by default with
+> `Berlioz\Form\Validator\ScalarValidator`. See [Non-scalar values](forms/inputs.md#non-scalar-values).
+
 ## Transformers
 
 Transformers permit the data conversion from user to application, and invert.

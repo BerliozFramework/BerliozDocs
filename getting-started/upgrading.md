@@ -34,6 +34,11 @@ summary-order: 2
   enabling encryption with the new `encryption` argument. See
   [SMTP connection modes](../components/mailer.md#smtp-connection-modes).
 
+- **Forms:** Inputs now reject arrays and objects submitted as their value and no longer hydrate them into the mapped
+  object. If an input intentionally receives several values, use a `Collection`, a multiple `Choice` or a `RawType`
+  instead; the deprecated `scalar: false` option restores the previous behavior until version 4. See
+  [Non-scalar values](../guides/forms/inputs.md#non-scalar-values).
+
 ## Upgrading from version 3.2 to 3.3
 
 - **Reverse proxies:** If your application uses `X-Forwarded-Prefix`, review your trusted proxy configuration
