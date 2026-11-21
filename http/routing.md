@@ -124,6 +124,85 @@ class MyController
 }
 ```
 
+## QUERY method
+
+> 🆕 **Info**: *Since version 3.4*
+
+Routes accept the HTTP `QUERY` method defined by [RFC 10008](https://www.rfc-editor.org/info/rfc10008/): a safe and
+idempotent request carrying its query in the body. Unlike `POST`, it can be retried automatically. Routes without
+`method` accept `QUERY` too.
+
+The query is read from the request body, parsed according to its `Content-Type`. RFC 10008 requires the server to
+reject a `QUERY` request without `Content-Type` or whose content does not match it: declare `acceptQuery` (see below)
+to have it checked, or do it in the controller.
+
+```php
+use Berlioz\Http\Core\Attribute as Berlioz;
+use Psr\Http\Message\ServerRequestInterface;
+
+class ContactController
+{
+    #[Berlioz\Route('/contacts', method: ['GET', 'QUERY'], acceptQuery: ['application/json'])]
+    public function search(ServerRequestInterface $request): array
+    {
+        $criteria = $request->getParsedBody() ?? $request->getQueryParams();
+
+        // ...
+    }
+}
+```
+
+### Accepted query formats
+
+The `acceptQuery` option lists the media types accepted in the body of `QUERY` requests. It is a string or an array
+of media ranges ([RFC 9110](https://www.rfc-editor.org/rfc/rfc9110#section-12.5.1) syntax), with optional parameters:
+
+```php
+#[Berlioz\Route('/rfc-index', method: 'QUERY', acceptQuery: [
+    'application/sql; charset="UTF-8"',
+    'application/jsonpath',
+    'text/*',
+])]
+```
+
+- Media types and parameter names are case-insensitive.
+- Parameter values are tokens or quoted strings; quoted strings may contain `;` and escaped characters
+  (`profile="urn:example;a=b"`, `foo="a\"b"`).
+- The only wildcards are `*/*` and `type/*`; `*/json` or `application/j*` are invalid.
+
+An invalid media range throws a `Berlioz\Http\Core\Exception\HttpAppException`, rendered as an internal server
+error. Like any route option, `acceptQuery` can be declared on a [group of routes](#group-of-routes) and is inherited
+by its routes.
+
+When the option is defined, the default [`AcceptQueryMiddleware`](middleware.md#default-middlewares):
+
+- adds the `Accept-Query` header to the responses of the route, whatever the request method, so clients can discover
+  the accepted formats with `GET`, `HEAD` or `OPTIONS`. The previous example sends:
+  `Accept-Query: "application/sql";charset="UTF-8", "application/jsonpath", "text/*"`;
+- rejects `QUERY` requests with a **400 Bad Request** when the `Content-Type` is missing or malformed, including a
+  list of values or a wildcard (`*/*`, `application/*`), which are not media types;
+- rejects `QUERY` requests with a **415 Unsupported Media Type** when the content type matches none of the media
+  ranges. Parameters are ignored for matching: with the previous example, `application/sql; charset=latin1` is
+  accepted.
+
+Error responses are rendered by the [error handler](error-handler.md) and keep the `Accept-Query` header.
+The middleware does not check that the content is consistent with its type: an unparsable body is the controller's
+responsibility (400 Bad Request, or 422 Unprocessable Content for a valid but unprocessable query).
+
+Without the option, nothing is checked and no header is sent.
+
+### Caching
+
+Responses to `QUERY` requests are cacheable only by caches that include the request body and its metadata in the
+cache key (RFC 10008, section 2.7). Caches keyed only on the URL, as is usual for `GET`, must not store them: check
+your reverse proxy or CDN configuration before enabling caching, or send `Cache-Control: no-store`.
+
+### Deployment notes
+
+- `QUERY` is not a CORS-safelisted method: browsers send a preflight `OPTIONS` request for cross-origin calls.
+- Reverse proxies, web application firewalls or web servers may reject unknown methods: check they let `QUERY`
+  through. The PHP built-in web server answers `501 Not Implemented` to `QUERY` requests.
+
 ## Route with attributes
 
 You can add some dynamic attributes in your routes, attributes are named and must be encapsulated by `{` and `}`.

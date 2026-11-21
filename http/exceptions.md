@@ -23,13 +23,14 @@ and message.
 
 For the most common HTTP exceptions, some class are already define in the namespace `\Berlioz\Http\Core\Exception\Http`:
 
- Exception                          | Code | Reason                
-------------------------------------|------|-----------------------
- `BadRequestHttpException`          | 400  | Bad Request           
- `ConflictHttpException`            | 409  | Conflict              
- `ForbiddenHttpException`           | 403  | Forbidden             
- `InternalServerErrorHttpException` | 500  | Internal Server Error 
- `NotFoundHttpException`            | 404  | Not Found             
- `NotImplementedHttpException`      | 501  | Not Implemented       
- `ServiceUnavailableHttpException`  | 503  | Service Unavailable   
- `UnauthorizedHttpException`        | 401  | Unauthorized          
+ Exception                           | Code | Reason
+-------------------------------------|------|----------------------------------------------
+ `BadRequestHttpException`           | 400  | Bad Request
+ `ConflictHttpException`             | 409  | Conflict
+ `ForbiddenHttpException`            | 403  | Forbidden
+ `InternalServerErrorHttpException`  | 500  | Internal Server Error
+ `NotFoundHttpException`             | 404  | Not Found
+ `NotImplementedHttpException`       | 501  | Not Implemented
+ `ServiceUnavailableHttpException`   | 503  | Service Unavailable
+ `UnauthorizedHttpException`         | 401  | Unauthorized
+ `UnsupportedMediaTypeHttpException` | 415  | Unsupported Media Type *(since version 3.4)*

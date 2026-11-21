@@ -39,7 +39,8 @@ Constructor arguments are:
   the validation regex
 - **name**: name of route
 - **method**: an array of allowed HTTP methods, or just a method. When omitted, the route accepts `GET`, `HEAD`,
-  `POST`, `OPTIONS`, `CONNECT`, `TRACE`, `PUT`, `PATCH`, and `DELETE`
+  `POST`, `OPTIONS`, `CONNECT`, `TRACE`, `PUT`, `PATCH`, `DELETE`, and `QUERY` (since version 3.4,
+  [RFC 10008](https://www.rfc-editor.org/info/rfc10008/))
 - **host**: an array of allowed hosts, or just a host
 - **priority**: you can specify the priority for a route (default: -1)
 
