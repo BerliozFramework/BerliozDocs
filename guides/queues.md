@@ -48,7 +48,11 @@ Default configuration provided by the package:
             "factories": [
                 "Berlioz\\Package\\QueueManager\\Factory\\MemoryQueueFactory",
                 "Berlioz\\Package\\QueueManager\\Factory\\AwsSqsQueueFactory",
-                "Berlioz\\Package\\QueueManager\\Factory\\DbQueueFactory"
+                "Berlioz\\Package\\QueueManager\\Factory\\DbQueueFactory",
+                "Berlioz\\Package\\QueueManager\\Factory\\RedisQueueFactory",
+                "Berlioz\\Package\\QueueManager\\Factory\\AmqpQueueFactory",
+                "Berlioz\\Package\\QueueManager\\Factory\\RabbitMqQueueFactory",
+                "Berlioz\\Package\\QueueManager\\Factory\\NullQueueFactory"
             ],
             "deferred": {
                 "queues": [],
@@ -165,9 +169,146 @@ Useful for testing or short-lived tasks:
 }
 ```
 
+### Redis queue
+
+> 🆕 **Info**: *Since version 3.4*
+
+Requires the `ext-redis` PHP extension.
+
+```json
+{
+    "berlioz": {
+        "queues": {
+            "queues": [
+                {
+                    "type": "Berlioz\\QueueManager\\Queue\\RedisQueue",
+                    "redis": {
+                        "host": "127.0.0.1",
+                        "port": 6379,
+                        "timeout": 0,
+                        "password": null,
+                        "database": 0
+                    },
+                    "deleted_jobs_ttl": 86400,
+                    "retry_time": 30,
+                    "max_attempts": 5,
+                    "name": ["emails", "notifications"]
+                }
+            ]
+        }
+    }
+}
+```
+
+All queues in the same definition share the same Redis connection. `password` accepts a string or a
+`["username", "password"]` array (Redis ACL). `deleted_jobs_ttl`, `retry_time` and `max_attempts` can be given globally
+or per queue; `deleted_jobs_ttl` is the time, in seconds, during which deleted jobs are kept.
+
+### AMQP queue
+
+> 🆕 **Info**: *Since version 3.4*
+
+Requires the `ext-amqp` PHP extension. The connection is configured with a DSN, with explicit keys, or both:
+
+```json
+{
+    "berlioz": {
+        "queues": {
+            "queues": [
+                {
+                    "type": "Berlioz\\QueueManager\\Queue\\AmqpQueue",
+                    "amqp": {
+                        "dsn": "amqp://guest:guest@127.0.0.1:5672/%2F"
+                    },
+                    "max_attempts": 5,
+                    "name": ["emails", "notifications"]
+                }
+            ]
+        }
+    }
+}
+```
+
+```json
+{
+    "amqp": {
+        "host": "127.0.0.1",
+        "port": 5672,
+        "vhost": "/",
+        "login": "guest",
+        "password": "guest",
+        "heartbeat": 30
+    }
+}
+```
+
+- The DSN accepts the `amqp://` and `amqps://` schemes (default port `5672` and `5671`). The vhost, login and password
+  must be URL-encoded (`%2F` for the `/` vhost); an empty path means the `/` vhost. Query parameters are not supported.
+- Explicit keys (`host`, `port`, `vhost`, `login`, `password`) override the values of the DSN.
+- Any other key (`heartbeat`, `read_timeout`, `cacert`, `cert`, `key`, `verify`…) is passed as is to `AMQPConnection`.
+  With `amqps://`, give the TLS options (`cacert`…) explicitly.
+
+All queues in the same definition share the same connection. `max_attempts` can be given globally or per queue.
+
+### RabbitMQ queue
+
+> 🆕 **Info**: *Since version 3.4*
+
+The RabbitMQ queue accepts the same configuration as the [AMQP queue](#amqp-queue), and adds the management API used
+for monitoring metrics (`waitTime()`, `delayed()`…):
+
+```json
+{
+    "berlioz": {
+        "queues": {
+            "queues": [
+                {
+                    "type": "Berlioz\\QueueManager\\Queue\\RabbitMqQueue",
+                    "amqp": {
+                        "dsn": "amqp://guest:guest@127.0.0.1:5672/%2F"
+                    },
+                    "management": {
+                        "base_url": "http://127.0.0.1:15672",
+                        "username": null,
+                        "password": null
+                    },
+                    "name": ["emails", "notifications"]
+                }
+            ]
+        }
+    }
+}
+```
+
+When `username` or `password` are not given, the AMQP login and password are used. The vhost of the connection is used
+for management API calls.
+
+### Null queue
+
+> 🆕 **Info**: *Since version 3.4*
+
+A placeholder queue, always empty: pushing or consuming a job throws a `QueueException`. Useful to declare a queue name
+that must not be used in an environment, or for tests:
+
+```json
+{
+    "berlioz": {
+        "queues": {
+            "queues": [
+                {
+                    "type": "Berlioz\\QueueManager\\Queue\\NullQueue",
+                    "name": ["emails"]
+                }
+            ]
+        }
+    }
+}
+```
+
 ### Per-queue overrides
 
-Each queue name can be an object with its own `retry_time`, `max_attempts`, and `rate_limit`:
+Each queue name can be an object with its own `retry_time`, `max_attempts`, and `rate_limit` (and `deleted_jobs_ttl` for
+Redis queues), when supported by the queue type:
 
 ```json
 {
@@ -564,40 +705,39 @@ The exposed metrics are the same as the CLI; see the
 
 ## Custom queue factories
 
-The package includes factories for Database, AWS SQS, and Memory queues. To use other backends (Redis, RabbitMQ/AMQP,
-or your own), you can write a custom factory.
+The package includes factories for all the queues of the Queue Manager component (Memory, Database, AWS SQS, Redis,
+AMQP, RabbitMQ and Null). To use your own queue implementation, you can write a custom factory.
 
 A factory must implement the `QueueFactory` interface:
 
 ```php
+use App\Queue\MyQueue;
+use App\Queue\MyQueueClient;
 use Berlioz\Package\QueueManager\Factory\QueueFactory;
 use Berlioz\Package\QueueManager\Factory\QueueFactoryTrait;
-use Berlioz\QueueManager\Queue\RedisQueue;
 use Generator;
-use Redis;
 
-class RedisQueueFactory implements QueueFactory
+class MyQueueFactory implements QueueFactory
 {
     use QueueFactoryTrait;
 
     public static function getQueueClass(): string
     {
-        return RedisQueue::class;
+        return MyQueue::class;
     }
 
     public static function createFromConfig(array $config): Generator
     {
-        $redis = new Redis();
-        $redis->connect(
-            $config['redis']['host'] ?? '127.0.0.1',
-            (int)($config['redis']['port'] ?? 6379),
+        $client = new MyQueueClient(
+            host: $config['client']['host'] ?? '127.0.0.1',
+            port: (int)($config['client']['port'] ?? 1234),
         );
 
         foreach ((array)($config['name'] ?? []) as $queue) {
             !is_array($queue) && $queue = ['name' => (string)$queue];
 
-            yield new RedisQueue(
-                redis: $redis,
+            yield new MyQueue(
+                client: $client,
                 name: $queue['name'] ?? 'default',
                 limiter: self::getRateLimiterFromConfig($queue['rate_limit'] ?? null),
             );
@@ -613,14 +753,14 @@ Register it in your configuration:
     "berlioz": {
         "queues": {
             "factories": [
-                "App\\Queue\\RedisQueueFactory"
+                "App\\Queue\\MyQueueFactory"
             ],
             "queues": [
                 {
-                    "type": "Berlioz\\QueueManager\\Queue\\RedisQueue",
-                    "redis": {
+                    "type": "App\\Queue\\MyQueue",
+                    "client": {
                         "host": "127.0.0.1",
-                        "port": 6379
+                        "port": 1234
                     },
                     "name": ["emails", "notifications"]
                 }
@@ -634,7 +774,8 @@ The `QueueFactoryTrait` provides a `getRateLimiterFromConfig()` helper that pars
 into `RateLimiterInterface` instances.
 
 > ℹ️ **Note**: Custom factories are **merged** with the default ones. You don't need to re-declare the built-in
-> factories.
+> factories. A custom factory for the same queue class as a built-in factory (for example your own factory for
+> `RedisQueue`, written before version 3.4) replaces the built-in one.
 
 ## Further reading
 
