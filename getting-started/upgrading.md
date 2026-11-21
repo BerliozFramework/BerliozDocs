@@ -13,6 +13,10 @@ summary-order: 2
 
 ## Upgrading from version 3.3 to 3.4
 
+- **Hector ORM:** `berlioz/hector-package` now requires `hectororm/hectororm` **^1.5** so that PDO options are
+  actually forwarded to the connection. Remove any project-level pin below 1.5 and update the Composer lock file
+  as part of the upgrade. See [PDO options](../guides/orm/hector.md#pdo-options).
+
 - **API forms:** Constructing `ApiDataProvider` without `strictJson: true` is deprecated. Pass
   `strictJson: true` and check that your forms accept nested JSON objects as `stdClass`. See
   [Strict JSON](../guides/forms/data-providers.md#strict-json).

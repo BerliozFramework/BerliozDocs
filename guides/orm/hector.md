@@ -48,6 +48,7 @@ Default configuration is:
         "read_dsn": null,
         "username": null,
         "password": null,
+        "options": {},
         "schemas": [],
         "dynamic_events": true,
         "types": []
@@ -59,6 +60,73 @@ Default configuration is:
 >
 > Ignore this configuration file in your `.gitignore` file. It should contain passwords... and MUST NOT push on GIT
 > repository!
+
+### PDO options
+
+> 🆕 **Info**: *Since version 3.4*, `berlioz/hector-package` requires HectorORM **1.5 or later**.
+> HectorORM 1.5 introduced PDO connection options; earlier versions do not forward them to PDO.
+
+PDO connection options are given under `hector.options`. They are passed to the PDO constructor and shared by the
+read/write and read-only (`read_dsn`) connections.
+
+Since configuration files cannot reference PHP constants in keys, PDO attributes can be written as integers:
+
+```json
+{
+  "hector": {
+    "options": {
+      "2": 5,
+      "20": false
+    }
+  }
+}
+```
+
+> 🆕 **Info**: *Since version 3.4*
+>
+> Attributes can also be written with **constant names**, resolved to their integer value:
+>
+> ```json
+> {
+>   "hector": {
+>     "options": {
+>       "PDO::ATTR_TIMEOUT": 5,
+>       "Pdo\\Mysql::ATTR_INIT_COMMAND": "SET time_zone = '+00:00'",
+>       "20": false
+>     }
+>   }
+> }
+> ```
+>
+> Options can also be given as a **list** of `attribute` / `value` entries. `attribute` accepts an integer, a constant
+> name or the `{constant: ...}` configuration function:
+>
+> ```json
+> {
+>   "hector": {
+>     "options": [
+>       {"attribute": "PDO::ATTR_TIMEOUT", "value": 5},
+>       {"attribute": "{constant: PDO::ATTR_EMULATE_PREPARES}", "value": false}
+>     ]
+>   }
+> }
+> ```
+
+Rules:
+
+- When the same attribute is defined several times, **the last definition wins**. Across configuration files, the
+  definition of the file with the highest priority wins.
+- An unknown constant, a constant that is not an integer, or a list entry without `attribute` and `value` keys throws
+  a `HectorException`.
+
+> **Warning**:
+>
+> - Do not mix the map and list formats across configuration files (e.g. a map in `hector.json.dist` and a list in
+>   `hector.json`): when one side is a list, the configuration merge renumbers integer keys.
+> - Options like `PDO::ATTR_AUTOCOMMIT` or `PDO::ATTR_ERRMODE` may interfere with the internal transaction handling of
+>   Hector ORM.
+> - Since PHP 8.4, driver specific constants are available on driver classes (e.g. `Pdo\Mysql::ATTR_INIT_COMMAND`);
+>   `PDO::MYSQL_ATTR_*` constants are deprecated since PHP 8.5.
 
 ## Package additions
 
