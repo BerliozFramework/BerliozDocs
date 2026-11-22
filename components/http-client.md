@@ -258,7 +258,7 @@ The HAR file of the session is accessible with the `Session::getHar()` method.
 
 If you serialize the `Session` object, the HAR is preserved.
 
-Refer to the documentation of the **elgigi/har-parser** library: https://github.com/ElGigi/HarParser
+Refer to the documentation of the **elgigi/har-parser** library: <https://github.com/ElGigi/HarParser>
 
 ## Adapters
 

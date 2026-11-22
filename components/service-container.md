@@ -59,7 +59,7 @@ $container->addService($service);
 
 ## Service object
 
-- ```
+- ```php
   Service::public function __construct(
       string|object $class,
       ?string $alias = null,

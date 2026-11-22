@@ -38,15 +38,15 @@ backreferences.
 
 Examples of redirections with the config given in the example above:
 
- Original path              | Redirect path        
-----------------------------|----------------------
- /old                       | /new                 
- /old/foo                   | ***No redirection*** 
- /old-route/foo             | /new-route/foo       
- /old-route/foo/bar         | /new-route/foo/bar   
- /old-route/                | /new-route/          
- /another-old-route/        | /new/                
- /another-old-route/foo/bar | /new/foo/bar         
+| Original path              | Redirect path        |
+|----------------------------|----------------------|
+| /old                       | /new                 |
+| /old/foo                   | ***No redirection*** |
+| /old-route/foo             | /new-route/foo       |
+| /old-route/foo/bar         | /new-route/foo/bar   |
+| /old-route/                | /new-route/          |
+| /another-old-route/        | /new/                |
+| /another-old-route/foo/bar | /new/foo/bar         |
 
 The default redirection HTTP status code is `301 Moved Permanently`. If you want to specify another HTTP status code,
 you can do so as in this config example:

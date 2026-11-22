@@ -141,7 +141,7 @@ $query = $query->filter(':first');
 
 ### Full example of selectors
 
-```
+```css
 select > option:selected
 div#myId.class1.class2[name1=value1][name2=value2]:even:first
 ```

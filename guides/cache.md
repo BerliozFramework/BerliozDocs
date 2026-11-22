@@ -34,7 +34,7 @@ All drivers implement `Psr\SimpleCache\CacheInterface`.
 
 | Driver                 | Class                                    | Description                                  |
 |------------------------|------------------------------------------|----------------------------------------------|
-| File _(default)_       | `Berlioz\Core\Cache\FileCacheDriver`     | Persists entries on the filesystem.          |
+| File *(default)*       | `Berlioz\Core\Cache\FileCacheDriver`     | Persists entries on the filesystem.          |
 | Memory                 | `Berlioz\Core\Cache\MemoryCacheDriver`   | In-memory, non-persistent (lives one request).|
 | Null                   | `Berlioz\Core\Cache\NullCacheDriver`     | No-op cache, stores nothing.                 |
 | Redis                  | `Berlioz\Core\Cache\RedisCacheDriver`    | Distributed cache backed by Redis.           |
