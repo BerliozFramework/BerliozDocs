@@ -15,7 +15,7 @@ keywords:
 **Berlioz Framework** integrates with the [Queue Manager](../components/queue-manager.md) component via the
 **berlioz/queue-manager-package**. This package provides:
 
-- Configuration-based queue setup (Database, AWS SQS, Memory)
+- Configuration-based queue setup (Memory, Database, AWS SQS, Redis, AMQP, RabbitMQ, Null)
 - Automatic service container registration (`QueueManager`, `JobHandlerManager`, `Worker`)
 - Built-in job handlers for running Berlioz commands (and, opt-in, system commands) asynchronously
 - [CLI commands](../cli/queues.md) for running workers, purging queues, and monitoring queue metrics

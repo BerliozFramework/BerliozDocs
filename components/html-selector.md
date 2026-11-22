@@ -22,7 +22,7 @@ keywords:
 
 ## Load HTML
 
-You can easily load an HTML string or file with the static function `HtmlSelector::query()`. For files, use the second
+You can easily load an HTML string or file with the `HtmlSelector::query()` method. For files, use the second
 parameter of the method, `contentsIsFile`.
 
 ```php
@@ -174,8 +174,8 @@ result as their counterparts in jQuery.
 - **not(selector)**: filter elements in result.
 - **parent()**: get direct parent of the current selection result.
 - **parents(selector)**: get all parents of the current selection result.
-- **prev(selector)**: get prev element after each element in result.
-- **prevAll(selector)**: get all prev elements after each element in result.
+- **prev(selector)**: get the previous element before each element in result.
+- **prevAll(selector)**: get all previous elements before each element in result.
 - **prop(name)**: get boolean property value of an attribute, used for example for the `disabled` attribute.
 - **prop(name, value)**: set boolean property value of an attribute, used for example for the `disabled` attribute.
 - **remove(selector)**: remove elements from the DOM. Optional selector filters which elements to remove.

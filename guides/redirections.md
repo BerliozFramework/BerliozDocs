@@ -73,15 +73,17 @@ In this example, the HTTP status code will be `302 Found`.
 
 ## With a controller
 
-You can create a redirection in controller methods with the `redirection()` helper, which redirects with the
+You can create a redirection in controller methods with the `redirect()` helper, which redirects with the
 `302 Found` HTTP status.
 
 ```php
-class MyController extends \Berlioz\Http\Core\Controller\AbstractController
+use Berlioz\Http\Core\Attribute as Berlioz;
+use Berlioz\Http\Core\Controller\AbstractController;
+use Berlioz\Http\Message\Response;
+
+class MyController extends AbstractController
 {
-    /**
-     * @route( "/old-route" )
-     */
+    #[Berlioz\Route('/old-route')]
     public function oldMethod(): Response
     {
         return $this->redirect('/new-route');

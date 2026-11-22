@@ -311,7 +311,7 @@ $queue = new DbQueue(
     connection: $dbConnection, // Database connection
     name: 'default',           // Queue name
     tableName: 'queue_jobs',   // Name of MySQL table
-    retryTime: 30,             // Time to wait after failed job
+    retryTime: 30,             // Time after which a consumed job, neither deleted nor released, is available again
     maxAttempts: 5,            // Maximum attempts of a job
 );
 ```
@@ -411,7 +411,7 @@ use Berlioz\QueueManager\Queue\MemoryQueue;
 
 $queue = new MemoryQueue(
     name: 'default', // Queue name
-    retryTime: 30,   // Time to wait after failed job
+    retryTime: 30,   // Time after which a consumed job, neither deleted nor released, is available again
 );
 ```
 
@@ -442,7 +442,7 @@ use Aws\Sqs\SqsClient;
 use Berlioz\QueueManager\Queue\AwsSqsQueue;
 
 $queue = new AwsSqsQueue(
-    sqsClient: new SqsClient(...), // Database connection
+    sqsClient: new SqsClient(...), // SQS client
     name: 'default',               // Queue name
     queueUrl: '...',               // AWS queue URL
     retryTime: 30,                 // Visibility timeout after consuming a job
@@ -541,7 +541,7 @@ How it works:
 - **Push with Delay**: When a job is pushed with a delay, it is routed to a temporary queue with a TTL and DLX. Once the
   TTL expires, the broker moves the job into the main queue for processing.
 - **Retries**: When a job fails, it can be retried with a delay and with a lower priority.
-- **Dead-Letter**: If the number of attempts exceeds `maxAttempts`, the job is sent to the dead-letter queue for
+- **Dead-Letter**: Once the number of attempts reaches `maxAttempts`, the job is sent to the dead-letter queue for
   inspection.
 - **Broker redeliveries**: Since version 3.4, a message redelivered by the broker (the consumer died without deleting
   or releasing the job) counts as a failed attempt: it is published again with incremented attempts, or sent to the

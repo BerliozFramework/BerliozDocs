@@ -272,13 +272,13 @@ it prefers `CurlAdapter` when the CURL extension is installed, and falls back to
 > The default adapter is now the `AutoAdapter`. In previous versions, the client used `CurlAdapter` directly when the
 > CURL extension was installed, and `StreamAdapter` otherwise.
 
-You can pass adapters to the client constructor, with the `adapter` argument:
+You can pass adapters to the client constructor, after the options:
 
 ```php
 use Berlioz\Http\Client\Client;
 use Berlioz\Http\Client\Adapter;
 
-$client = new Client(adapter: new Adapter\CurlAdapter(), adapter: new Adapter\StreamAdapter());
+$client = new Client(null, new Adapter\CurlAdapter(), new Adapter\StreamAdapter());
 ```
 
 The first specified adapter is the default adapter.
@@ -289,7 +289,7 @@ If you want to force an adapter for a request, you can pass its name in the requ
 use Berlioz\Http\Client\Client;
 use Berlioz\Http\Client\Adapter;
 
-$client = new Client(adapter: new Adapter\CurlAdapter(), adapter: new Adapter\StreamAdapter());
+$client = new Client(null, new Adapter\CurlAdapter(), new Adapter\StreamAdapter());
 $client->get('https://getberlioz.com', options: ['adapter' => 'stream']);
 ```
 

@@ -22,7 +22,7 @@ and redirection.
 ```php
 use Berlioz\Http\Core\Controller\AbstractController;
 use Berlioz\Http\Message\Response;
-use Berlioz\Router\Attribute\Route;
+use Berlioz\Http\Core\Attribute\Route;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 

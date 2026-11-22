@@ -29,7 +29,7 @@ configuration of packages.
 
 ## Get the configuration object
 
-The configuration is accessible from the core object with the method `Core:getConfig()`. The core is accessible from
+The configuration is accessible from the core object with the method `Core::getConfig()`. The core is accessible from
 the application object.
 
 From controllers that inherit from the `AbstractController` class, the config is accessible with
@@ -44,7 +44,7 @@ $config = $this->getApp()->getConfig();
 
 ## Usage
 
-You can access the configuration variables with the method `Config:get(string $name)`. The given parameter is the path
+You can access the configuration variables with the method `Config::get(string $name)`. The given parameter is the path
 of your variable in your JSON.
 
 ```php

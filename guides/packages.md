@@ -25,7 +25,7 @@ declare the package manually.
     ```
 
 2. If you have a `packages.json` file in your [configuration directory](../getting-started/directories.md), go to
-   step 4. Otherwise, create a file named `packages.json` in your
+   step 3. Otherwise, create a file named `packages.json` in your
    [configuration directory](../getting-started/directories.md) and add the default content:
 
    ```json

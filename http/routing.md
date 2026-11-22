@@ -110,14 +110,14 @@ The framework only reads the attributes of the controllers listed in the `contro
 
 Accepted arguments on route attributes:
 
-- `path`: path of the route *(type: string|null)*
+- `path`: path of the route *(type: string)*
 - `defaults`: an array of default values of attributes *(type: array)*
 - `requirements`: an array of attribute requirements *(type: array)*
 - `name`: name of the route *(type: string|null)*
 - `method`: a method or an array of HTTP methods accepted by the route *(type: string|array|null)*
 - `host`: a host or an array of hosts accepted by the route *(type: string|array|null)*
 - `priority`: priority of the route *(type: int)*
-- `options`: options for the application *(type: array)*
+- any other named argument: option for the application, for example `acceptQuery` *(type: mixed)*
 
 Example with some options:
 
@@ -262,7 +262,7 @@ class MyController
 
 ### Priority
 
-In some cases, you need to set a priority between routes, because the global masks of 2 requests compete, like these
+In some cases, you need to set a priority between routes, because the global masks of 2 routes compete, like these
 routes:
 
 ```php

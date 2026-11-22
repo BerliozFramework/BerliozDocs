@@ -26,7 +26,7 @@ All [common options](inputs.md#common-options), and:
 |---------------------|--------|---------------|-------------------------------|
 | **default_value**   | string | "on"          | Default value for input value |
 | **checked_value**   | mixed  | true          | Value for checked input       |
-| **unchecked_value** | mixed  | true          | Value for unchecked input     |
+| **unchecked_value** | mixed  | false         | Value for unchecked input     |
 
 ## Attributes
 
