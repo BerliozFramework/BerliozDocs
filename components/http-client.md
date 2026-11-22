@@ -23,7 +23,7 @@ sessions... Implements PSR-18 (HTTP Client), PSR-7 (HTTP message interfaces) and
 
 ## Requests
 
-#### With RequestInterface
+### With RequestInterface
 
 You can construct your own request object whose implements `RequestInterface` interface (PSR-7).
 
@@ -40,7 +40,7 @@ $response = $client->sendRequest($request);
 print $response->getBody();
 ```
 
-#### Get/Post/Query/Patch/Put/Delete/Options/Head/Connect/Trace
+### Get/Post/Query/Patch/Put/Delete/Options/Head/Connect/Trace
 
 Methods are available to do request with defined HTTP method:
 
@@ -191,7 +191,7 @@ or `'followLocation' => false` in array options.
 
 The session is accessible with method `Client::getSession()`.
 
-#### History
+### History
 
 The browsing history is saved in the session. If you serialize the object `Session`, the history is preserve.
 
@@ -204,14 +204,14 @@ $client = new Client();
 $history = $client->getSession()->getHistory();
 ```
 
-#### Cookies
+### Cookies
 
 A cookie manager is available to manage cookies of session and between requests. The manager is available
 with `Session::getCookies()` method.
 
 Serializing a `Session` preserves its cookies.
 
-##### Cookie scope
+#### Cookie scope
 
 Cookies received without `Domain` are restricted to the exact response host (`Cookie::isHostOnly()`).
 An explicit `Domain` must match that host or a parent domain, with a DNS label boundary. Cookies for
@@ -227,13 +227,13 @@ cookie domains. Without IDNA support, ASCII domains (including ASCII Punycode re
 addresses remain supported; Unicode domains are rejected. Malformed domains and hosts with trailing
 dots are rejected.
 
-##### Public suffix limitation
+#### Public suffix limitation
 
 Public suffixes are **not checked**: a response from `tenant.github.io` could set `Domain=github.io`,
 or a response from `example.co.uk` could set `Domain=co.uk`. This version does not include a PSL
 validator, dependency or bundled database.
 
-##### Session serialization
+#### Session serialization
 
 `Session` serializes an array of `Cookie` objects and rebuilds `CookiesManager` using its constructor,
 preserving the host-only flag and the other cookie attributes.
@@ -246,7 +246,7 @@ Sessions saved in the old format containing a cookie manager discard their cooki
 because the original host-only scope and response provenance cannot be recovered reliably.
 Applications using those saved sessions may need to authenticate again.
 
-#### HAR file
+### HAR file
 
 HAR exports omit the domain for host-only cookies and prefix explicit domain-cookie scopes with a dot.
 On import, cookies are validated against their entry URI. Missing or undotted domain metadata is treated
@@ -261,7 +261,7 @@ Refers to the documentation of **elgigi/har-parser** library: https://github.com
 
 ## Adapters
 
-#### Usage
+### Usage
 
 Default adapter used by library is the `AutoAdapter`, which picks the best available transport automatically: it
 prefers `CurlAdapter` when the CURL extension is installed, and falls back to the `StreamAdapter` otherwise.
@@ -292,7 +292,7 @@ $client = new Client(adapter: new Adapter\CurlAdapter(), adapter: new Adapter\St
 $client->get('https://getberlioz.com', options: ['adapter' => 'stream']);
 ```
 
-#### List
+### List
 
 List of adapters:
 
@@ -301,7 +301,7 @@ List of adapters:
 - **stream**: `Berlioz\Http\Client\Adapter\StreamAdapter`
 - **har**: `Berlioz\Http\Client\Adapter\HarAdapter`
 
-#### AutoAdapter
+### AutoAdapter
 
 > 🆕 **Info**: *Since version 3.2*
 
@@ -332,7 +332,7 @@ $adapter = new AutoAdapter(
 );
 ```
 
-#### HarAdapter
+### HarAdapter
 
 The `HarAdapter` is specially made to simulate a navigation, coming from a desktop browser for example.
 
@@ -353,7 +353,7 @@ $client->get('https://getberlioz.com'); // Get response from HAR object, without
 
 Har adapter accept an option `strict` (default: `false`) to force the way of navigation.
 
-#### Create an adapter
+### Create an adapter
 
 You can create an adapter for your project.
 You must implement the interface `Berlioz\Http\Client\Adapter\AdapterInterface`.

@@ -252,9 +252,7 @@ Remember the 3 main methods:
 Others methods of **Service Container** in many cases, are not necessaries for projects. If you want to know more, go
 on [component documentation](../components/service-container.md).
 
-> **Tips**:
->
-> You can get service quickly from `Controller` classes with method: `Controller::get($id)`.
+> 💡 **Tip**: You can get service quickly from `Controller` classes with method: `Controller::get($id)`.
 
 ## Instantiator
 

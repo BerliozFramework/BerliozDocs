@@ -67,9 +67,7 @@ it's possible with this config example:
 
 In this example, the HTTP status code will be `302 Found`.
 
-> **Warning**:
->
-> With this method, controllers routes are priority from list of redirection.
+> ⚠️ **Warning**: With this method, controllers routes are priority from list of redirection.
 > So if you have a conflict between a controller route and a defined route, the controller wins!
 
 ## With controller
