@@ -54,6 +54,9 @@ The pending TTL only controls when the console labels an unfinished snapshot as 
 or cancel deferred jobs. Choose a TTL that covers your expected after-response work. A snapshot saved later still
 becomes available normally.
 
+The console answers with the HTTP status `202` while the snapshot is in progress, `410` when it is incomplete, and
+`404` when the snapshot is unknown.
+
 ## Console
 
 To open console, you need to click on the toolbar.

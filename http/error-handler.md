@@ -11,6 +11,8 @@ keywords:
 
 You can personalize errors pages with an error handler. Also, you can define an error handler by status code.
 
+To raise an HTTP error from your code, see [HTTP exceptions](exceptions.md).
+
 ## Error handler
 
 Error handler is a class whose implements `\Berlioz\Http\Core\Http\Handler\Error\ErrorHandlerInterface` interface.

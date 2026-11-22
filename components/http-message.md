@@ -90,6 +90,8 @@ Content-type suffixes are handled automatically (e.g. `application/vnd.api+json`
 
 Some methods are provided beyond the PSR-7/PSR-17 standards:
 
+- `Request::HTTP_METHOD_*` constants — HTTP method names (`Request::HTTP_METHOD_GET`, `Request::HTTP_METHOD_POST`...),
+  including `Request::HTTP_METHOD_QUERY` since version 3.4
 - `ServerRequest::getServerParam(string $name, mixed $default = null): mixed` — single server parameter access
 - `ServerRequest::getQueryParam(string $name, mixed $default = null): mixed` — single query parameter access
 - `ServerRequest::isAjaxRequest(): bool` — detects AJAX requests

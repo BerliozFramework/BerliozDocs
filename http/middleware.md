@@ -24,6 +24,9 @@ Some middlewares are configured by default:
 
 - `Berlioz\Http\Core\Http\Middleware\MaintenanceMiddleware`:
   stop execution of controllers and display maintenance page if [maintenance is enabled](../guides/maintenance.md).
+- `Berlioz\Http\Core\Http\Middleware\DebugConsoleMiddleware` *(since version 3.2)*:
+  restrict the [debug console](../getting-started/debug.md) (`/_console`) to the debug mode and to the allowed IPs;
+  other requests get a 404 error.
 - `Berlioz\Http\Core\Http\Middleware\AcceptQueryMiddleware` *(since version 3.4)*:
   handle the `acceptQuery` route option of the [QUERY method](routing.md#query-method): `Accept-Query` header and
   rejection of `QUERY` requests with a missing, malformed (400) or unsupported (415) content type. Does nothing for

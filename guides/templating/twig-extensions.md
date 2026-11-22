@@ -55,6 +55,9 @@ for JS files. An array can be given to add parameters to each preload header:
 >
 > The `nopush` parameter is deprecated, HTTP/2 Server Push is no longer supported by browsers. It will be removed in
 > version 4.
+>
+> The `AssetRuntimeExtension::H2PUSH_CACHE_COOKIE` constant and the `AssetRuntimeExtension::setCookie()` method are
+> deprecated too: the framework no longer uses them.
 
 ## Extension `DefaultExtension`
 
