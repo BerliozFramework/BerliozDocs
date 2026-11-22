@@ -16,8 +16,7 @@ you!
 
 ## Installation
 
-You must install **Berlioz/CliCore** with [Composer](https://getcomposer.org/); it's the recommended installation
-method.
+Install **Berlioz/CliCore** with [Composer](https://getcomposer.org/); it's the recommended installation method.
 
 First, create a standard project with Composer support. Then execute this command:
 

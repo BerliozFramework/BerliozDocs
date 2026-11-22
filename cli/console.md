@@ -14,7 +14,7 @@ Berlioz uses the [**league/climate**](https://climate.thephpleague.com/) package
 > CLImate allows you to easily output colored text, special formatting, and more. It makes output to the terminal
 > clearer and debugging a lot simpler.
 
-The console is accessible from the environment variable passed as an argument to the
+The console is accessible from the environment object passed as an argument to the
 `CommandInterface::run(Environment $env)` method.
 
 ## Output

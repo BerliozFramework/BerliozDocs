@@ -164,6 +164,8 @@ Delete magic methods:
 - `Entity::onBeforeDelete(): void` called before delete
 - `Entity::onAfterDelete(): void` called after delete
 
+The methods without `Before` or `After` in their name are called after the operation, like the `After` ones.
+
 All methods are called from the service container, so dependency injection is enabled :).
 
 ## Debug console

@@ -104,10 +104,10 @@ $dispatcher = new EventDispatcher();
 $dispatcher->addListenerProvider(new MyListenerProvider());
 ```
 
-## Default listener
+## Default listener provider
 
-The default listener is `\Berlioz\EventManager\Listener\Listener`. You can define your own default provider; it must
-implement the `\Berlioz\EventManager\Listener\ListenerInterface` interface.
+The default listener provider is `\Berlioz\EventManager\Provider\ListenerProvider`. You can define your own default
+provider; it must implement the `\Berlioz\EventManager\Provider\ListenerProviderInterface` interface.
 
 To declare it in the dispatcher:
 

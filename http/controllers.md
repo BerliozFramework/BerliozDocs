@@ -9,8 +9,8 @@ keywords:
 
 # Controllers
 
-Controllers are classes that control interactions between models, services and templates. When the application
-starts, the router service instantiates the controller and calls the matched method.
+Controllers are classes that control interactions between models, services and templates. When a request
+matches a route, the framework instantiates the controller and calls the matched method.
 
 ## Class `\Berlioz\Http\Core\Controller\AbstractController`
 

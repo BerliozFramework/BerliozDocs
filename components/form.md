@@ -86,7 +86,7 @@ $form->add('my_control', Text::class, ['label' => 'My control']);
 
 ## Handle
 
-**Berlioz Form** implements **PSR-7** (HTTP message interfaces). You must give the server request to the `handle`
+**Berlioz Form** uses **PSR-7** (HTTP message interfaces). You must give the server request to the `handle`
 method.
 
 ```php

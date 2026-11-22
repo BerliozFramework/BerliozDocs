@@ -754,7 +754,8 @@ use Berlioz\QueueManager\RateLimiter\MultiRateLimiter;
 $limiter = MultiRateLimiter::createFromString('5/1s', '1000/1d');
 ```
 
-Supported units include `s` (seconds), `m` (minutes), `h` (hours), and `d` (days).
+Supported units are `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Their long forms are accepted too:
+`sec`, `second`, `min`, `minute`, `hour`, `day`, and their plurals.
 
 ## CLI commands
 

@@ -6,7 +6,7 @@ breadcrumb:
 
 # Routing
 
-Routes redirect HTTP requests to the right controller and its method.
+Routes map HTTP requests to the right controller and its method.
 
 The default router of Berlioz Framework is the package [**berlioz/router**](../components/router.md).
 

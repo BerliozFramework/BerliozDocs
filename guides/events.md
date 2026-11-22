@@ -110,14 +110,13 @@ Listen to `TerminateEvent` to be called in both contexts. See [After the respons
 
 ## Trigger an event
 
-You can trigger a specific event with the `trigger` method.
+You can trigger a specific event with the `trigger` method. It dispatches a
+`\Berlioz\EventManager\Event\CustomEvent` with the given name and data, and returns it.
 
 ```php
 /** @var \Berlioz\Core\Event\EventDispatcher $eventDispatcher */
 $eventDispatcher->trigger('myEvent', []);
 ```
-
-> ⚠️ **Warning**: The original event can contain some necessary data.
 
 ## Dispatch an event
 

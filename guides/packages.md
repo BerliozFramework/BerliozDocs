@@ -9,8 +9,6 @@ summary-order: ;5
 
 Packages are available to simplify the integration of some functionality into a project without tedious configuration.
 
-They are also the specificity to be able to used instead of middleware with implementation of **PSR-15**.
-
 ## Installation of a package
 
 If the package respects [our recommendations](packages/creation.md), the installation is automatic, but you can also

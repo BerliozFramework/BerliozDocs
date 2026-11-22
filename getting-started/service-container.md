@@ -262,7 +262,8 @@ methods or functions.
 In all the following examples, the last argument is an array of parameters to give to the constructor, method or
 function. The order of arguments is not important.
 
-In case of a parameter is an object, the system get the classes implemented to inject in good parameter.
+If a parameter is typed with a class and you do not give it, the system gets the object from the container or tries to
+instantiate the class.
 
 ### New instance of a class or object
 

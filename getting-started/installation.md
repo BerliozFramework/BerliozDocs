@@ -14,8 +14,7 @@ If you want to use **Berlioz Framework** for CLI projects, see [CLI Project](../
 
 ## Berlioz Framework
 
-Berlioz Framework must be installed with [Composer](https://getcomposer.org/); it's the recommended
-installation.
+Install Berlioz Framework with [Composer](https://getcomposer.org/); it's the recommended installation method.
 
 ```bash
 composer create-project berlioz/website-skeleton my-project --remove-vcs
@@ -148,7 +147,7 @@ If everything is OK, you will see this screen:
 
 ![First page](../_assets/first-page.png)
 
-On this first page, you can also see the debug console of **Berlioz**. If you click on it, you will see the debug
-details:
+On this first page, you can also see the debug toolbar of **Berlioz**, at the bottom left. If you click on it, you
+will see the debug console:
 
 ![Debug](../_assets/first-page-debug.png)

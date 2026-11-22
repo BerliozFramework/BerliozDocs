@@ -45,8 +45,8 @@ $config = new Config([$arrayAdapter, $jsonAdapter, $iniAdapter, $yamlAdapter]);
 print $config->get('foo.bar.qux'); // Print value of configuration
 ```
 
-The second parameter of the `IniAdapter`, `JsonAdapter` and `YamlAdapter` constructors defines that the first parameter
-is a URL.
+The second parameter of the `IniAdapter`, `JsonAdapter` and `YamlAdapter` constructors tells the adapter that the first
+parameter is the path of a file, not the content itself.
 
 The order of the adapters is important: the first one has priority. The value returned by the `get` method comes from
 the first adapter that has the key. If the value is an array, it is merged with the values of all adapters.
@@ -172,11 +172,15 @@ unset($config->getVariables()['bar']);
 
 You can create your own adapter. You only need to implement the `\Berlioz\Config\Adapter\AdapterInterface` interface.
 
-This interface has only 3 methods:
+This interface has 5 methods:
 
 - `AdapterInterface::getPriority(): int`
-- `ConfigInterface::get(string $key, mixed $default = null): mixed`
+- `AdapterInterface::setPriority(int $priority): void`
+- `ConfigInterface::get(?string $key = null, mixed $default = null): mixed`
 - `ConfigInterface::has(string $key): bool`
+- `ConfigInterface::getArrayCopy(): array`
+
+The `\Berlioz\Config\Adapter\AbstractAdapter` class implements them all from an array of configuration.
 
 Look at the existing adapters in the source code of the library for inspiration.
 
