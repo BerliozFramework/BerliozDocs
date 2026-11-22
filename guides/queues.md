@@ -433,6 +433,25 @@ class EmailJobDescriptor extends JobDescriptor implements JobForQueue
 When pushed through the `QueueManager`, this job will automatically be routed to the `emails` queue regardless of the
 default.
 
+### Reading the settings of a queue
+
+> 🆕 **Info**: *Since version 3.4*
+
+Get a configured queue by its name with `QueueManager::getQueue()` to read its settings, e.g. to derive a processing
+timeout from the retry time instead of configuring the same value twice:
+
+```php
+$queue = $this->queueManager->getQueue('emails');
+
+$queue->getMaxAttempts(); // Maximum attempts of a job in the "emails" queue
+$queue->getRetryTime();   // Retry time of the "emails" queue
+```
+
+An unknown queue name throws a `QueueManagerException`.
+
+`QueueManager::hasQueue()` tells whether a queue exists, and `QueueManager::getDefaultQueue()` returns the queue used
+when no queue name is given. See [Get a queue](../components/queue-manager.md#get-a-queue).
+
 ## Deferred queues
 
 > 🆕 **Info**: *Since version 3.4*
