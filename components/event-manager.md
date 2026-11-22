@@ -17,7 +17,7 @@ keywords:
 > You can find it on [Packagist](https://packagist.org/packages/berlioz/event-manager).
 > You can use it independently of the framework, in any PHP application.
 
-**Berlioz Event Manager** is a PHP event manager/dispatcher, respecting PSR-14 (Event Dispatcher) standard.
+**Berlioz Event Manager** is a PHP event manager/dispatcher, respecting the PSR-14 (Event Dispatcher) standard.
 
 ## Dispatcher
 
@@ -29,7 +29,7 @@ use Berlioz\EventManager\EventDispatcher;
 $dispatcher = new EventDispatcher();
 ```
 
-To listen an event:
+To listen to an event:
 
 ```php
 use Berlioz\EventManager\EventDispatcher;
@@ -64,7 +64,7 @@ $dispatcher->dispatch(new MyEvent());
 
 ## Priority
 
-You can define a priority in your listeners. The highest priority is in the first executions.
+You can define a priority for your listeners. The listeners with the highest priority are executed first.
 
 ```php
 use Berlioz\EventManager\Listener\ListenerInterface;
@@ -79,12 +79,12 @@ $dispatcher->addEventListener('event.name', $callback, ListenerInterface::PRIORI
 $dispatcher->addEventListener('event.name', $callback, ListenerInterface::PRIORITY_LOW);
 ```
 
-The priority argument is an integer ; you can so define your priority with integer value instead of constant.
+The priority argument is an integer, so you can define your priority with an integer value instead of a constant.
 
-## Add delegate dispatcher
+## Add a delegate dispatcher
 
-You can delegate dispatch to another dispatcher who respects PSR-14. The delegated dispatchers are called after, only if
-event isn't stopped.
+You can delegate the dispatch to another dispatcher that respects PSR-14. The delegated dispatchers are called
+afterward, only if the event isn't stopped.
 
 ```php
 use Berlioz\EventManager\EventDispatcher;
@@ -93,7 +93,7 @@ $dispatcher = new EventDispatcher();
 $dispatcher->addEventDispatcher(new MyCustomDispatcher());
 ```
 
-## Add listener provider
+## Add a listener provider
 
 You can add listener providers. Providers are called in the order of addition.
 
@@ -106,10 +106,10 @@ $dispatcher->addListenerProvider(new MyListenerProvider());
 
 ## Default listener
 
-The default listener is `\Berlioz\EventManager\Listener\Listener`. You can define your own default provider, he must
-implement `\Berlioz\EventManager\Listener\ListenerInterface` interface.
+The default listener is `\Berlioz\EventManager\Listener\Listener`. You can define your own default provider; it must
+implement the `\Berlioz\EventManager\Listener\ListenerInterface` interface.
 
-To declare this into the dispatcher:
+To declare it in the dispatcher:
 
 ```php
 use Berlioz\EventManager\EventDispatcher;

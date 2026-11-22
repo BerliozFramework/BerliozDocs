@@ -22,7 +22,7 @@ keywords:
 
 ## Additional options
 
-All [commons options](inputs.md#common-options), and:
+All [common options](inputs.md#common-options), and:
 
 | Name       | Type   | Default value | Description                          |
 |------------|--------|---------------|--------------------------------------|

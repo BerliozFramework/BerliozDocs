@@ -6,18 +6,18 @@ breadcrumb:
 
 # Debug
 
-Berlioz provides a debug toolbar and console to facility your development.
+Berlioz provides a debug toolbar and console to facilitate your development.
 
 ## Toolbar
 
-The toolbar shown at left bottom of your page, and indicate the time of page execution.
+The toolbar is shown at the bottom left of your page, and indicates the execution time of the page.
 
 ![Debug toolbar](../_assets/debug-toolbar.png)
 
-> ℹ️ **Note**: If an error occurred during script execution, the check icon transform to cross icon ;)
+> ℹ️ **Note**: If an error occurs during script execution, the check icon turns into a cross icon ;)
 
-Two icons appears on hover. The first to hide the toolbar, and the second to switch at right the toolbar (this action is
-saved into a cookie to reproduce the position).
+Two icons appear on hover. The first one hides the toolbar, and the second one moves the toolbar to the right (this
+action is saved in a cookie to restore the position).
 
 ### Response time
 
@@ -59,7 +59,7 @@ The console answers with the HTTP status `202` while the snapshot is in progress
 
 ## Console
 
-To open console, you need to click on the toolbar.
+To open the console, click on the toolbar.
 
 ![Debug Console](../_assets/debug-console.png)
 
@@ -72,7 +72,7 @@ and headers, allowing you to inspect the response alongside the request and rout
 
 ## Enable/Disable debug mode
 
-In your configuration file, you need to specify the activation of debug, by default, the debug mode is not enable.
+By default, debug mode is not enabled. You need to enable it in your configuration file.
 
 ```json
 {
@@ -86,8 +86,8 @@ In your configuration file, you need to specify the activation of debug, by defa
 
 ## Restrict to an IP or host
 
-By security, you can restrict the activation of debug mode to some ips or host.
-In your configuration file, you need to declare the list of authorized ips and hosts, like this:
+For security, you can restrict debug mode to some IP addresses or hosts.
+In your configuration file, declare the list of authorized IP addresses and hosts, like this:
 
 ```json
 {
@@ -103,7 +103,7 @@ In your configuration file, you need to declare the list of authorized ips and h
 }
 ```
 
-In this example, debug mode is activated only for local ip `127.0.0.1` and host `getberlioz.com`.
+In this example, debug mode is enabled only for the local IP `127.0.0.1` and the host `getberlioz.com`.
 
 ### Client IP resolution behind a proxy
 

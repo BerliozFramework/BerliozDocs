@@ -7,18 +7,18 @@ summary-order: ;4
 
 # Events
 
-**Berlioz framework** provides an event dispatcher. He's accessible by method `Core::getEventDispatcher()` or by
-container.
+**Berlioz framework** provides an event dispatcher. It is accessible with the `Core::getEventDispatcher()` method or
+from the container.
 
-## Listen an event
+## Listen to an event
 
 ### With Subscriber
 
-You can create a subscriber to listen some events. Subscriber class must
-implement `\Berlioz\EventManager\Subscriber\SubscriberInterface` interface.
+You can create a subscriber to listen to some events. The subscriber class must implement the
+`\Berlioz\EventManager\Subscriber\SubscriberInterface` interface.
 
-You can help you of `\Berlioz\EventManager\Subscriber\AbstractSubscriber` abstract class. This class provides
-dynamic `listens()` method.
+To help you, you can use the `\Berlioz\EventManager\Subscriber\AbstractSubscriber` abstract class. This class provides
+a dynamic `listens()` method.
 
 Example:
 
@@ -54,7 +54,7 @@ class MySubscriber extends AbstractSubscriber
 }
 ```
 
-Subscribers must be declared in configuration:
+Subscribers must be declared in the configuration:
 
 ```json
 {
@@ -66,12 +66,13 @@ Subscribers must be declared in configuration:
 }
 ```
 
-> ℹ️ **Note**: It's recommended to use subscribers to listen events, and explode by work.
-> In this case, only necessaries listeners are declared to the dispatcher.
+> ℹ️ **Note**: It's recommended to use subscribers to listen to events, and to split them by task.
+> In this case, only the necessary listeners are declared to the dispatcher.
 
 ### Without Subscriber
 
-If you want listen event without subscriber, you need to declare event and callback into the configuration:
+If you want to listen to an event without a subscriber, you need to declare the event and the callback in the
+configuration:
 
 ```json
 {
@@ -90,7 +91,7 @@ If you want listen event without subscriber, you need to declare event and callb
 }
 ```
 
-> ℹ️ **Note**: Prefers subscribers to have the best performances.
+> ℹ️ **Note**: Prefer subscribers to get the best performance.
 
 ## Framework events
 
@@ -109,7 +110,7 @@ Listen to `TerminateEvent` to be called in both contexts. See [After the respons
 
 ## Trigger an event
 
-You can trigger a specific event with `trigger` method.
+You can trigger a specific event with the `trigger` method.
 
 ```php
 /** @var \Berlioz\Core\Event\EventDispatcher $eventDispatcher */
@@ -120,9 +121,9 @@ $eventDispatcher->trigger('myEvent', []);
 
 ## Dispatch an event
 
-Your application can dispatch events with method `dispatch` of event dispatcher.
+Your application can dispatch events with the `dispatch` method of the event dispatcher.
 
-You can use `\Berlioz\EventManager\Event\CustomEvent` class to generate simple events.
+You can use the `\Berlioz\EventManager\Event\CustomEvent` class to generate simple events.
 
 Example:
 

@@ -11,8 +11,8 @@ keywords:
 
 # Form
 
-Object `Berlioz\Form\Form` is the main object to manipulate forms.
-The class inherits [`Berlioz\Form\Group`](group.md), so you can add a form to another form!
+The `Berlioz\Form\Form` object is the main object to manipulate forms.
+The class inherits from [`Berlioz\Form\Group`](group.md), so you can add a form to another form!
 
 ## Options
 
@@ -24,13 +24,13 @@ The class inherits [`Berlioz\Form\Group`](group.md), so you can add a form to an
 
 ## Methods
 
-- `Form::handle(ServerRequestInterface $request): void`: handle a server request to form
-- `Form::isSubmitted(): bool`: form is submitted
-- `Form::isValid(): bool`: all elements of form pass validation
-- `Form::getConstraints(): ConstraintInterface[]`: all the thrown constraints by the validation
-- `Form::getValue(): array`: form value (without treatment by transformers) ; if form is submitted, the value will be
-  the user value else the default value
-- `Form::getFinalValue(): array`: same as `Form::getValue()` with treatment by transformers
+- `Form::handle(ServerRequestInterface $request): void`: handle a server request for the form
+- `Form::isSubmitted(): bool`: whether the form is submitted
+- `Form::isValid(): bool`: whether all elements of the form pass validation
+- `Form::getConstraints(): ConstraintInterface[]`: all the constraints thrown by the validation
+- `Form::getValue(): array`: form value (without processing by transformers); if the form is submitted, the value will
+  be the user value, otherwise the default value
+- `Form::getFinalValue(): array`: same as `Form::getValue()` with processing by transformers
 
 ## Request lifetime
 
@@ -92,7 +92,7 @@ $form
     ->add('input2', Text::class, ['label' => 'My second input']);
 ```
 
-Result of form will be:
+The result of the form will be:
 
 ```php
 [

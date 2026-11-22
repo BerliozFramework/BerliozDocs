@@ -17,13 +17,13 @@ keywords:
 > You can find it on [Packagist](https://packagist.org/packages/berlioz/router).
 > You can use it independently of the framework, in any PHP application.
 
-**Berlioz Router** is a PHP library to manage HTTP routes, respecting PSR-7 (HTTP message interfaces) standard.
+**Berlioz Router** is a PHP library to manage HTTP routes, respecting the PSR-7 (HTTP message interfaces) standard.
 
 ## Routes
 
-### Create route
+### Create a route
 
-You can create simple route like this:
+You can create a simple route like this:
 
 ```php
 use Berlioz\Router\Route;
@@ -32,12 +32,12 @@ $route = new Route('/path-of/my-route');
 $route = new Route('/path-of/my-route/{attribute}/with-attribute');
 ```
 
-Constructor arguments are:
+The constructor arguments are:
 
-- **defaults**: an associated array to set default values of attributes when route is generated
-- **requirements**: an associated array to restrict the format of attributes. Key is the name of attribute and value is
-  the validation regex
-- **name**: name of route
+- **defaults**: an associative array to set the default values of attributes when the route is generated
+- **requirements**: an associative array to restrict the format of attributes. The key is the name of the attribute
+  and the value is the validation regex
+- **name**: name of the route
 - **method**: an array of allowed HTTP methods, or just a method. When omitted, the route accepts `GET`, `HEAD`,
   `POST`, `OPTIONS`, `CONNECT`, `TRACE`, `PUT`, `PATCH`, `DELETE`, and `QUERY` (since version 3.4,
   [RFC 10008](https://www.rfc-editor.org/info/rfc10008/))
@@ -46,7 +46,7 @@ Constructor arguments are:
 
 ### Route group
 
-A route can be transformed to a group, only associate another route to them.
+A route can be turned into a group: you only need to add another route to it.
 
 ```php
 use Berlioz\Router\Route;
@@ -55,7 +55,7 @@ $route = new Route('/path');
 $route->addRoute($route2 = new Route('/path2')); // Path will be: /path/path2
 ```
 
-Children routes inherit parent route attributes, requirements, methods, host restrictions, options, and context.
+Child routes inherit parent route attributes, requirements, methods, host restrictions, options, and context.
 
 > 🆕 **Info**: *Since version 3.1*
 >
@@ -63,23 +63,23 @@ Children routes inherit parent route attributes, requirements, methods, host res
 
 ### Attributes
 
-Route accept optional attributes, you need to wrap the optional part by brackets.
+Routes accept optional attributes; you need to wrap the optional part in brackets.
 
 ```php
 $route = new \Berlioz\Router\Route('/path[/optional-part/{with-attribute}]');
 ```
 
-You can also define requirements directly in the path :
+You can also define requirements directly in the path:
 
-- Add a regular expression after the name of attribute (separate by ":").
-- Add a type name after the name of attribute (separate by "::").
+- Add a regular expression after the name of the attribute (separated by ":").
+- Add a type name after the name of the attribute (separated by "::").
 
 ```php
 $route = new \Berlioz\Router\Route('/path/{attributeName:\d+}');
 $route = new \Berlioz\Router\Route('/path/{attributeName::int}');
 ```
 
-Supported defined types:
+Supported predefined types:
 
 - `int` (equivalent of `\d+`)
 - `float` (equivalent of `\d+(?:\.\d+)?`, so integer values are accepted too)
@@ -95,8 +95,8 @@ Supported defined types:
 
 ## Router
 
-The router is the main functionality in the package, it is defined by `Router` class. He is able to find the
-good `Route` object according to a `ServerRequestInterface` object (see PSR-7).
+The router is the main feature of the package; it is defined by the `Router` class. It is able to find the
+right `Route` object according to a `ServerRequestInterface` object (see PSR-7).
 
 ```php
 use Berlioz\Http\Message\ServerRequest;
@@ -120,12 +120,12 @@ $route = $router->handle($serverRequest);
 
 | Options            | Type           | Description                                                                               |
 |--------------------|----------------|-------------------------------------------------------------------------------------------|
-| X-Forwarded-Prefix | boolean/string | Default to **false**, **true** to use "X-Forwarded-Prefix" value or custom name of header | 
+| X-Forwarded-Prefix | boolean/string | Defaults to **false**; **true** to use the "X-Forwarded-Prefix" value, or a custom header name |
 | trustedProxies | array | IPs, CIDRs or helper aliases allowed to supply the prefix; defaults to an empty list (since version 3.3) |
 
 ### Generate path
 
-You can generate a path with some parameters directly with `Router` object.
+You can generate a path with some parameters directly with the `Router` object.
 
 ```php
 use Berlioz\Router\Exception\NotFoundException;
@@ -141,12 +141,12 @@ try {
 }
 ```
 
-The return of method, is the path in string format or thrown an exception if not able to generate path (not all required
-parameters for example).
+The method returns the path as a string, or throws an exception if it is not able to generate the path (for example,
+when not all required parameters are given).
 
-### Valid path
+### Validate a path
 
-You can be valid a `ServerRequestInterface` to known if a path can be treated by a route.
+You can validate a `ServerRequestInterface` to know if a path can be handled by a route.
 
 ```php
 use Berlioz\Http\Message\ServerRequest;
@@ -160,7 +160,7 @@ $router = new Router();
 $valid = $router->isValid($serverRequest);
 ```
 
-The return of method is a `boolean` value.
+The method returns a `boolean` value.
 
 ### Finalize path
 

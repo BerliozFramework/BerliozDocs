@@ -6,14 +6,14 @@ breadcrumb:
 summary-visible: false
 ---
 
-# Creation of package
+# Creating a package
 
 ## Package class
 
-First step is to create a class who implements `Berlioz\Core\Package\PackageInterface` interface.
-To simplify your creation, you can extend `Berlioz\Core\Package\AbstractPackage` class.
+The first step is to create a class that implements the `Berlioz\Core\Package\PackageInterface` interface.
+To simplify the creation, you can extend the `Berlioz\Core\Package\AbstractPackage` class.
 
-Representation of interface:
+Representation of the interface:
 
 ```php
 use Berlioz\Config\ConfigInterface;
@@ -64,10 +64,10 @@ interface PackageInterface
 
 ## Declaration in `composer.json` file
 
-Second step is to declare in your `composer.json` file, that the project is a Berlioz package.
+The second step is to declare in your `composer.json` file that the project is a Berlioz package.
 
-So add `"type": "berlioz-package"` in your `composer.json` file. And add in "config" section the declaration of your
-package class.
+So add `"type": "berlioz-package"` to your `composer.json` file. Then add the declaration of your package class in the
+"config" section.
 
 Full example of your `composer.json` file:
 

@@ -236,15 +236,15 @@ Berlioz API itself. All namespaces, class names, method signatures and behaviors
 
 #### Breaking changes for Core
 
-- Packages methods signature changed
+- The signature of package methods changed
 
 #### Breaking changes for HttpCore
 
 - Namespace `Berlioz\HttpCore` moved to `Berlioz\Http\Core`
 - Namespace `Berlioz\Router` moved to `Berlioz\Http\Router`
 - Magic methods `_b_pre()` and `_b_post()` of controllers are removed in favor of [middlewares](../http/middleware.md)
-- Remove usage of PhpDoc annotations in favor of [PHP 8 attributes](https://www.php.net/manual/language.attributes.php),
-  like [routes annotations](../http/routing.md)
+- PhpDoc annotations are removed in favor of [PHP 8 attributes](https://www.php.net/manual/language.attributes.php),
+  like [route annotations](../http/routing.md)
 - Method `AbstractController::getService()` renamed to `AbstractController::get()`
 - `ErrorHandler`
 
@@ -255,12 +255,12 @@ Berlioz API itself. All namespaces, class names, method signatures and behaviors
 
 ### Steps to upgrade
 
-1. Update versions into your composer.json
-2. Run command `composer update`
-3. Create a directory "resources" at root project directory
-4. Move directories "assets" and "templates" into new "resources" directory
+1. Update the versions in your composer.json
+2. Run the command `composer update`
+3. Create a "resources" directory at the root of the project directory
+4. Move the "assets" and "templates" directories into the new "resources" directory
 5. Update your webpack config if necessary
-6. Fixes breaking changes
-7. Update files "public/index.php"
-   like [WebsiteSkeleton](https://github.com/BerliozFramework/WebsiteSkeleton/tree/2.x/public) (do not forget .htaccess
-   file)
+6. Fix the breaking changes
+7. Update the file "public/index.php"
+   like in [WebsiteSkeleton](https://github.com/BerliozFramework/WebsiteSkeleton/tree/2.x/public) (do not forget the
+   .htaccess file)

@@ -9,13 +9,13 @@ keywords:
 
 # Controllers
 
-It's classes whose control interactions between models, services and templates. The controller is instanced, and the
-matched method is called, by router service when the application started.
+Controllers are classes that control interactions between models, services and templates. When the application
+starts, the router service instantiates the controller and calls the matched method.
 
 ## Class `\Berlioz\Http\Core\Controller\AbstractController`
 
-It's the main controller for website projects who offer methods for services, routing, templating, flash messages, and
-redirection.
+It's the main controller for website projects. It offers methods for services, routing, templating, flash messages,
+and redirection.
 
 ## Example
 
@@ -56,11 +56,11 @@ Controller methods do not have to return a `ResponseInterface`. The framework au
 
 ## Parameters
 
-Parameters of the controllers methods are automatically inject by the
-class [`Instantiator`](../getting-started/service-container.md)
-of [service container](../getting-started/service-container.md).
+Parameters of the controller methods are automatically injected by the
+[`Instantiator`](../getting-started/service-container.md) class
+of the [service container](../getting-started/service-container.md).
 
-Attributes of routes are available with `ServerRequest` parameter, with method `getAttributes()`.
+Route attributes are available from the `ServerRequest` parameter, with the `getAttributes()` method.
 
 ## Helper methods
 
@@ -72,7 +72,7 @@ From `ResponseHelperTrait`:
 
 - `response(mixed $body = null, int $statusCode = 200, array $headers = []): ResponseInterface`
 
-  > Create a response. If the body is empty and status is 200, it will be automatically changed to 204 (No Content).
+  > Create a response. If the body is empty and the status is 200, it will be automatically changed to 204 (No Content).
 
 - `jsonResponse(mixed $body = null, int $flags = 0, int $statusCode = 200, array $headers = []): ResponseInterface`
 
@@ -81,7 +81,7 @@ From `ResponseHelperTrait`:
 
 - `redirect(UriInterface|string $uri, int $httpResponseCode = 302, ?ResponseInterface $response = null): ResponseInterface`
 
-  > Redirect to a given URI. If a response object is provided, it will be completed with the Location header.
+  > Redirect to a given URI. If a response object is provided, the Location header is added to it.
 
 ### Router helpers
 

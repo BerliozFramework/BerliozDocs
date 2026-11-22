@@ -12,22 +12,22 @@ keywords:
 
 # Configuration
 
-> ℹ️ **Note**: While configuration are part of the **Berlioz** ecosystem, they are available as a standalone package:
-> [`berlioz/config`](https://github.com/BerliozFramework/Config).
+> ℹ️ **Note**: The configuration component is part of the **Berlioz** ecosystem but is available as a standalone
+> package: [`berlioz/config`](https://github.com/BerliozFramework/Config).
 > You can find it on
 > [Packagist](https://packagist.org/packages/berlioz/config).
-> You can use them independently of the framework, in any PHP application. 🎉
+> You can use it independently of the framework, in any PHP application. 🎉
 
 **Berlioz Configuration** is a PHP library to manage your configuration files.
 
-## Create configuration object
+## Create a configuration object
 
-You can create the configuration with adapters. 4 default adapters are available:
+You can create the configuration with adapters. Four default adapters are available:
 
-- `ArrayAdapter`: accept a PHP array or a PHP file returning an array
-- `IniAdapter`: accept a INI string or file
-- `JsonAdapter`: accept a JSON/JSON5 string or file
-- `YamlAdapter`: accept a YAML string or file (requires `ext-yaml` or `symfony/yaml`)
+- `ArrayAdapter`: accepts a PHP array or a PHP file returning an array
+- `IniAdapter`: accepts an INI string or file
+- `JsonAdapter`: accepts a JSON/JSON5 string or file
+- `YamlAdapter`: accepts a YAML string or file (requires `ext-yaml` or `symfony/yaml`)
 
 Example:
 
@@ -45,17 +45,18 @@ $config = new Config([$arrayAdapter, $jsonAdapter, $iniAdapter, $yamlAdapter]);
 print $config->get('foo.bar.qux'); // Print value of configuration
 ```
 
-Second parameter of `IniAdapter`, `JsonAdapter` and `YamlAdapter` constructors define that the first parameter is an url.
+The second parameter of the `IniAdapter`, `JsonAdapter` and `YamlAdapter` constructors defines that the first parameter
+is a URL.
 
-The order of adapter is important, the first have priority... So the value returned by `get` method is the first adapter
-to respond at key. If the value is an array, it will be merged with all adapters.
+The order of the adapters is important: the first one has priority. The value returned by the `get` method comes from
+the first adapter that has the key. If the value is an array, it is merged with the values of all adapters.
 
-For more flexibility, you can define the priority by an integer in the constructor of adapters, withe the
-parameter `priority`.
+For more flexibility, you can define the priority as an integer in the constructor of the adapters, with the
+`priority` parameter.
 
-## Get value
+## Get a value
 
-To get value, you must call `get` method:
+To get a value, you must call the `get` method:
 
 ```php
 $config = new \Berlioz\Config\Config(/* ... */);
@@ -66,14 +67,14 @@ $config->get('baz', true); // Returns value of key 'baz' or TRUE default value i
 $config->get(); // Returns the full compiled configuration array
 ```
 
-The second parameter of `ConfigInterface::get()` method is the default value if key does not exist. Default value of
-this parameter is `NULL`.
+The second parameter of the `ConfigInterface::get()` method is the default value if the key does not exist. The default
+value of this parameter is `NULL`.
 
 > 🆕 **Info**: *Since version 3.1*
 >
 > Calling `get()` without a key returns the full compiled configuration array.
 
-You can also test if a key exist:
+You can also test if a key exists:
 
 ```php
 $config = new \Berlioz\Config\Config(/* ... */);
@@ -94,17 +95,17 @@ $value = $config->getOrFail('database.host'); // Throws ConfigException if key i
 
 ## Functions
 
-`Config` object accept a set of functions. The syntax to call a function is: `{functionName:value}`.
+The `Config` object accepts a set of functions. The syntax to call a function is: `{functionName:value}`.
 
-A function call must be alone in value of configuration key.
+A function call must be alone in the value of a configuration key.
 
-Defaults functions:
+Default functions:
 
-- `config`: replace value by another part of config
-- `constant`: replace value by a constant
-- `env`: replace value by environment variable
-- `var`: replace value by variable value
-- `file`: replace value by file contents
+- `config`: replaces the value with another part of the config
+- `constant`: replaces the value with a constant
+- `env`: replaces the value with an environment variable
+- `var`: replaces the value with a variable value
+- `file`: replaces the value with the contents of a file
 
 Examples:
 
@@ -137,7 +138,7 @@ print_r($config->get('bar')); // Print array "['foo' => 'value2']"
 
 ## Variables
 
-You can define variables usable in configuration with function `var`.
+You can define variables usable in the configuration with the `var` function.
 
 Define variables in the constructor:
 
@@ -151,8 +152,8 @@ $variables = [
 $config = new \Berlioz\Config\Config(variables: $variables);
 ```
 
-You can also manipulate the variables after instantiation of config. Variables are stored in a `ArrayObject` object,
-accessible with `Config::getVariables()` method:
+You can also manipulate the variables after the instantiation of the config. Variables are stored in an `ArrayObject`
+object, accessible with the `Config::getVariables()` method:
 
 ```php
 $config = new \Berlioz\Config\Config();
@@ -165,11 +166,11 @@ $config->getVariables()['bar'] = 'bar value';
 unset($config->getVariables()['bar']);
 ```
 
-## Extend library
+## Extend the library
 
 ### Create an adapter
 
-You can create your own adapter. Only implements `\Berlioz\Config\Adapter\AdapterInterface` interface.
+You can create your own adapter. You only need to implement the `\Berlioz\Config\Adapter\AdapterInterface` interface.
 
 This interface has only 3 methods:
 
@@ -177,18 +178,19 @@ This interface has only 3 methods:
 - `ConfigInterface::get(string $key, mixed $default = null): mixed`
 - `ConfigInterface::has(string $key): bool`
 
-Look at the existent adapters in the source code of the library for inspiration.
+Look at the existing adapters in the source code of the library for inspiration.
 
 ### Create a function
 
-You can create your owns functions. Only implements `\Berlioz\Config\ConfigFunction\ConfigFunctionInterface` interface.
+You can create your own functions. You only need to implement the
+`\Berlioz\Config\ConfigFunction\ConfigFunctionInterface` interface.
 
 This interface has only 2 methods:
 
 - `ConfigFunctionInterface::getName(): string`
 - `ConfigFunctionInterface::execute(string $str): mixed`
 
-Look at the existent functions in the source code of the library for inspiration.
+Look at the existing functions in the source code of the library for inspiration.
 
 To add a custom function to your config instance:
 

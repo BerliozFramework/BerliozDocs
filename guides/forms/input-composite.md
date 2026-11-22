@@ -13,13 +13,13 @@ keywords:
 
 # Composite
 
-You can create an input composed of other inputs, and transform values into another.
+You can create an input composed of other inputs, and transform its values into another format.
 
-Use class `Berlioz\Form\Type\CompositeType` to construct a composite type.
+Use the `Berlioz\Form\Type\CompositeType` class to construct a composite type.
 
 ## Example
 
-Creation of a SEO composite type. The objective is to get the value of type in JSON format.
+Creation of an SEO composite type. The objective is to get the value of the type in JSON format.
 
 ```php
 use Berlioz\Form\Form;
@@ -50,7 +50,7 @@ $form = new Form('form');
 $form->add('seo', $seoType);
 ```
 
-Result of form will be:
+The result of the form will be:
 
 ```json
 {

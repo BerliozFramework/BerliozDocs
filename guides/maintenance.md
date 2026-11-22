@@ -9,12 +9,12 @@ summary-order: ;7
 
 # Maintenance mode
 
-A middleware treat the maintenance of websites.
+A middleware handles the maintenance mode of websites.
 
 ## Enable / Disable
 
 Maintenance is disabled by default.
-To enable it, set config parameter `berlioz.maintenance` to `true`:
+To enable it, set the config parameter `berlioz.maintenance` to `true`:
 
 ```json
 {
@@ -24,9 +24,9 @@ To enable it, set config parameter `berlioz.maintenance` to `true`:
 }
 ```
 
-## Plan a maintenance
+## Plan maintenance
 
-To plan a maintenance, define the configuration like this:
+To plan maintenance, define the configuration like this:
 
 ```json
 {
@@ -52,7 +52,7 @@ All options are optional.
 > - If only `end` is set, maintenance is active immediately until that time.
 > - If neither is set (or `maintenance` is simply `true`), maintenance is always active.
 
-The default handler class: `\Berlioz\Http\Core\Http\Handler\MaintenanceHandler`.
-Like [HTTP errors](../http/error-handler.md), you can set your own handler to display a maintenance page.
+The default handler class is `\Berlioz\Http\Core\Http\Handler\MaintenanceHandler`.
+As with [HTTP errors](../http/error-handler.md), you can set your own handler to display a maintenance page.
 
-The maintenance object is accessible in the application object: `\Berlioz\Http\Core\App\HttpApp::getMaintenance()`
+The maintenance object is accessible from the application object: `\Berlioz\Http\Core\App\HttpApp::getMaintenance()`.

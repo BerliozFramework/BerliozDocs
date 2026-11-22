@@ -68,9 +68,9 @@ Options available:
 | **readonly**         | boolean                | false                   | Input is readonly                   |
 | **helper**           | string/false           | *none*                  | Helper                              |
 | **attributes**       | array                  | *none*                  | List of attributes                  |
-| **null_if_empty**    | boolean                | false                   | If empty value, it's casted to NULL |
-| **transformer**      | `TransformerInterface` | *Depends of input type* | Convert format into another         |
-| **validators**       | `ValidatorInterface[]` | *Depends of input type* | Valid data from user form           |
+| **null_if_empty**    | boolean                | false                   | An empty value is cast to NULL      |
+| **transformer**      | `TransformerInterface` | *Depends on input type* | Convert a format into another       |
+| **validators**       | `ValidatorInterface[]` | *Depends on input type* | Validate data from the user form    |
 
 ### Mapping
 
@@ -107,4 +107,4 @@ or `Berlioz\Form\Type\RawType` for a free-form value (a JSON structure, for exam
 
 ## Attributes
 
-Some attributes are used by forms library to do validations or interactions. Refers to the input description.
+Some attributes are used by the forms library for validations or interactions. Refer to the input description.

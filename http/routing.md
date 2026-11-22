@@ -6,7 +6,7 @@ breadcrumb:
 
 # Routing
 
-Routes redirect HTTP requests to the good controller and method of him.
+Routes redirect HTTP requests to the right controller and its method.
 
 The default router of Berlioz Framework is the package [**berlioz/router**](../components/router.md).
 
@@ -108,16 +108,16 @@ The framework only reads the attributes of the controllers listed in the `contro
 }
 ```
 
-Accepted arguments on routes attributes:
+Accepted arguments on route attributes:
 
-- `path`: path of route *(type: string|null)*
+- `path`: path of the route *(type: string|null)*
 - `defaults`: an array of default values of attributes *(type: array)*
-- `requirements`: an array of attributes requirements *(type: array)*
-- `name`: name of route *(type: string|null)*
-- `method`: a method or array of HTTP methods accepted by the route *(type: string|array|null)*
+- `requirements`: an array of attribute requirements *(type: array)*
+- `name`: name of the route *(type: string|null)*
+- `method`: a method or an array of HTTP methods accepted by the route *(type: string|array|null)*
 - `host`: a host or an array of hosts accepted by the route *(type: string|array|null)*
 - `priority`: priority of the route *(type: int)*
-- `options`: options for application *(type: array)*
+- `options`: options for the application *(type: array)*
 
 Example with some options:
 
@@ -218,10 +218,10 @@ your reverse proxy or CDN configuration before enabling caching, or send `Cache-
 
 ## Route with attributes
 
-You can add some dynamic attributes in your routes, attributes are named and must be encapsulated by `{` and `}`.
+You can add some dynamic attributes to your routes. Attributes are named and must be enclosed in `{` and `}`.
 
-Attributes are transmitted in a `ServerRequest` object of **PSR-7** in argument of controller method. And accessible
-with `getAttribute()` method.
+Attributes are passed in a **PSR-7** `ServerRequest` object, given as an argument of the controller method. They are
+accessible with the `getAttribute()` method.
 
 ```php
 use Berlioz\Http\Core\Attribute as Berlioz;
@@ -241,10 +241,10 @@ class MyController
 
 ### Requirement mask
 
-You can define a requirement mask for a specific attribute, it's very useful to limit internal errors if you search need
-only `int` values for an attribute for example.
+You can define a requirement mask for a specific attribute. It's very useful to limit internal errors, for example if
+you need only `int` values for an attribute.
 
-The `requirements` option accept only array object like value. The key represents the attribute name and value a regex
+The `requirements` option accepts only an array as value. The key represents the attribute name, and the value a regex
 mask.
 
 ```php
@@ -262,7 +262,7 @@ class MyController
 
 ### Priority
 
-In some cases, you need to set priority between routes, because the global mask of 2 requests are concurrent, like this
+In some cases, you need to set a priority between routes, because the global masks of 2 requests compete, like these
 routes:
 
 ```php
@@ -285,8 +285,8 @@ class MyController
 }
 ```
 
-To define the priority to a route, add `priority` option to the route with `int` value, more the value is greater, more
-the route will be priority (default value: **-1**). In our example, to do the second route priority:
+To define the priority of a route, add the `priority` option to the route with an `int` value. The greater the value,
+the higher the priority of the route (default value: **-1**). In our example, to give priority to the second route:
 
 ```php
 use Berlioz\Http\Core\Attribute as Berlioz;
@@ -310,9 +310,10 @@ class MyController
 
 ### Default values
 
-You can define default values in option of the route, in case of you generate them without specify attribute.
+You can define default values in an option of the route, in case you generate the route without specifying an
+attribute.
 
-The `defaults` option accept only array object like value. The key represents the attribute name and value the default
+The `defaults` option accepts only an array as value. The key represents the attribute name, and the value the default
 value.
 
 ```php
@@ -331,7 +332,7 @@ class MyController
 
 ### Group of routes
 
-For routes with same parameters, you can define a route group attribute to the controller.
+For routes with the same parameters, you can define a route group attribute on the controller.
 
 Example:
 
@@ -345,7 +346,7 @@ class MyController
 }
 ```
 
-All the parameters will be merged with the parameters of the route, except the path which will be concatenated with the
+All the parameters will be merged with the parameters of the route, except the path, which will be concatenated with the
 path of the route. This includes `requirements`, `defaults`, `method`, and `host` restrictions.
 
 > 🆕 **Info**: *Since version 3.1*
@@ -354,9 +355,10 @@ path of the route. This includes `requirements`, `defaults`, `method`, and `host
 
 ## Declaration of routes in configuration
 
-You can also declare routes in your configuration. To do, create a `routes.json` file in your configuration directory.
+You can also declare routes in your configuration. To do so, create a `routes.json` file in your configuration
+directory.
 
-An example of `routes.json` file:
+An example of a `routes.json` file:
 
 ```json
 {

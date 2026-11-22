@@ -20,11 +20,11 @@ keywords:
 
 ## Additional options
 
-All [commons options](inputs.md#common-options), and:
+All [common options](inputs.md#common-options), and:
 
-| Name         | Type    | Default value | Description                |
-|--------------|---------|---------------|----------------------------|
-| **multiple** | boolean | *none*        | If multiple email accepted |
+| Name         | Type    | Default value | Description                     |
+|--------------|---------|---------------|---------------------------------|
+| **multiple** | boolean | *none*        | If multiple emails are accepted |
 
 ## Attributes
 
@@ -32,6 +32,6 @@ List of attributes that interact with the forms library:
 
 | Name          | Type    | Default value | Description              |
 |---------------|---------|---------------|--------------------------|
-| **maxlength** | integer | *none*        | Max length of characters |
-| **minlength** | integer | *none*        | Min length of characters |
+| **maxlength** | integer | *none*        | Max length in characters |
+| **minlength** | integer | *none*        | Min length in characters |
 | **pattern**   | string  | *none*        | Regex pattern            |

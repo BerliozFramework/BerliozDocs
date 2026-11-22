@@ -41,7 +41,7 @@ They are all distributed as separate [Composer](https://getcomposer.org/) packag
 
 - [**HTTP Message**](components/http-message.md)
 
-  Implementation of PSR-7 (HTTP message interfaces) and PSR-17 (HTTP Factories) standards.
+  Implementation of the PSR-7 (HTTP message interfaces) and PSR-17 (HTTP Factories) standards.
 
 - [**HTTP Client**](components/http-client.md)
 

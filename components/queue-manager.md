@@ -41,7 +41,7 @@ features like memory and time limits, signal handling, and customizable worker o
 - **Definition**: Ensures specific jobs are routed to designated queues.
 - **Example**: Assigning priority tasks to a high-priority queue.
 
-## Jobs handlers
+## Job handlers
 
 The `JobHandlerManager` is a central component for managing multiple job handlers in the **Berlioz Queue Manager**. It
 implements the `JobHandlerInterface` and acts as a dispatcher, delegating job processing to the appropriate handler
@@ -83,7 +83,7 @@ class FooJobHandler implements JobHandlerInterface
 }
 ```
 
-> 💡 **Tip**: `JobHandlerManager` accept a wildcard "*" at the end of job name.
+> 💡 **Tip**: `JobHandlerManager` accepts a wildcard "*" at the end of the job name.
 
 ### Last attempt
 
@@ -190,7 +190,7 @@ Examples:
 
 The `Worker` handles PCNTL signals (`SIGTERM`, `SIGQUIT`) to ensure a clean exit. If a signal is received:
 
-- The worker finishes the current job processing.
+- The worker finishes processing the current job.
 - It then exits with a specific code without starting a new job.
 
 > ℹ️ **Note**: The `pcntl` extension must be enabled for this feature.
@@ -316,7 +316,7 @@ $queue = new DbQueue(
 );
 ```
 
-Example of schema for MySQL:
+Example schema for MySQL:
 
 ```mysql
 CREATE TABLE `queue_jobs`
@@ -339,7 +339,7 @@ CREATE TABLE `queue_jobs`
 > matching row. If `job_id` is missing from the index, the sort cannot be index-served, forcing a full scan and a
 > `filesort` that becomes very expensive as soon as the queue holds a large backlog of pending jobs.
 
-If you want to keep the jobs treated:
+If you want to keep the processed jobs:
 
 ```mysql
 CREATE TABLE `queue_jobs_done`
@@ -506,8 +506,8 @@ reported by the `queue:size` command or the metrics endpoint.
 
 > 🆕 **Info**: *Since version 3.1*
 >
-> `RedisQueue` accepts a `deletedJobsTtl` constructor argument to control how long deleted jobs metadata is kept in
-> Redis. Use `0` to disable expiration.
+> `RedisQueue` accepts a `deletedJobsTtl` constructor argument to control how long the metadata of deleted jobs is kept
+> in Redis. Use `0` to disable expiration.
 
 Tips:
 
@@ -776,7 +776,7 @@ Parameters:
 - `-q` `--queue`: Queue name (repeatable for multiple queues, supports wildcards)
 - `--limit`: Maximum number of jobs to process (default: unlimited)
 - `--delay`: Delay between two consumptions in seconds (default: 0)
-- `--delay-no-job`: Delay when no job is available in seconds (default: 1)
+- `--delay-no-job`: Delay in seconds when no job is available (default: 1)
 - `--memory`: Memory limit in MB (default: unlimited)
 - `--time`: Time limit in seconds (default: unlimited)
 - `--rate`: Rate limit string (repeatable, e.g. `--rate "100/1m"`)

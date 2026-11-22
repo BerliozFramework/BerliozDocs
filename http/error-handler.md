@@ -9,13 +9,14 @@ keywords:
 
 # Error handler
 
-You can personalize errors pages with an error handler. Also, you can define an error handler by status code.
+You can customize error pages with an error handler. You can also define an error handler per status code.
 
 To raise an HTTP error from your code, see [HTTP exceptions](exceptions.md).
 
 ## Error handler
 
-Error handler is a class whose implements `\Berlioz\Http\Core\Http\Handler\Error\ErrorHandlerInterface` interface.
+An error handler is a class that implements the
+`\Berlioz\Http\Core\Http\Handler\Error\ErrorHandlerInterface` interface.
 
 ```php
 use Berlioz\Http\Core\Http\Handler\Error\ErrorHandlerInterface;
@@ -35,8 +36,8 @@ class MyHttpErrorHandler implements ErrorHandlerInterface
 }
 ```
 
-If you want use the template rendering engine or access to core functionalities, you need to
-extend `\Berlioz\Http\Core\Controller\AbstractController` class.
+If you want to use the template rendering engine or access core functionalities, you need to
+extend the `\Berlioz\Http\Core\Controller\AbstractController` class.
 
 ```php
 use Berlioz\Http\Core\Controller\AbstractController;
@@ -83,8 +84,8 @@ Your error handler must be declared in your configuration file like this:
 }
 ```
 
-The key `default`, it's for all errors attempted if no other handler is declared. So you can declare others handlers for
-specific http errors, like `500` errors:
+The `default` key is used for all errors if no other handler is declared. So you can declare other handlers for
+specific HTTP errors, like `500` errors:
 
 ```json
 {

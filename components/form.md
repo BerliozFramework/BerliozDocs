@@ -21,7 +21,7 @@ keywords:
 
 ## Description
 
-3 types of elements exists in **Berlioz Form**:
+Three types of elements exist in **Berlioz Form**:
 
 - `AbstractType`: it's a form control
 - `Group`: represents an object in OOP
@@ -53,9 +53,9 @@ Input types available:
 
 ## Form creation
 
-Constructor of `Form` object accept 3 parameters:
+The constructor of the `Form` object accepts 3 parameters:
 
-- Name of form
+- Name of the form
 - Mapped object
 - Array of options
 
@@ -65,15 +65,15 @@ Example:
 $form = new Form('my_form', null, ['method' => 'post']);
 ```
 
-## Declare form control
+## Declare a form control
 
-`add` method accept 3 parameters:
+The `add` method accepts 3 parameters:
 
-- Name of control (used as the mapped property name by default)
+- Name of the control (used as the mapped property name by default)
 - Type (class name or object)
 - Array of options
 
-Options are different between controls.
+Options differ between controls.
 
 Use the `mapped` option to target a different property, disable mapping or provide custom read/write logic.
 See [Mapping fields to an object](../guides/forms.md#mapping-fields-to-an-object).
@@ -102,7 +102,7 @@ if ($form->isSubmitted() && $form->isValid()) {
 
 ## Group
 
-Example for an postal address:
+Example for a postal address:
 
 ```php
 $addressGroup = new Group(['type' => 'address']);

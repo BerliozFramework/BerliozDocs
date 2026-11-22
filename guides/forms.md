@@ -9,7 +9,7 @@ summary-order: ;3
 
 ## Installation
 
-Use composer to install library:
+Use Composer to install the library:
 
 ```bash
 composer require berlioz/form
@@ -17,8 +17,8 @@ composer require berlioz/form
 
 ## Description
 
-Library `berlioz/form` permit you to create HTML forms from your PHP application.
-Use Twig extension to transpose into HTML.
+The `berlioz/form` library lets you create HTML forms from your PHP application.
+Use the Twig extension to render them as HTML.
 
 Forms are composed of:
 
@@ -95,9 +95,9 @@ no change for this addition.
 
 ## Validators
 
-Validators can be added to an input, a group or form to validate data from user.
+Validators can be added to an input, a group or a form to validate the data from the user.
 
-A validator must implements interface `Berlioz\Form\Validator\ValidatorInterface`:
+A validator must implement the `Berlioz\Form\Validator\ValidatorInterface` interface:
 
 ```php
 interface ValidatorInterface
@@ -114,16 +114,16 @@ interface ValidatorInterface
 }
 ```
 
-Method `ValidatorInterface::validate(): array` must return the thrown constraints.
+The `ValidatorInterface::validate(): array` method must return the thrown constraints.
 
 > 🆕 **Info**: *Since version 3.4*, inputs reject non-scalar submitted values by default with
 > `Berlioz\Form\Validator\ScalarValidator`. See [Non-scalar values](forms/inputs.md#non-scalar-values).
 
 ## Transformers
 
-Transformers permit the data conversion from user to application, and invert.
+Transformers convert data from the user to the application, and vice versa.
 
-A transformer must implements interface `Berlioz\Form\Transformer\TransformerInterface`:
+A transformer must implement the `Berlioz\Form\Transformer\TransformerInterface` interface:
 
 ```php
 interface TransformerInterface
@@ -150,7 +150,7 @@ interface TransformerInterface
 }
 ```
 
-Existent transformers:
+Existing transformers:
 
 - `Berlioz\Form\Transformer\CheckboxTransformer`
 - `Berlioz\Form\Transformer\DateTimeTransformer`

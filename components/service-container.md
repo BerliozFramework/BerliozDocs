@@ -17,8 +17,8 @@ keywords:
 > You can find it on [Packagist](https://packagist.org/packages/berlioz/service-container).
 > You can use it independently of the framework, in any PHP application.
 
-**Berlioz Service Container** is a PHP library to manage your services with dependency injection, respecting PSR-11
-(Container interface) standard.
+**Berlioz Service Container** is a PHP library to manage your services with dependency injection, respecting the
+PSR-11 (Container interface) standard.
 
 ## Container
 
@@ -37,7 +37,7 @@ Methods available from PSR-11:
 
 ## Add a service
 
-You can add a service with `Container::add()` method.
+You can add a service with the `Container::add()` method.
 
 ```php
 use Berlioz\ServiceContainer\Container;
@@ -46,7 +46,7 @@ $container = new Container();
 $service = $container->add(MyService::class, 'alias'); // Returns a Berlioz\ServiceContainer\Service\Service object
 ```
 
-Or with method `Container::addService()`, who accept a `Service` object.
+Or with the `Container::addService()` method, which accepts a `Service` object.
 
 ```php
 use Berlioz\ServiceContainer\Container;
@@ -68,39 +68,39 @@ $container->addService($service);
   )
   ```
 
-  > Constructor of Service object.
+  > Constructor of the Service object.
 
 - `Service::setNullable(bool $nullable = true): Service`
 
-  > Service can be null after factory execution (false by default).
+  > The service can be null after factory execution (false by default).
 
 - `Service::setShared(bool $shared = true): Service`
 
-  > Share a service, always same instance returned for a shared service.
+  > Share a service: the same instance is always returned for a shared service.
 
 - `Service::addProvide(string ...$provide): Service`
 
-  > Add provided class/interfaces/alias by service.
+  > Add classes, interfaces or aliases provided by the service.
 
 - `Service::addArgument(string $name, mixed $value): Service`
 
-  > Add argument to make an instance of service class.
+  > Add an argument used to make an instance of the service class.
 
 - `Service::addArguments(array $arguments): Service`
 
-  > It's an array of arguments, the key must be the name of argument, and the value of key, must be the argument value.
+  > An array of arguments: the key must be the name of the argument, and the value must be the argument value.
 
 - `Service::addCall(string $method, array $arguments = []): Service`
 
-  > Method name (and arguments) called just after the construction of object class.
+  > Method name (and arguments) called just after the construction of the object.
 
 - `Service::addCalls(array $calls = []): void`
 
-  > It's an array of calls, the key must be the name of called method and value an array of arguments.
+  > An array of calls: the key must be the name of the called method, and the value an array of arguments.
 
 - `Service::setFactory(string $factory): Service`
 
-  > It's the factory static method used to make object.
+  > The static factory method used to make the object.
   >
   > Example: `MyProject\Name\Space\MyFactory::service`
 
@@ -219,12 +219,12 @@ $instantiator->invokeFunction(
 );
 ```
 
-In all examples cases, the last argument is an array of parameters to give to the constructor, method or function. The
+In all these examples, the last argument is an array of parameters to give to the constructor, method or function. The
 order of arguments is not important.
 
-If parameter is an object, the system get this into the container or try to instantiate the class.
+If a parameter is an object, the system gets it from the container or tries to instantiate the class.
 
-The method `Container::call()` call the good method of the instantiator according value:
+The `Container::call()` method calls the right method of the instantiator according to the given value:
 
 ```php
 use Berlioz\ServiceContainer\Container;
@@ -237,7 +237,7 @@ $container->call(MyClass::method); // Call static method or instantiate the clas
 
 ## Inflector
 
-The inflector is util if you want to inject some dependencies by methods implemented by an interface.
+The inflector is useful if you want to inject some dependencies through methods declared by an interface.
 
 ```php
 use Berlioz\ServiceContainer\Container;
@@ -254,10 +254,10 @@ $container->addInflector($inflector);
 
 ## Service provider
 
-In some case, like performances constraints, you need to add a service provider.
+In some cases, such as performance constraints, you need to add a service provider.
 
-A service provider need to implement `\Berlioz\ServiceContainer\Provider\ServiceProviderInterface` interface. An
-abstract class `\Berlioz\ServiceContainer\Provider\AbstractServiceProvider` can help you.
+A service provider needs to implement the `\Berlioz\ServiceContainer\Provider\ServiceProviderInterface` interface.
+An abstract class `\Berlioz\ServiceContainer\Provider\AbstractServiceProvider` can help you.
 
 Example of a service provider:
 

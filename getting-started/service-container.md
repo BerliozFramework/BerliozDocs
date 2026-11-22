@@ -12,8 +12,8 @@ keywords:
 The default service container of Berlioz Framework is the package
 [**berlioz/service-container**](../components/service-container.md).
 
-**Berlioz Service Container** is a PHP library to manage your services with dependencies injection, respecting PSR-11 (
-Container interface) standard.
+**Berlioz Service Container** is a PHP library to manage your services with dependency injection, respecting the
+PSR-11 (Container interface) standard.
 
 ## Configuration
 
@@ -54,10 +54,10 @@ class AppServiceProvider extends AbstractServiceProvider
 }
 ```
 
-In the example, when you get service `myServiceAlias` or `MyService\ClassName::class`, the instantiator will:
+In the example, when you get the service `myServiceAlias` or `MyService\ClassName::class`, the instantiator will:
 
-- Instantiate class with constructor arguments `foo` and `bar`
-- Call method `myMethodName` with arguments `baz` and `qux`, after instantiation
+- Instantiate the class with the constructor arguments `foo` and `bar`
+- Call the method `myMethodName` with the arguments `baz` and `qux`, after instantiation
 
 Providers listed in `container.providers` are instantiated by the container, so their constructor can receive
 services like `Berlioz\Core\Core` by auto-wiring.
@@ -229,7 +229,7 @@ If a configuration file of a given environment (like a local `config.json` not c
 
 ## Usage
 
-Service container is accessible from the application object with method `getContainer()`.
+The service container is accessible from the application object with the method `getContainer()`.
 
 Remember the 3 main methods:
 
@@ -246,21 +246,21 @@ Remember the 3 main methods:
 
 - `call(string|array|Closure $subject, array $arguments = [])`
 
-  > Returns the subject with dependencies injection functionality.
-  > Go next on the page to know more.
+  > Returns the subject with dependency injection functionality.
+  > See further down this page to learn more.
 
-Others methods of **Service Container** in many cases, are not necessaries for projects. If you want to know more, go
-on [component documentation](../components/service-container.md).
+In many cases, the other methods of **Service Container** are not necessary for projects. If you want to know more,
+see the [component documentation](../components/service-container.md).
 
-> 💡 **Tip**: You can get service quickly from `Controller` classes with method: `Controller::get($id)`.
+> 💡 **Tip**: You can quickly get a service from `Controller` classes with the method `Controller::get($id)`.
 
 ## Instantiator
 
-**Berlioz Framework** give you an **Instantiator** class that you can use to do dependency injection with object,
+**Berlioz Framework** gives you an **Instantiator** class that you can use to do dependency injection with objects,
 methods or functions.
 
-In all next examples cases, the last argument is an array of parameters to give to the constructor, method or function.
-The order of arguments is not important.
+In all the following examples, the last argument is an array of parameters to give to the constructor, method or
+function. The order of arguments is not important.
 
 In case of a parameter is an object, the system get the classes implemented to inject in good parameter.
 

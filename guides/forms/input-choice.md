@@ -23,13 +23,13 @@ keywords:
 
 ## Additional options
 
-All [commons options](inputs.md#common-options), and:
+All [common options](inputs.md#common-options), and:
 
 | Name                   | Type                         | Default value | Description                                                                                                                          |
 |------------------------|------------------------------|---------------|--------------------------------------------------------------------------------------------------------------------------------------|
-| **multiple**           | boolean                      | false         | If multiple choice accepted                                                                                                          |
-| **expanded**           | boolean                      | false         | If expanded choices (radio if not multiple, else checkbox)                                                                           |
-| **allow_clear**        | boolean/string               | false         | If a blank element is added in first of list (if string value, it will be the label)                                                 |
+| **multiple**           | boolean                      | false         | If multiple choices are accepted                                                                                                     |
+| **expanded**           | boolean                      | false         | If choices are expanded (radio if not multiple, else checkbox)                                                                       |
+| **allow_clear**        | boolean/string               | false         | If a blank element is added at the beginning of the list (if the value is a string, it is used as the label)                         |
 | **choice_transformer** | `ChoiceTransformerInterface` | *none*        | Transformer for individual value                                                                                                     |
 | **choice_label**       | `\Closure`/array/string`     | *none*        | Function called to determine the label of a choice ; be able to an array ; be able to a method name to call for object elements      |
 | **choice_value**       | `\Closure`/array/string`     | *none*        | Function called to determine the value of a choice ; be able to an array ; be able to a method name to call for object elements      |
@@ -38,4 +38,4 @@ All [commons options](inputs.md#common-options), and:
 
 ## Attributes
 
-No attribute.
+No attributes.

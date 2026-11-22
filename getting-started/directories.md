@@ -14,30 +14,30 @@ Default hierarchy of directories:
 
  Path                   | Description                                          
 ------------------------|------------------------------------------------------
- `/config`              | Configurations of project                            
- `/public`              | Public directory where your web server link visitors 
+ `/config`              | Configuration of the project                         
+ `/public`              | Public directory your web server serves to visitors  
  `/src`                 | Your project sources                                 
- `/resources`           | Resources of project                                 
- `/resources/assets`    | Assets of project                                    
- `/resources/templates` | Your templates files                                 
+ `/resources`           | Resources of the project                             
+ `/resources/assets`    | Assets of the project                                
+ `/resources/templates` | Your template files                                  
  `/var`                 | Var files                                            
  `/var/cache`           | Cache directory                                      
  `/var/debug`           | Debug reports directory                              
  `/var/tmp`             | Temporary directory for your project                 
- `/vendor`              | Vendors (for composer)                               
+ `/vendor`              | Vendors (for Composer)                               
 
-It's a basic hierarchy that lot of frameworks used. You won't be lost if you come for any of them :).
+It's a basic hierarchy that a lot of frameworks use. You won't be lost if you come from any of them :).
 
 The `/var/cache` directory is used by the default file cache. See the [Cache guide](../guides/cache.md) to learn how to
 configure other cache drivers (memory, Redis, fallback…).
 
 ## Custom hierarchy
 
-You are able to change default hierarchy by your own.
+You can replace the default hierarchy with your own.
 To do that, you have two choices:
 
-- Implements `Berlioz\Core\Directories\DirectoriesInterface` interface
-- Extends `Berlioz\Core\Directories\DefaultDirectories` class
+- Implement the `Berlioz\Core\Directories\DirectoriesInterface` interface
+- Extend the `Berlioz\Core\Directories\DefaultDirectories` class
 
 Representation of the interface:
 
@@ -109,4 +109,4 @@ interface DirectoriesInterface
 }
 ```
 
-Pass your object in first argument of `Berlioz\Core\Core` object.
+Pass your object as the first argument of the `Berlioz\Core\Core` object.

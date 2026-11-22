@@ -9,9 +9,9 @@ breadcrumb:
 The default configuration manager of Berlioz Framework is the package
 [**berlioz/config**](../components/config.md).
 
-## Write configuration
+## Write the configuration
 
-All your configuration file must be in [configuration directory](directories.md).
+All your configuration files must be in the [configuration directory](directories.md).
 
 Allowed formats:
 
@@ -22,17 +22,18 @@ Allowed formats:
  [YAML](https://yaml.org/)                     | .yml      | text/yaml         
  [INI](https://en.wikipedia.org/wiki/INI_file) | .ini      | text/plain        
 
-Berlioz merge automatically all configuration files in only one configuration accessible in your application.
+Berlioz automatically merges all configuration files into a single configuration, accessible in your application.
 
-It's interested in some case to separate your configuration in different files. Like separate packages configuration...
+In some cases, it is useful to split your configuration into different files, for example to separate the
+configuration of packages.
 
-## Get configuration object
+## Get the configuration object
 
-Configuration is accessible from the core object with method `Core:getConfig()`. The core is accessible from the
-application object.
+The configuration is accessible from the core object with the method `Core:getConfig()`. The core is accessible from
+the application object.
 
-From controllers whose inherit `AbstractController` class, the config is accessible with
-method `AbstractController::getApp()->getConfig()`.
+From controllers that inherit from the `AbstractController` class, the config is accessible with
+the method `AbstractController::getApp()->getConfig()`.
 
 ```php
 // ...in controller method
@@ -43,8 +44,8 @@ $config = $this->getApp()->getConfig();
 
 ## Usage
 
-You can access to the variables of configuration with method `Config:get(string $name)`. Given parameter is the path of
-your variable in your JSON.
+You can access the configuration variables with the method `Config:get(string $name)`. The given parameter is the path
+of your variable in your JSON.
 
 ```php
 /** @var \Berlioz\Config\ConfigInterface $config */
@@ -54,14 +55,14 @@ $value = $config->get('app.varname.subvar');
 
 ## Dist files
 
-All configuration files with `.dist` in filename have a lower priority than others.
+All configuration files with `.dist` in their filename have a lower priority than the others.
 
-It's recommended to write a dist configuration to push on the repository ; and add a `config.json` into `.gitignore`
-file where you can write your sensitive data...
+It's recommended to write a dist configuration to push to the repository, and to write your sensitive data in a
+`config.json` file added to the `.gitignore` file.
 
 ## Default configuration of Berlioz
 
-Your configuration is automatically extends from a default configuration.
+Your configuration automatically extends a default configuration.
 
 ### Core configuration
 

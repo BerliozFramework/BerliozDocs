@@ -17,15 +17,15 @@ keywords:
 
 **Berlioz FlashBag** is a PHP library to manage flash messages to show to the user.
 
-All messages are stored in session of user. So you be able to get the messages after a reload of page or redirect.
-When you got the messages, they are deleted on the stack and no longer available.
+All messages are stored in the session of the user, so you can get the messages after a page reload or a redirect.
+Once you get the messages, they are deleted from the stack and are no longer available.
 
 > 🆕 **Info**: *Since version 3.1*
 >
 > `FlashBag` requires PHP sessions. The constructor will start a session automatically if none is active. An `Exception`
 > is thrown if sessions are disabled or if headers have already been sent.
 
-## Add message
+## Add a message
 
 It's very simple to add messages:
 
@@ -46,9 +46,9 @@ FlashBag::TYPE_WARNING = 'warning';
 FlashBag::TYPE_ERROR = 'error';
 ```
 
-## Get message
+## Get messages
 
-To get message, it's also simple then add:
+Getting messages is as simple as adding them:
 
 ```php
 $flashBag = new FlashBag;
@@ -61,7 +61,7 @@ foreach ($successMessages as $msg) {
 
 ## Get all messages
 
-You can also get all messages in one time:
+You can also get all messages at once:
 
 ```php
 $flashBag = new FlashBag;

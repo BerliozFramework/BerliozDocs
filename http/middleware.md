@@ -8,8 +8,8 @@ keywords:
 
 # Middlewares
 
-**Berlioz v2** introduce the middlewares concept into the framework. The implementation is based
-on [PSR-15](https://www.php-fig.org/psr/psr-15/) recommendation.
+**Berlioz v2** introduced the middleware concept into the framework. The implementation is based
+on the [PSR-15](https://www.php-fig.org/psr/psr-15/) recommendation.
 
 > A middleware component is an individual component participating,
 > often together with other middleware components, in the processing
@@ -23,7 +23,8 @@ on [PSR-15](https://www.php-fig.org/psr/psr-15/) recommendation.
 Some middlewares are configured by default:
 
 - `Berlioz\Http\Core\Http\Middleware\MaintenanceMiddleware`:
-  stop execution of controllers and display maintenance page if [maintenance is enabled](../guides/maintenance.md).
+  stop the execution of controllers and display the maintenance page if
+  [maintenance is enabled](../guides/maintenance.md).
 - `Berlioz\Http\Core\Http\Middleware\DebugConsoleMiddleware` *(since version 3.2)*:
   restrict the [debug console](../getting-started/debug.md) (`/_console`) to the debug mode and to the allowed IPs;
   other requests get a 404 error.
@@ -32,7 +33,7 @@ Some middlewares are configured by default:
   rejection of `QUERY` requests with a missing, malformed (400) or unsupported (415) content type. Does nothing for
   routes without the option.
 - `Berlioz\Http\Core\Http\Middleware\RedirectionMiddleware`:
-  do [redirections configured](../guides/redirections.md) in configuration if no controller found.
+  perform the [redirections configured](../guides/redirections.md) in the configuration if no controller is found.
 
 ## Forwarded-prefix middleware
 
@@ -47,8 +48,8 @@ deprecation, since version 3.3, of handling trusted prefixes without URI rewriti
 
 ## Declare middlewares
 
-Middlewares are declared into the configuration. To manage priority of middlewares execution, the configuration is based
-on incremental priority:
+Middlewares are declared in the configuration. To manage the execution priority of middlewares, the configuration is
+based on an incremental priority:
 
 ```json
 {
