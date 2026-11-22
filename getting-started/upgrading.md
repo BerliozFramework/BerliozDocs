@@ -11,6 +11,9 @@ summary-order: 2
 
 # Upgrading
 
+This page lists what you must do to upgrade. To discover the new features of each version, see
+[What's new?](../whats-new.md).
+
 ## Preparing for version 4
 
 Version 3 keeps deprecated features working, so you can migrate at your own pace. Fix the deprecations below before
