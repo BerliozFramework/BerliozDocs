@@ -17,22 +17,22 @@ summary-order: ;1
 >
 > In object-oriented programming, data-management tasks act on object-oriented (OO) objects that are almost always
 > non-scalar values. For example, an address book entry that represents a single person along with zero or more phone
-> numbers and zero or more addresses. This could be modeled in an object-oriented implementation by a "Person object" with
-> attributes/fields to hold each data item that the entry comprises: the person's name, a list of phone numbers, and a
-> list of addresses. The list of phone numbers would itself contain "PhoneNumber objects" and so on. The address-book
-> entry is treated as a single object by the programming language (it can be referenced by a single variable containing a
-> pointer to the object, for instance). Various methods can be associated with the object, such as a method to return the
-> preferred phone number, the home address, and so on.
+> numbers and zero or more addresses. This could be modeled in an object-oriented implementation by a "Person object"
+> with attributes/fields to hold each data item that the entry comprises: the person's name, a list of phone numbers,
+> and a list of addresses. The list of phone numbers would itself contain "PhoneNumber objects" and so on. The
+> address-book entry is treated as a single object by the programming language (it can be referenced by a single
+> variable containing a pointer to the object, for instance). Various methods can be associated with the object, such as
+> a method to return the preferred phone number, the home address, and so on.
 >
 > However, many popular database products such as SQL database management systems (DBMS) can only store and manipulate
-> scalar values such as integers and strings organized within tables. The programmer must either convert the object values
-> into groups of simpler values for storage in the database (and convert them back upon retrieval), or only use simple
-> scalar values within the program. Object-relational mapping implements the first approach.
+> scalar values such as integers and strings organized within tables. The programmer must either convert the object
+> values into groups of simpler values for storage in the database (and convert them back upon retrieval), or only use
+> simple scalar values within the program. Object-relational mapping implements the first approach.
 >
 > The heart of the problem involves translating the logical representation of the objects into an atomized form that is
 > capable of being stored in the database while preserving the properties of the objects and their relationships so that
-> they can be reloaded as objects when needed. If this storage and retrieval functionality is implemented, the objects are
-> said to be persistent.
+> they can be reloaded as objects when needed. If this storage and retrieval functionality is implemented, the objects
+> are said to be persistent.
 >
 > Source: [Wikipedia](https://en.wikipedia.org/wiki/Object-relational_mapping)
 

@@ -25,8 +25,9 @@ keywords:
 ## PSR references
 
 See the **PSR** documentation:
-- **PSR-7** (HTTP message interfaces): https://www.php-fig.org/psr/psr-7/
-- **PSR-17** (HTTP Factories): https://www.php-fig.org/psr/psr-17/
+
+- **PSR-7** (HTTP message interfaces): <https://www.php-fig.org/psr/psr-7/>
+- **PSR-17** (HTTP Factories): <https://www.php-fig.org/psr/psr-17/>
 
 ## Factory
 

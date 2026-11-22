@@ -100,10 +100,10 @@ the provider's object/array representation.
 To receive several values, use a [`Collection`](collection.md) of inputs, a multiple [`Choice`](input-choice.md),
 or `Berlioz\Form\Type\RawType` for a free-form value (a JSON structure, for example).
 
-> ⚠️ **Warning**: The `scalar` option is deprecated since version 3.4 and will be removed in version 4, where
-> these scalar-only inputs will always reject non-scalar values. Setting it triggers an `E_USER_DEPRECATED` notice: `scalar: false`
-> disables the check (behavior before 3.4) and only eases the migration, `scalar: true` is the default behavior and
-> can be removed.
+> ⚠️ **Warning**: The `scalar` option is deprecated since version 3.4 and will be removed in version 4, where these
+> scalar-only inputs will always reject non-scalar values. Setting it triggers an `E_USER_DEPRECATED` notice:
+> `scalar: false` disables the check (behavior before 3.4) and only eases the migration, `scalar: true` is the default
+> behavior and can be removed.
 
 ## Attributes
 

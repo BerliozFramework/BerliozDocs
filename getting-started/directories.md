@@ -12,19 +12,19 @@ We recommend using the default hierarchy of directories for your projects.
 
 Default hierarchy of directories:
 
- Path                   | Description                                          
-------------------------|------------------------------------------------------
- `/config`              | Configuration of the project                         
- `/public`              | Public directory your web server serves to visitors  
- `/src`                 | Your project sources                                 
- `/resources`           | Resources of the project                             
- `/resources/assets`    | Assets of the project                                
- `/resources/templates` | Your template files                                  
- `/var`                 | Var files                                            
- `/var/cache`           | Cache directory                                      
- `/var/debug`           | Debug reports directory                              
- `/var/tmp`             | Temporary directory for your project                 
- `/vendor`              | Vendors (for Composer)                               
+| Path                   | Description                                         |
+|------------------------|-----------------------------------------------------|
+| `/config`              | Configuration of the project                        |
+| `/public`              | Public directory your web server serves to visitors |
+| `/src`                 | Your project sources                                |
+| `/resources`           | Resources of the project                            |
+| `/resources/assets`    | Assets of the project                               |
+| `/resources/templates` | Your template files                                 |
+| `/var`                 | Var files                                           |
+| `/var/cache`           | Cache directory                                     |
+| `/var/debug`           | Debug reports directory                             |
+| `/var/tmp`             | Temporary directory for your project                |
+| `/vendor`              | Vendors (for Composer)                              |
 
 It's a basic hierarchy that a lot of frameworks use. You won't be lost if you come from any of them :).
 

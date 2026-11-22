@@ -38,8 +38,8 @@ $app->terminate();
 ## How it works
 
 1. **`HttpApp::print()`** sends the headers and the body, then closes the connection with the client using
-   `fastcgi_finish_request()` (PHP-FPM or a compatible SAPI) or `litespeed_finish_request()` (LiteSpeed) when available. The
-   client gets the full response and does not wait for what follows.
+   `fastcgi_finish_request()` (PHP-FPM or a compatible SAPI) or `litespeed_finish_request()` (LiteSpeed) when available.
+   The client gets the full response and does not wait for what follows.
 2. **`HttpApp::terminate()`** releases the session lock (`session_write_close()`), then dispatches an
    `HttpTerminateEvent`. Its listeners run while the client is already done.
 

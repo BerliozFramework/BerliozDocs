@@ -54,8 +54,8 @@ Uploaded files are merged into the submitted data.
 
 > 🆕 **Info**: *Since version 3.4*
 
-By default, when the parsed body is an object, it and its nested objects are converted to associative arrays: a nested `{}` cannot be
-distinguished from `[]`, and an object with numeric keys becomes a list.
+By default, when the parsed body is an object, it and its nested objects are converted to associative arrays: a nested
+`{}` cannot be distinguished from `[]`, and an object with numeric keys becomes a list.
 
 With `strictJson: true`, only the root object is converted to an array; nested objects stay `stdClass` and arrays
 stay arrays. Custom validation can then distinguish a JSON object from an array:

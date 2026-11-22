@@ -261,5 +261,7 @@ Migrations are configured under `hector.migration`:
 }
 ```
 
-- **`provider`** — where migrations are discovered. `type` can be `directory` (default), `psr4`, or a custom provider service.
-- **`tracker`** — how applied migrations are recorded. `type` can be `db` (default, table `hector_migrations`), `file` (JSON file), or a custom tracker service.
+- **`provider`** — where migrations are discovered. `type` can be `directory` (default), `psr4`, or a custom provider
+  service.
+- **`tracker`** — how applied migrations are recorded. `type` can be `db` (default, table `hector_migrations`), `file`
+  (JSON file), or a custom tracker service.

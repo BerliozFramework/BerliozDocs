@@ -15,12 +15,12 @@ All your configuration files must be in the [configuration directory](directorie
 
 Allowed formats:
 
- Type                                          | Extension | Mime              
------------------------------------------------|-----------|-------------------
- [JSON](https://www.json.org/)                 | .json     | application/json  
- [JSON5](https://json5.org/)                   | .json5    | application/json5 
- [YAML](https://yaml.org/)                     | .yml      | text/yaml         
- [INI](https://en.wikipedia.org/wiki/INI_file) | .ini      | text/plain        
+| Type                                          | Extension | Mime              |
+|-----------------------------------------------|-----------|-------------------|
+| [JSON](https://www.json.org/)                 | .json     | application/json  |
+| [JSON5](https://json5.org/)                   | .json5    | application/json5 |
+| [YAML](https://yaml.org/)                     | .yml      | text/yaml         |
+| [INI](https://en.wikipedia.org/wiki/INI_file) | .ini      | text/plain        |
 
 Berlioz automatically merges all configuration files into a single configuration, accessible in your application.
 

@@ -58,7 +58,7 @@ The `-q` option supports wildcards. For example, `-q "notifications.*"` will mat
 
 When a job fails, the worker can apply an exponential backoff before retrying. The delay for retry **n** is:
 
-```
+```text
 delay = backoff × (backoff-multiplier ^ (n - 1))
 ```
 
@@ -110,7 +110,7 @@ Output examples:
 
 **Table (default):**
 
-```
+```text
 emails           12 (wait: 34s, delayed: 2)
 notifications     3 (wait: n/a, delayed: n/a)
 ```
@@ -137,7 +137,7 @@ notifications     3 (wait: n/a, delayed: n/a)
 
 **Prometheus** (`--format prometheus --prometheus-labels 'env="production"' --total`):
 
-```
+```text
 # HELP job_queue_length Number of jobs waiting in the queue.
 # TYPE job_queue_length gauge
 job_queue_length{queue_name="emails",env="production"} 12

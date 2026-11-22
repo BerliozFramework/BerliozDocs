@@ -36,7 +36,7 @@ closure in this option to create the object dynamically.
 
 ## JavaScript interaction
 
-A library is available to handle interactions with JavaScript and the user: https://github.com/BerliozFramework/Form.js
+A library is available to handle interactions with JavaScript and the user: <https://github.com/BerliozFramework/Form.js>
 
 ## Example
 

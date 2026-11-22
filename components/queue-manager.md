@@ -171,7 +171,7 @@ When using an exponential backoff, the delay increases for each retry based on t
 
 The delay for retry **n** is computed as:
 
-```
+```text
 delay_n = base_delay x (multiplier ^ (n - 1))
 ```
 

@@ -1,0 +1,19 @@
+{
+  "config": {
+    "default": true,
+    // Lines are wrapped at 120 characters; tables, code blocks and headings are exempt.
+    "MD013": { "line_length": 120, "tables": false, "code_blocks": false, "headings": false },
+    // The same heading can appear under different parents ("Options", "Example"...).
+    "MD024": { "siblings_only": true },
+    // Nested lists are indented with 4 spaces.
+    "MD007": { "indent": 4 },
+    // Shell examples show a prompt without output.
+    "MD014": false,
+    // Two callouts can follow each other.
+    "MD028": false,
+    // Tables start and end with a pipe.
+    "MD055": { "style": "leading_and_trailing" },
+    // Table columns are not required to be aligned.
+    "MD060": false
+  }
+}
