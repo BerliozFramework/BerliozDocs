@@ -258,6 +258,9 @@ configuring the same values twice.
 | `RedisQueue`                 | `maxAttempts`                                                              | `retryTime` (recovery delay)         |
 | `NullQueue`, `QueueManager`  | `null`                                                                     | `null`                               |
 
+The `QueueManager` does not report the settings of the queues it wraps: use
+[`QueueManager::getQueue()`](#get-a-queue) to read those of a given queue.
+
 With `AwsSqsQueue`, if `maxAttempts` is not given, the redrive policy is read from SQS (one API call) only when asked;
 a job caches it. The attempt count of an SQS job is the approximate receive count given by SQS.
 
@@ -623,6 +626,29 @@ $job = $manager->consume();                        // Consume from any queue (re
 $manager->purge();                                 // Purge all purgeable queues
 ```
 
+#### Get a queue
+
+> 🆕 **Info**: *Since version 3.4*
+
+The settings of the `QueueManager` itself are not those of its queues: `getMaxAttempts()` and `getRetryTime()` return
+`null`, and `getRateLimiter()` never limits. To read the settings of a queue, get the queue by its name:
+
+```php
+$queue = $manager->getQueue('reports');     // Throws QueueManagerException if the queue does not exist
+
+$queue->getMaxAttempts();                   // Maximum attempts of the "reports" queue
+$queue->getRetryTime();                     // Retry time of the "reports" queue
+$queue->getRateLimiter();                   // Rate limiter of the "reports" queue
+
+$manager->hasQueue('reports');              // true
+$manager->hasQueue('unknown');              // false
+
+$manager->getDefaultQueue();                // Queue used by push() without queue name ($emailQueue here)
+```
+
+`getQueue()` and `hasQueue()` only match an exact queue name: wildcards are reserved to
+[`filter()`](#filtering-queues). If several queues share the same name, the first one is returned, like `push()` does.
+
 ## Queue Monitoring
 
 > 🆕 **Info**: *Since version 3.1*
@@ -693,6 +719,9 @@ group) using wildcards:
 $filteredManager = $queueManager->filter('notifications.*', 'emails');
 // This will only process queues like 'notifications.sms', 'notifications.push' and 'emails'.
 ```
+
+`filter()` always returns a `QueueManager`, even for a single queue name. To get the queue itself (e.g. to read its
+settings), use [`getQueue()`](#get-a-queue).
 
 ## Rate limiter
 
