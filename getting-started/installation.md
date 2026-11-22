@@ -69,7 +69,7 @@ For **Apache** version < 2.4:
 >
 > You need to enable the **mod_rewrite** module on Apache.
 >
-> See the [Apache documentation](https://httpd.apache.org/docs/current/fr/mod/mod_rewrite.html) for installation.
+> See the [Apache documentation](https://httpd.apache.org/docs/current/mod/mod_rewrite.html) for installation.
 
 If you want to increase the performance of your server, disable the support of `.htaccess` files.
 

@@ -24,7 +24,7 @@ All [common options](inputs.md#common-options), and:
 
 | Name         | Type    | Default value | Description                |
 |--------------|---------|---------------|----------------------------|
-| **multiple** | boolean | *none*        | If multiple email accepted |
+| **multiple** | boolean | *none*        | If multiple files accepted |
 
 ## Attributes
 

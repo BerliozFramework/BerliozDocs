@@ -97,7 +97,7 @@ $value = $config->getOrFail('database.host'); // Throws ConfigException if key i
 
 The `Config` object accepts a set of functions. The syntax to call a function is: `{functionName:value}`.
 
-A function call must be alone in the value of a configuration key.
+A value can combine function calls with text, for example `{config: berlioz.directories.var}/tmp`.
 
 Default functions:
 

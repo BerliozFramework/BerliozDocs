@@ -16,7 +16,7 @@ keywords:
 ## Description
 
 - Class for this input: `Berlioz\Form\Type\Hidden`
-- HTML equivalent: `<button type="hidden"></button>`
+- HTML equivalent: `<input type="hidden">`
 
 ## Additional options
 

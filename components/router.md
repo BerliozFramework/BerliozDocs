@@ -118,10 +118,10 @@ $route = $router->handle($serverRequest);
 
 ### Options
 
-| Options            | Type           | Description                                                                               |
-|--------------------|----------------|-------------------------------------------------------------------------------------------|
-| X-Forwarded-Prefix | boolean/string | Defaults to **false**; **true** to use the "X-Forwarded-Prefix" value, or a custom header name |
-| trustedProxies | array | IPs, CIDRs or helper aliases allowed to supply the prefix; defaults to an empty list (since version 3.3) |
+| Options            | Type           | Description                                                                                              |
+|--------------------|----------------|----------------------------------------------------------------------------------------------------------|
+| X-Forwarded-Prefix | boolean/string | Defaults to **false**; **true** to use the "X-Forwarded-Prefix" value, or a custom header name           |
+| trustedProxies     | array          | IPs, CIDRs or helper aliases allowed to supply the prefix; defaults to an empty list (since version 3.3) |
 
 ### Generate path
 

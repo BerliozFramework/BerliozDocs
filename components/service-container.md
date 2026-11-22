@@ -232,7 +232,7 @@ use Berlioz\ServiceContainer\Container;
 $container = new Container();
 $container->call(fn() => 'test'); // Call closure
 $container->call(MyClass::class); // Instantiate the class
-$container->call(MyClass::method); // Call static method or instantiate the class and call method 
+$container->call('MyClass::method'); // Call static method or instantiate the class and call method
 ```
 
 ## Inflector
