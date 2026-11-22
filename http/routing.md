@@ -98,6 +98,16 @@ class MyController
 }
 ```
 
+The framework only reads the attributes of the controllers listed in the `controllers` configuration key:
+
+```json
+{
+  "controllers": [
+    "App\\Controller\\MyController"
+  ]
+}
+```
+
 Accepted arguments on routes attributes:
 
 - `path`: path of route *(type: string|null)*
@@ -135,6 +145,9 @@ idempotent request carrying its query in the body. Unlike `POST`, it can be retr
 The query is read from the request body, parsed according to its `Content-Type`. RFC 10008 requires the server to
 reject a `QUERY` request without `Content-Type` or whose content does not match it: declare `acceptQuery` (see below)
 to have it checked, or do it in the controller.
+
+JSON and URL-encoded bodies are parsed. A `multipart/form-data` body is not: PHP only parses it for `POST` requests,
+so the parsed body of such a `QUERY` request is empty.
 
 ```php
 use Berlioz\Http\Core\Attribute as Berlioz;

@@ -47,6 +47,9 @@ For more details of commands usage, referrer you to the [Commands page](cli/comm
 > returned by command handling; it is `null` if handling did not complete normally, even though the binary exits
 > with code `1` when it catches an exception. See
 > [Framework events](guides/events.md#terminate).
+>
+> If you start `CliApp` from your own script instead of the `berlioz` binary, call `$app->terminate()` yourself after
+> `$app->handle()`.
 
 ## Default commands
 
@@ -86,6 +89,11 @@ Parameters:
 
 When called without any parameter, the command applies the configured retention policy
 (`berlioz.debug.gc.max_age` and `berlioz.debug.gc.max_files`, see [Debug](getting-started/debug.md#snapshot-retention)).
+
+> 🆕 **Info**: *Since version 3.4*
+>
+> The command also removes the markers of [snapshots in progress](getting-started/debug.md#snapshot-in-progress):
+> all of them with `--all`, only the expired ones otherwise.
 
 ## Package commands
 

@@ -265,7 +265,7 @@ Automatic SQS redrive-policy discovery requires the **`sqs:GetQueueAttributes`**
 Supplying `maxAttempts` explicitly avoids this lookup. Keep it consistent with the queue's actual
 `maxReceiveCount`: the value is metadata for the handler and does not create or update the SQS redrive policy.
 
-### Delivery guarantees and idempotency
+#### Delivery guarantees and idempotency
 
 Persistent queues do not imply exactly-once execution. Design handlers for at-least-once delivery: processing the
 same job again must not duplicate its business effects.
@@ -499,6 +499,10 @@ $queue = new RedisQueue(
 
 Redis checks for expired processing entries when a consumer calls `consume()`; `retryTime` is not a background
 timer or a hard execution limit. See [Delivery guarantees and idempotency](#delivery-guarantees-and-idempotency).
+
+Nothing consumes or expires the `<name>:dead` list. Inspect it with the Redis commands `LLEN <name>:dead` and
+`LRANGE <name>:dead 0 -1`, and clean it yourself. `size()` only counts the jobs waiting in the queue: dead jobs are not
+reported by the `queue:size` command or the metrics endpoint.
 
 > 🆕 **Info**: *Since version 3.1*
 >

@@ -13,46 +13,98 @@ summary-order: 2
 
 ## Upgrading from version 3.3 to 3.4
 
-- **Hector ORM:** `berlioz/hector-package` now requires `hectororm/hectororm` **^1.5** so that PDO options are
+Start with the required actions. Then read the behavior changes for the features you use, and plan the deprecations
+before version 4. The last part only concerns you if you extend framework classes or interfaces.
+
+### Required actions
+
+- **Front controller:** Call `$app->terminate()` after `$app->print($response)` in your `public/index.php`. Without
+  this call, terminate listeners and [deferred queues](../guides/queues.md#deferred-queues) never run. See
+  [After the response](../http/terminate.md#front-controller).
+- **Custom CLI entry script:** The `berlioz` binary terminates the application itself. If you start `CliApp` from
+  your own script, call `$app->terminate()` after `$app->handle()`. See [CLI](../cli.md).
+- **Hector ORM:** `berlioz/hector-package` now requires `hectororm/hectororm` **^1.5**, so that PDO options are
   actually forwarded to the connection. Remove any project-level pin below 1.5 and update the Composer lock file
   as part of the upgrade. See [PDO options](../guides/orm/hector.md#pdo-options).
 
-- **API forms:** Constructing `ApiDataProvider` without `strictJson: true` is deprecated. Pass
-  `strictJson: true` and check that your forms accept nested JSON objects as `stdClass`. See
-  [Strict JSON](../guides/forms/data-providers.md#strict-json).
+### Behavior changes
+
+#### HTTP and debug
+
+- **Connection closed after the response:** With PHP-FPM or LiteSpeed, `HttpApp::print()` now closes the connection
+  with the client once the response is printed: anything printed afterwards is no longer sent. Set
+  `berlioz.http.finish_request` to `false` to keep the previous behavior. See
+  [After the response](../http/terminate.md#configuration).
+- **HTTP QUERY method:** Routes declared without `method` now also accept `QUERY` requests
+  ([RFC 10008](https://www.rfc-editor.org/info/rfc10008/)). If such a controller reads the request body, it now
+  receives `QUERY` requests too: restrict `method` on routes that must not accept them, and reject a `QUERY` request
+  without `Content-Type`, or use the `acceptQuery` route option. See [QUERY method](../http/routing.md#query-method).
+- **HTTP client redirections:** `QUERY` requests now keep their method and body on 301 and 302 redirections.
+- **Debug console:** An unknown snapshot now returns a `404` error. A snapshot still being written returns a `202`
+  page that reloads itself, and a snapshot that was never completed returns a `410` page. The toolbar shows the
+  response time instead of the total time. See [Debug](debug.md#response-time).
+
+#### Forms
+
+- **Non-scalar values:** Inputs now reject arrays and objects submitted as their value and no longer hydrate them into
+  the mapped object. If an input intentionally receives several values, use a `Collection`, a multiple `Choice` or a
+  `RawType` instead. See [Non-scalar values](../guides/forms/inputs.md#non-scalar-values).
 - **API forms:** `ApiDataProvider` now also handles `PATCH` and `DELETE` requests.
+
+#### Templates and mailer
+
 - **Twig preloads:** Every file rendered by `entrypoints()` with preload enabled now receives a preload hint.
-  The obsolete `h2pushes` cookie cache is removed and the `Link` header is sent on every response. Remove the deprecated
-  `nopush` parameter; see [Preload](../guides/templating/twig-extensions.md#preload).
-- **Custom Twig extensions:** If you override `DefaultExtension::filterDateFormat()`, its first parameter now accepts
-  `DateTimeInterface|string|int` instead of `DateTime|string|int`. Overrides of
-  `RouterRuntimeExtension::functionPathExists()` must accept `array|RouteAttributes` for the parameters argument.
-  Update narrower overrides to match or widen these types. Subclasses overriding
-  `Berlioz\Package\Twig\Twig::__debugInfo()` must now declare the `array` return type.
+  The obsolete `h2pushes` cookie cache is removed and the `Link` header is sent on every response. See
+  [Preload](../guides/templating/twig-extensions.md#preload).
+- **SMTP timeout:** The `timeout` of the SMTP transport (10 seconds by default) now also applies to reads, not only to
+  the connection. Increase it if your SMTP server needs more time to answer. See
+  [Transports](../components/mailer.md#transports).
 
-- **SMTP transport:** The `options` argument of `Smtp` is deprecated, use the `timeout` argument instead. Consider
-  enabling encryption with the new `encryption` argument. See
-  [SMTP connection modes](../components/mailer.md#smtp-connection-modes).
+#### Queues
 
-- **Forms:** Inputs now reject arrays and objects submitted as their value and no longer hydrate them into the mapped
-  object. If an input intentionally receives several values, use a `Collection`, a multiple `Choice` or a `RawType`
-  instead; the deprecated `scalar: false` option restores the previous behavior until version 4. See
-  [Non-scalar values](../guides/forms/inputs.md#non-scalar-values).
+- **Retry safety:** Make handlers idempotent and keep job processing time below the retry/visibility timeout;
+  duplicate or concurrent processing is possible. See
+  [Delivery guarantees and idempotency](../components/queue-manager.md#delivery-guarantees-and-idempotency).
+- **Redis queues:** Failed jobs are no longer retried indefinitely: after `maxAttempts` (5 by default), they are moved
+  to the `<name>:dead` list. Set `maxAttempts` on `RedisQueue` if you need more attempts. Consumed jobs are now made
+  available again if neither deleted nor released within `retryTime` (30 seconds by default): set a `retryTime` greater
+  than your longest job. See [RedisQueue](../components/queue-manager.md#redisqueue).
+- **AMQP queues:** Messages redelivered by the broker after a consumer crash now count as attempts and end in the
+  dead-letter queue after `maxAttempts`.
+- **SQS attempt metadata:** Reading the maximum attempts from the redrive policy requires `sqs:GetQueueAttributes`.
+  Grant that permission, or configure `max_attempts` explicitly to match the actual SQS redrive policy.
+  See [Attempts and retry time](../components/queue-manager.md#attempts-and-retry-time).
+- **Queue workers:** `Worker` installs its signal handlers when `run()` starts, no longer in its constructor. See
+  [Graceful Shutdown](../components/queue-manager.md#graceful-shutdown).
+- **Queue factories:** `berlioz/queue-manager-package` now provides factories for Redis, AMQP, RabbitMQ and Null
+  queues, registered by default. A factory you wrote for one of these queue classes keeps precedence over the built-in
+  one: you can keep it, or remove it and use the built-in configuration. See
+  [Redis queue](../guides/queues.md#redis-queue), [AMQP queue](../guides/queues.md#amqp-queue) and
+  [Custom queue factories](../guides/queues.md#custom-queue-factories).
+
+### Deprecations
+
+These features still work in version 3.4. Unless stated otherwise, using them triggers an `E_USER_DEPRECATED` notice,
+and they will be removed in version 4.
 
 - **Service declarations:** Declaring services in the `container.services` configuration key is deprecated. Move
   them to a service provider listed in `container.providers`. See
   [Migrating from `container.services`](service-container.md#migrating-from-containerservices).
+- **API forms:** Constructing `ApiDataProvider` without `strictJson: true` is deprecated. Pass
+  `strictJson: true` and check that your forms accept nested JSON objects as `stdClass`. See
+  [Strict JSON](../guides/forms/data-providers.md#strict-json).
+- **Form `scalar` option:** The `scalar` option of inputs is deprecated. `scalar: false` restores the behavior before
+  3.4 until version 4; `scalar: true` is the default and can be removed. See
+  [Non-scalar values](../guides/forms/inputs.md#non-scalar-values).
+- **SMTP transport:** The `options` argument of `Smtp` is deprecated, use the `timeout` argument instead. Consider
+  enabling encryption with the new `encryption` argument. See
+  [SMTP connection modes](../components/mailer.md#smtp-connection-modes).
+- **Twig preloads:** The `nopush` parameter of `preload()` is deprecated: remove it. The
+  `AssetRuntimeExtension::H2PUSH_CACHE_COOKIE` constant and the `AssetRuntimeExtension::setCookie()` method are
+  deprecated too; they are no longer used and trigger no notice. See
+  [Preload](../guides/templating/twig-extensions.md#preload).
 
-- **Front controller:** Call `$app->terminate()` after `$app->print($response)` in your `public/index.php`, to run
-  terminate listeners and [deferred queues](../guides/queues.md#deferred-queues). See
-  [After the response](../http/terminate.md#front-controller).
-- **Connection closed after the response:** With PHP-FPM or LiteSpeed, `HttpApp::print()` now closes the connection
-  with the client once the response is printed: anything printed afterwards is no longer sent. Set
-  `berlioz.http.finish_request` to `false` to keep the previous behavior.
-- **Queue workers:** `Worker` installs its signal handlers when `run()` starts, no longer in its constructor. See
-  [Graceful Shutdown](../components/queue-manager.md#graceful-shutdown).
-- **Debug console:** An unknown snapshot now returns a `404` error, and the toolbar shows the response time instead of
-  the total time. See [Debug](debug.md#response-time).
+### If you extend the framework
 
 - **Custom queues:** `QueueInterface` has two new methods, `getMaxAttempts()` and `getRetryTime()`. Custom
   implementations must implement them. See
@@ -60,29 +112,11 @@ summary-order: 2
 - **Custom queue jobs:** `JobInterface` has two new methods, `getMaxAttempts()` and `isLastAttempt()`. Custom
   implementations not extending `Berlioz\QueueManager\Job\Job` must implement them. See
   [Last attempt](../components/queue-manager.md#last-attempt).
-- **Redis queues:** failed jobs are no longer retried indefinitely: after `maxAttempts` (5 by default), they are moved
-  to the `<name>:dead` list. Set `maxAttempts` on `RedisQueue` if you need more attempts. Consumed jobs are now made
-  available again if neither deleted nor released within `retryTime` (30 seconds by default): set a `retryTime` greater
-  than your longest job.
-- **AMQP queues:** messages redelivered by the broker after a consumer crash now count as attempts and end in the
-  dead-letter queue after `maxAttempts`.
-- **SQS attempt metadata:** Reading the maximum attempts from the redrive policy requires `sqs:GetQueueAttributes`.
-  Grant that permission, or configure `max_attempts` explicitly to match the actual SQS redrive policy.
-  See [Attempts and retry time](../components/queue-manager.md#attempts-and-retry-time).
-- **Retry safety:** Make handlers idempotent and keep job processing time below the retry/visibility timeout;
-  duplicate or concurrent processing is possible. See
-  [Delivery guarantees and idempotency](../components/queue-manager.md#delivery-guarantees-and-idempotency).
-- **Queue factories:** `berlioz/queue-manager-package` now provides factories for Redis, AMQP, RabbitMQ and Null
-  queues, registered by default. A factory you wrote for one of these queue classes keeps precedence over the built-in
-  one: you can keep it, or remove it and use the built-in configuration. See
-  [Redis queue](../guides/queues.md#redis-queue), [AMQP queue](../guides/queues.md#amqp-queue) and
-  [Custom queue factories](../guides/queues.md#custom-queue-factories).
-
-- **HTTP QUERY method:** Routes declared without `method` now also accept `QUERY` requests
-  ([RFC 10008](https://www.rfc-editor.org/info/rfc10008/)). If such a controller reads the request body, it now
-  receives `QUERY` requests too: restrict `method` on routes that must not accept them, and reject a `QUERY` request
-  without `Content-Type`, or use the `acceptQuery` route option. See [QUERY method](../http/routing.md#query-method).
-- **HTTP client redirections:** `QUERY` requests now keep their method and body on 301 and 302 redirections.
+- **Custom Twig extensions:** If you override `DefaultExtension::filterDateFormat()`, its first parameter now accepts
+  `DateTimeInterface|string|int` instead of `DateTime|string|int`. Overrides of
+  `RouterRuntimeExtension::functionPathExists()` must accept `array|RouteAttributes` for the parameters argument.
+  Update narrower overrides to match or widen these types. Subclasses overriding
+  `Berlioz\Package\Twig\Twig::__debugInfo()` must now declare the `array` return type.
 
 ---
 

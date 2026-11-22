@@ -74,7 +74,17 @@ This is the base configuration provided by **berlioz/core**:
     "locale": null,
     "debug": {
       "enable": false,
-      "ip": []
+      "ip": [],
+      "pending_ttl": null,
+      "gc": {
+        "probability": 1,
+        "divisor": 100,
+        "max_age": 7,
+        "max_files": 100
+      }
+    },
+    "proxies": {
+      "trusted": []
     },
     "directories": {
       "app": "{var: berlioz.directories.app}",
@@ -104,6 +114,16 @@ This is the base configuration provided by **berlioz/core**:
 }
 ```
 
+Where each key is documented:
+
+| Key                    | Documentation                                                                          |
+|------------------------|----------------------------------------------------------------------------------------|
+| `berlioz.debug`        | [Debug](debug.md)                                                                      |
+| `berlioz.proxies`      | [Client IP resolution behind a proxy](debug.md#client-ip-resolution-behind-a-proxy)    |
+| `berlioz.directories`  | [Directories](directories.md)                                                          |
+| `events`               | [Events](../guides/events.md)                                                          |
+| `container`            | [Service container](service-container.md)                                              |
+
 > ⚠️ **Warning**: The `container.services` key is deprecated since version 3.4. Declare your services in a provider
 > listed in `container.providers`. See [Service container](service-container.md#migrating-from-containerservices).
 
@@ -122,6 +142,7 @@ When using **berlioz/http-core**, the following configuration is merged on top:
       "entrypoints": "{config:berlioz.directories.app}/public/assets/entrypoints.json"
     },
     "http": {
+      "finish_request": true,
       "errors": {
         "default": "Berlioz\\Http\\Core\\Http\\Handler\\Error\\DefaultErrorHandler"
       },
@@ -130,12 +151,20 @@ When using **berlioz/http-core**, the following configuration is merged on top:
         "00": {
           "maintenance": "Berlioz\\Http\\Core\\Http\\Middleware\\MaintenanceMiddleware"
         },
+        "01": {
+          "debug_console": "Berlioz\\Http\\Core\\Http\\Middleware\\DebugConsoleMiddleware"
+        },
+        "02": {
+          "accept_query": "Berlioz\\Http\\Core\\Http\\Middleware\\AcceptQueryMiddleware"
+        },
         "99": {
           "redirection": "Berlioz\\Http\\Core\\Http\\Middleware\\RedirectionMiddleware"
         }
       }
     },
-    "router": {},
+    "router": {
+      "rewriteRequestUri": false
+    },
     "maintenance": false
   },
   "controllers": [
@@ -151,3 +180,16 @@ When using **berlioz/http-core**, the following configuration is merged on top:
   }
 }
 ```
+
+Where each key is documented:
+
+| Key                            | Documentation                                                          |
+|--------------------------------|------------------------------------------------------------------------|
+| `berlioz.http.finish_request`  | [After the response](../http/terminate.md#configuration)               |
+| `berlioz.http.errors`          | [Error handler](../http/error-handler.md#configuration)                |
+| `berlioz.http.redirections`    | [HTTP redirections](../guides/redirections.md)                         |
+| `berlioz.http.middlewares`     | [Middlewares](../http/middleware.md)                                   |
+| `berlioz.router`               | [Reverse-proxy prefixes](../http/routing.md#reverse-proxy-prefixes)    |
+| `berlioz.maintenance`          | [Maintenance mode](../guides/maintenance.md)                           |
+| `controllers`                  | [Routing](../http/routing.md#basic-declaration)                        |
+| `twig`                         | [Templating](../guides/templating.md#configuration)                    |

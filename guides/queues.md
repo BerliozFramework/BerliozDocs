@@ -122,6 +122,7 @@ schema.
                         "version": "latest"
                     },
                     "retry_time": 30,
+                    "max_attempts": 5,
                     "name": {
                         "emails": "https://sqs.eu-west-1.amazonaws.com/123456789/emails",
                         "notifications": "https://sqs.eu-west-1.amazonaws.com/123456789/notifications"
@@ -489,10 +490,14 @@ How the deferred queues are consumed:
   lost. Persistent queues are left untouched.
 - Errors never reach the client: failed jobs are logged if a `Psr\Log\LoggerInterface` service is available, and
   everything is visible in the [debug console](../getting-started/debug.md) (`Terminate` group of activities).
+- In a CLI command, the deferred queues are consumed once, when the command ends. In a long-running command such as
+  [`queue:worker`](../cli/queues.md), a job pushed to a deferred memory queue by a job handler stays in memory until
+  the worker stops. From a job handler, push to a queue consumed by a worker instead.
 
-> 💡 **Tip**: Since the jobs do not depend on how they are consumed, you can move them to a persistent queue (Redis,
-> database, SQS...) consumed by a worker when they become too heavy or critical: change the queue `type` in your
-> configuration and remove it from `berlioz.queues.deferred.queues`. No code change is needed.
+> 💡 **Tip**: Jobs do not depend on how they are consumed. When they become too heavy or critical, move them to a
+> persistent queue (database, Redis, SQS...) consumed by a worker. In your configuration, replace the queue definition
+> with the `type` and the settings of the new backend (see [Configuration](#configuration)), and remove the queue from
+> `berlioz.queues.deferred.queues`. No code change is needed.
 
 > ⚠️ **Warning**: Jobs of a memory queue are lost if the process ends unexpectedly (timeout, memory limit, killed
 > worker). Use a persistent queue for jobs that must not be lost. See also the

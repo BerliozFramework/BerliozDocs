@@ -17,6 +17,8 @@ main exception in previous.
 If you throw an `HttpException`, the framework do not generate this exception and use yours, and the defined status code
 and message.
 
+The error page is rendered by the [error handler](error-handler.md).
+
 ## Main exception
 
 `\Berlioz\Http\Core\Exception\HttpException` is the main exception used by the framework to generate errors to the user.

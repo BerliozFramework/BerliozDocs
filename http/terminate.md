@@ -43,8 +43,8 @@ $app->terminate();
 2. **`HttpApp::terminate()`** releases the session lock (`session_write_close()`), then dispatches an
    `HttpTerminateEvent`. Its listeners run while the client is already done.
 
-`terminate()` dispatches the event only once. Exceptions thrown by listeners are caught, added to the
-[debug report](../getting-started/debug.md) and reported as PHP warnings (`E_USER_WARNING`). A custom PHP error
+`terminate()` dispatches the event only once per application instance. Exceptions thrown by listeners are caught, added
+to the [debug report](../getting-started/debug.md) and reported as PHP warnings (`E_USER_WARNING`). A custom PHP error
 handler that converts warnings into exceptions can still interrupt termination. A failing listener can also prevent
 later listeners from running, so handle expected failures within your own listener.
 

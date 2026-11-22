@@ -47,7 +47,8 @@ Uploaded files are merged into the submitted data.
 > 🆕 **Info**: *Since version 3.4*, `PATCH` and `DELETE` requests are handled too.
 
 > 🆕 **Info**: *Since version 3.4*, all providers read the submitted data from the body of `QUERY` requests
-> ([RFC 10008](https://www.rfc-editor.org/info/rfc10008/)), like `POST`.
+> ([RFC 10008](https://www.rfc-editor.org/info/rfc10008/)), like `POST`. This applies to JSON and URL-encoded bodies:
+> PHP only parses `multipart/form-data` bodies for `POST` requests.
 
 ### Strict JSON
 
