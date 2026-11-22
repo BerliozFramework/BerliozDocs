@@ -88,6 +88,17 @@ The parser class must implement `Berlioz\Http\Message\Parser\ParserInterface`.
 
 Content-type suffixes are handled automatically (e.g. `application/vnd.api+json` resolves to the `json` parser).
 
+### Malformed bodies
+
+> 🆕 **Info**: *Since version 3.4*
+
+`getParsedBody()` throws a `Berlioz\Http\Message\Exception\MalformedBodyException` when the body cannot be used:
+invalid JSON, or a parsed value that is neither an array, an object nor `null` (e.g. a JSON string `"text"`).
+The exception extends `RuntimeException`.
+
+A custom parser should throw this exception when it cannot parse the contents. In an HTTP application, the framework
+then answers with a 400 Bad Request (see [HTTP exceptions](../http/exceptions.md)).
+
 ## Additional methods
 
 Some methods are provided beyond the PSR-7/PSR-17 standards:
