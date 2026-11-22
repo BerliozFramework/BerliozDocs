@@ -78,6 +78,9 @@ From `ResponseHelperTrait`:
 
   > Create a JSON response. The body is encoded with `json_encode()`. A `Content-Type: application/json` header is
   > automatically added.
+  >
+  > If the encoding fails, an `InternalServerErrorHttpException` is thrown instead of returning an empty 204 response
+  > *(since version 3.4)*. Pass `JSON_PARTIAL_OUTPUT_ON_ERROR` in `$flags` to keep a partial output instead.
 
 - `redirect(UriInterface|string $uri, int $httpResponseCode = 302, ?ResponseInterface $response = null): ResponseInterface`
 
