@@ -75,6 +75,10 @@ before version 4. The last part only concerns you if you extend framework classe
   receives `QUERY` requests too: restrict `method` on routes that must not accept them, and reject a `QUERY` request
   without `Content-Type`, or use the `acceptQuery` route option. See [QUERY method](../http/routing.md#query-method).
 - **HTTP client redirections:** `QUERY` requests now keep their method and body on 301 and 302 redirections.
+- **Malformed request bodies:** A malformed body of the incoming request, such as invalid JSON, now produces a `400`
+  error instead of a `500`: the error handler configured for `400` renders it, and it is no longer written to the
+  error log. `getParsedBody()` throws a `MalformedBodyException`, which extends `RuntimeException`, so existing
+  `catch` blocks keep working. See [Malformed bodies](../components/http-message.md#malformed-bodies).
 - **Debug console:** An unknown snapshot now returns a `404` error. A snapshot still being written returns a `202`
   page that reloads itself, and a snapshot that was never completed returns a `410` page. The toolbar shows the
   response time instead of the total time. See [Debug](debug.md#response-time).
