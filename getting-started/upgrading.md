@@ -11,6 +11,38 @@ summary-order: 2
 
 # Upgrading
 
+## Preparing for version 4
+
+Version 3 keeps deprecated features working, so you can migrate at your own pace. Fix the deprecations below before
+you upgrade to version 4: the features of the first table are announced for removal in that version.
+
+Each feature of the first table triggers an `E_USER_DEPRECATED` notice when used. Look for these notices in your
+logs or in the [debug console](debug.md) to find what remains to migrate.
+
+| Deprecated                                               | Since | What to do                                                                                                                           |
+|----------------------------------------------------------|-------|--------------------------------------------------------------------------------------------------------------------------------------|
+| Services declared in the `container.services` key        | 3.4   | Declare them in a service provider: [Migrating from `container.services`](service-container.md#migrating-from-containerservices)     |
+| `ApiDataProvider` constructed without `strictJson: true` | 3.4   | Pass `strictJson: true`: [Strict JSON](../guides/forms/data-providers.md#strict-json)                                                |
+| `scalar` option of form inputs                           | 3.4   | Remove the option: [Non-scalar values](../guides/forms/inputs.md#non-scalar-values)                                                  |
+| `options` argument of the `Smtp` transport               | 3.4   | Use the `timeout` argument: [Transports](../components/mailer.md#transports)                                                         |
+| `nopush` parameter of the Twig `preload()` function      | 3.4   | Remove the parameter: [Preload](../guides/templating/twig-extensions.md#preload)                                                     |
+| Trusted forwarded prefix without request URI rewriting   | 3.3   | Set `berlioz.router.rewriteRequestUri` to `true`: [Reverse-proxy prefixes](../http/routing.md#deprecated-behavior-and-v4-transition) |
+
+The features below are deprecated too, without an announced removal version. Stop using them as well:
+
+| Deprecated                                                                            | Since      | What to do                                                                                                       |
+|---------------------------------------------------------------------------------------|------------|------------------------------------------------------------------------------------------------------------------|
+| `AssetRuntimeExtension::H2PUSH_CACHE_COOKIE` and `AssetRuntimeExtension::setCookie()` | 3.4        | Remove their usages: the framework no longer uses them                                                           |
+| `QueueManager::stats()`                                                               | 3.1        | Iterate over `getQueues()`, or use `size()`: [Queue Monitoring](../components/queue-manager.md#queue-monitoring) |
+| `reload()` controller helper                                                          | Before 3.0 | Use `redirect()`: [Controllers](../http/controllers.md)                                                          |
+| `uuid` type of route attributes                                                       | Before 3.0 | Use the `uuid4` type: [Router](../components/router.md)                                                          |
+| `Router::isValid()` called with a string                                              | Before 3.0 | Pass a `ServerRequestInterface` object                                                                           |
+| `UploadedFile::parseUploadedFiles()` and `UploadedFile::setStream()`                  | Before 3.0 | Use `UploadedFileFactoryTrait::createUploadedFiles()` and the constructor                                        |
+| `Session::createFromHar()`, `createFromHarFile()`, `getHar()` and `writeHar()`        | Before 3.0 | Stop using them: the HTTP client no longer uses them                                                             |
+| `Berlioz\Mailer\Transport\Mail` transport                                             | Before 3.0 | Use `Berlioz\Mailer\Transport\PhpMail`                                                                           |
+
+---
+
 ## Upgrading from version 3.3 to 3.4
 
 Start with the required actions. Then read the behavior changes for the features you use, and plan the deprecations
@@ -85,7 +117,8 @@ before version 4. The last part only concerns you if you extend framework classe
 ### Deprecations
 
 These features still work in version 3.4. Unless stated otherwise, using them triggers an `E_USER_DEPRECATED` notice,
-and they will be removed in version 4.
+and they will be removed in version 4. All deprecations, including older ones, are listed in
+[Preparing for version 4](#preparing-for-version-4).
 
 - **Service declarations:** Declaring services in the `container.services` configuration key is deprecated. Move
   them to a service provider listed in `container.providers`. See
