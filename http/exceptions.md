@@ -17,10 +17,12 @@ main exception as its previous exception.
 If you throw an `HttpException`, the framework does not generate this exception and uses yours, with the defined status
 code and message.
 
-A malformed body of the incoming request (`Berlioz\Http\Message\Exception\MalformedBodyException`, e.g. invalid
-JSON) produces a `BadRequestHttpException` (400) with the main exception as its previous exception, instead of an
-internal server error *(since version 3.4)*. A malformed body of another message, such as an upstream response, remains
-an internal server error. See [Malformed bodies](../components/http-message.md#malformed-bodies).
+> 🆕 **Info**: *Since version 3.4*
+>
+> A malformed body of the incoming request (`Berlioz\Http\Message\Exception\MalformedBodyException`, e.g. invalid
+> JSON) produces a `BadRequestHttpException` (400) with the main exception as its previous exception, instead of an
+> internal server error. A malformed body of another message, such as an upstream response, remains an internal server
+> error. See [Malformed bodies](../components/http-message.md#malformed-bodies).
 
 The error page is rendered by the [error handler](error-handler.md).
 
