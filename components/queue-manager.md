@@ -626,7 +626,7 @@ $job = $manager->consume();                        // Consume from any queue (re
 $manager->purge();                                 // Purge all purgeable queues
 ```
 
-#### Get a queue
+### Get a queue
 
 > 🆕 **Info**: *Since version 3.4*
 
@@ -646,7 +646,7 @@ $manager->hasQueue('unknown');              // false
 $manager->getDefaultQueue();                // Queue used by push() without queue name ($emailQueue here)
 ```
 
-`getQueue()` and `hasQueue()` only match an exact queue name: wildcards are reserved to
+`getQueue()` and `hasQueue()` only match an exact queue name: wildcards are reserved for
 [`filter()`](#filtering-queues). If several queues share the same name, the first one is returned, like `push()` does.
 
 ## Queue Monitoring
