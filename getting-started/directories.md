@@ -50,6 +50,13 @@ Representation of the interface:
 interface DirectoriesInterface
 {
     /**
+     * Get array copy.
+     *
+     * @return array
+     */
+    public function getArrayCopy(): array;
+
+    /**
      * Get working directory.
      *
      * @return string

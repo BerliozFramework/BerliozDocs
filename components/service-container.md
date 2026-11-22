@@ -60,7 +60,7 @@ $container->addService($service);
 ## Service object
 
 - ```php
-  Service::public function __construct(
+  Service::__construct(
       string|object $class,
       ?string $alias = null,
       callable|string|null $factory = null,
@@ -70,35 +70,35 @@ $container->addService($service);
 
   > Constructor of the Service object.
 
-- `Service::setNullable(bool $nullable = true): Service`
+- `Service::setNullable(bool $nullable = true): static`
 
   > The service can be null after factory execution (false by default).
 
-- `Service::setShared(bool $shared = true): Service`
+- `Service::setShared(bool $shared = true): static`
 
   > Share a service: the same instance is always returned for a shared service.
 
-- `Service::addProvide(string ...$provide): Service`
+- `Service::addProvide(string ...$provide): static`
 
   > Add classes, interfaces or aliases provided by the service.
 
-- `Service::addArgument(string $name, mixed $value): Service`
+- `Service::addArgument(string $name, mixed $value): static`
 
   > Add an argument used to make an instance of the service class.
 
-- `Service::addArguments(array $arguments): Service`
+- `Service::addArguments(array $arguments): static`
 
   > An array of arguments: the key must be the name of the argument, and the value must be the argument value.
 
-- `Service::addCall(string $method, array $arguments = []): Service`
+- `Service::addCall(string $method, array $arguments = []): static`
 
   > Method name (and arguments) called just after the construction of the object.
 
-- `Service::addCalls(array $calls = []): void`
+- `Service::addCalls(array $calls): static`
 
   > An array of calls: the key must be the name of the called method, and the value an array of arguments.
 
-- `Service::setFactory(string $factory): Service`
+- `Service::setFactory(callable|string|null $factory): static`
 
   > The static factory method used to make the object.
   >
@@ -222,7 +222,8 @@ $instantiator->invokeFunction(
 In all these examples, the last argument is an array of parameters to give to the constructor, method or function. The
 order of arguments is not important.
 
-If a parameter is an object, the system gets it from the container or tries to instantiate the class.
+If a parameter is typed with a class and you do not give it, the system gets the object from the container or tries to
+instantiate the class.
 
 The `Container::call()` method calls the right method of the instantiator according to the given value:
 

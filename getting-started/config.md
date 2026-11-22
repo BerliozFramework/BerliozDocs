@@ -45,7 +45,7 @@ $config = $this->getApp()->getConfig();
 ## Usage
 
 You can access the configuration variables with the method `Config::get(string $name)`. The given parameter is the path
-of your variable in your JSON.
+of your variable in your configuration.
 
 ```php
 /** @var \Berlioz\Config\ConfigInterface $config */
@@ -117,13 +117,14 @@ This is the base configuration provided by **berlioz/core**:
 
 Where each key is documented:
 
-| Key                    | Documentation                                                                          |
-|------------------------|----------------------------------------------------------------------------------------|
-| `berlioz.debug`        | [Debug](debug.md)                                                                      |
-| `berlioz.proxies`      | [Client IP resolution behind a proxy](debug.md#client-ip-resolution-behind-a-proxy)    |
-| `berlioz.directories`  | [Directories](directories.md)                                                          |
-| `events`               | [Events](../guides/events.md)                                                          |
-| `container`            | [Service container](service-container.md)                                              |
+| Key                   | Documentation                                                                        |
+|-----------------------|--------------------------------------------------------------------------------------|
+| `berlioz.debug`       | [Debug](debug.md)                                                                    |
+| `berlioz.proxies`     | [Client IP resolution behind a proxy](debug.md#client-ip-resolution-behind-a-proxy)  |
+| `berlioz.directories` | [Directories](directories.md)                                                        |
+| `berlioz.assets`      | [Assets configuration](../guides/templating/twig-extensions.md#assets-configuration) |
+| `events`              | [Events](../guides/events.md)                                                        |
+| `container`           | [Service container](service-container.md)                                            |
 
 > ⚠️ **Warning**: The `container.services` key is deprecated since version 3.4. Declare your services in a provider
 > listed in `container.providers`. See [Service container](service-container.md#migrating-from-containerservices).

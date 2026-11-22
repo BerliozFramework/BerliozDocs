@@ -79,7 +79,7 @@ Parameters:
 | `--queue` | `-q` | Queue name (repeatable, supports wildcards) |
 
 A confirmation prompt is shown before purging. Only queues implementing `PurgeableQueueInterface` can be purged
-(Database, Memory, AWS SQS, AMQP). Non-purgeable queues (like Redis) are skipped with a warning.
+(Database, Memory, AWS SQS, AMQP, RabbitMQ). Non-purgeable queues (like Redis) are skipped with a warning.
 
 ## `queue:size`
 

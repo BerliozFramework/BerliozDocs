@@ -241,12 +241,13 @@ Berlioz API itself. All namespaces, class names, method signatures and behaviors
 #### Breaking changes for HttpCore
 
 - Namespace `Berlioz\HttpCore` moved to `Berlioz\Http\Core`
-- Namespace `Berlioz\Router` moved to `Berlioz\Http\Router`
 - Magic methods `_b_pre()` and `_b_post()` of controllers are removed in favor of [middlewares](../http/middleware.md)
 - PhpDoc annotations are removed in favor of [PHP 8 attributes](https://www.php.net/manual/language.attributes.php),
   like [route annotations](../http/routing.md)
 - Method `AbstractController::getService()` renamed to `AbstractController::get()`
-- `ErrorHandler`
+- Error handler classes moved to the `Berlioz\Http\Core\Http\Handler\Error` namespace: `HttpErrorHandler` became
+  `ErrorHandler` and `DefaultHttpErrorHandler` became `DefaultErrorHandler`. See
+  [Error handler](../http/error-handler.md)
 
 #### Breaking changes for CliCore
 

@@ -69,7 +69,7 @@ $query = $query->filter(':first');
     - **[attribute*=foo]**: value of attribute contains 'foo'.
     - **[attribute!=foo]**: value of attribute different from 'foo'.
     - **[attribute~=foo]**: value of attribute contains word 'foo'.
-    - **[attribute|=foo]**: value of attribute contains prefix 'foo'.
+    - **[attribute|=foo]**: value of attribute equals 'foo' or starts with 'foo'.
 
 ### CSS Ascendants, descendants, multiples
 
@@ -84,7 +84,7 @@ $query = $query->filter(':first');
 - **:any-link**: only elements of type `<a>`, `<area>` and `<link>`, with `[href]` attribute.
 - **:blank**: only elements without children and without text (except spaces).
 - **:checked**: only elements with attribute `[checked]`.
-- **:dir**: only elements with the given text direction (default: ltr).
+- **:dir(x)**: only elements with the given text direction, `ltr` or `rtl` (default direction of a document: ltr).
 - **:disabled**: only elements of type `<button>`, `<input>`, `<optgroup>`, `<select>` or `<textarea>` with `[disabled]`
   attribute.
 - **:empty**: only elements without children.
@@ -104,11 +104,11 @@ $query = $query->filter(':first');
 - **:nth-last-of-type()**: *n* elements of given type in selector result, starting from the end of the list.
 - **:only-child**: only elements that are the only child of their parent.
 - **:only-of-type**: only elements that are the only child of their type in their parent.
-- **:optional()**: only input elements without `[required]` attribute.
-- **:read-only()**: only elements that the user cannot edit.
-- **:read-write()**: only elements with editable property.
-- **:required()**: only elements with `[required]` attribute.
-- **:root()**: get root element.
+- **:optional**: only input elements without `[required]` attribute.
+- **:read-only**: only elements that the user cannot edit.
+- **:read-write**: only elements with editable property.
+- **:required**: only elements with `[required]` attribute.
+- **:root**: get root element.
 
 ### Additional CSS Pseudo Classes (not in CSS specifications) from jQuery library
 
@@ -119,13 +119,13 @@ $query = $query->filter(':first');
 - **:even**: only even results in selection.
 - **:file**: only elements with attribute `[type=file]`.
 - **:gt(x)**: only results with an index greater than the given index (index starts at 0).
-- **:gte**: only results with an index greater than or equal to the given index (index starts at 0).
+- **:gte(x)**: only results with an index greater than or equal to the given index (index starts at 0).
 - **:header**: only heading elements, like `<h1>`, `<h2>`...
 - **:image**: only elements with attribute `[type=image]`.
 - **:input**: only elements of type `<input>`, `<textarea>`, `<select>` or `<button>`.
 - **:last**: only last result of complete selection.
-- **:lt**: only results with an index less than the given index (index starts at 0).
-- **:lte**: only results with an index less than or equal to the given index (index starts at 0).
+- **:lt(x)**: only results with an index less than the given index (index starts at 0).
+- **:lte(x)**: only results with an index less than or equal to the given index (index starts at 0).
 - **:odd**: only odd results in selection.
 - **:parent**: only elements with one child or more.
 - **:password**: only elements with attribute `[type=password]`.
@@ -137,7 +137,8 @@ $query = $query->filter(':first');
 
 ### Additional CSS Pseudo Classes (not in CSS specifications)
 
-- **:count(x)**: only elements who are x children in the parent, used in **:has(selector)** pseudo class.
+- **:count(x)**: only elements whose parent contains exactly *x* matching elements. *x* can start with a comparison
+  operator (`>`, `>=`, `<`, `<=`, `!=`), for example `:count(>=2)`. Used in the **:has(selector)** pseudo class.
 
 ### Full example of selectors
 
