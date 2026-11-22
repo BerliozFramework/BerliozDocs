@@ -24,19 +24,19 @@ features like memory and time limits, signal handling, and customizable worker o
 
 ## Jobs
 
-#### `JobDescriptorInterface`
+### `JobDescriptorInterface`
 
 - **Definition**: Represents jobs that are ready to be pushed into a queue.
 - **Example**: Defining the structure and payload of a task before queueing it.
 - **Note**: A generic `JobDescriptor` class is available for creating new messages quickly. However, you can extend or
   override this class to provide additional control, such as custom payload validation or specific job behaviors.
 
-#### `JobInterface`
+### `JobInterface`
 
 - **Definition**: Manages jobs that have been consumed from a queue.
 - **Example**: Handling retries, deleting jobs after processing, or releasing jobs back into the queue.
 
-#### `JobForQueue`
+### `JobForQueue`
 
 - **Definition**: Ensures specific jobs are routed to designated queues.
 - **Example**: Assigning priority tasks to a high-priority queue.
@@ -83,9 +83,9 @@ class FooJobHandler implements JobHandlerInterface
 }
 ```
 
-TIP: `JobHandlerManager` accept a wildcard "*" at the end of job name.
+> 💡 **Tip**: `JobHandlerManager` accept a wildcard "*" at the end of job name.
 
-#### Last attempt
+### Last attempt
 
 > 🆕 **Info**: *Since version 3.4*
 
@@ -164,7 +164,7 @@ $queue = new MemoryQueue();
 $exitCode = $worker->run($queue, $options);
 ```
 
-#### Backoff multiplier
+### Backoff multiplier
 
 Workers can also define retry behavior when a job fails.
 When using an exponential backoff, the delay increases for each retry based on the base delay and the multiplier.
@@ -186,20 +186,20 @@ Examples:
 | 30         | 2          | 30      | 60      | 120     | 240     | 480     | 930s                   |
 | 60         | 2          | 60      | 120     | 240     | 480     | 960     | 1860s                  |
 
-#### Graceful Shutdown
+### Graceful Shutdown
 
 The `Worker` handles PCNTL signals (`SIGTERM`, `SIGQUIT`) to ensure a clean exit. If a signal is received:
 
 - The worker finishes the current job processing.
 - It then exits with a specific code without starting a new job.
 
-*Note: The `pcntl` extension must be enabled for this feature.*
+> ℹ️ **Note**: The `pcntl` extension must be enabled for this feature.
 
 > 🆕 **Info**: *Since version 3.4*
 >
 > The signal handlers are installed when `run()` starts, no longer when the `Worker` is instantiated.
 
-#### Drain a queue
+### Drain a queue
 
 > 🆕 **Info**: *Since version 3.4*
 
@@ -222,7 +222,7 @@ $nbJobs = $worker->drain($queue, options: new WorkerOptions(backoffTime: 5));
 Each job is processed by `Worker::processJob()`, also used by `run()`: the job is executed, then deleted, or released
 with the backoff delay on failure (unless the handler already deleted or released it).
 
-#### Remote Stop (Kill File)
+### Remote Stop (Kill File)
 
 You can stop a worker remotely by creating a specific file. Configure the path in `WorkerOptions`:
 
@@ -237,7 +237,7 @@ job.
 
 ## Queues
 
-#### Attempts and retry time
+### Attempts and retry time
 
 > 🆕 **Info**: *Since version 3.4*
 
@@ -265,7 +265,7 @@ Automatic SQS redrive-policy discovery requires the **`sqs:GetQueueAttributes`**
 Supplying `maxAttempts` explicitly avoids this lookup. Keep it consistent with the queue's actual
 `maxReceiveCount`: the value is metadata for the handler and does not create or update the SQS redrive policy.
 
-#### Delivery guarantees and idempotency
+### Delivery guarantees and idempotency
 
 Persistent queues do not imply exactly-once execution. Design handlers for at-least-once delivery: processing the
 same job again must not duplicate its business effects.
@@ -281,7 +281,7 @@ same job again must not duplicate its business effects.
 - A [deferred memory queue](../guides/queues.md#deferred-queues) is not durable. Work can be lost if the process dies,
   and remaining memory jobs are purged after draining. Use persistent queues and workers for critical jobs.
 
-#### DbQueue
+### DbQueue
 
 The `DbQueue` is a durable implementation of a queue that uses a database to store jobs persistently. This ensures that
 jobs remain available even in the event of application or server restarts. By leveraging a database, the `DbQueue`
@@ -333,11 +333,11 @@ CREATE TABLE `queue_jobs`
 ) ENGINE = InnoDB;
 ```
 
-> ⚠️ The index **must** start with `queue`, `availability_time`, `job_id` in that order. When consuming, `DbQueue`
-> runs `... WHERE queue = ? AND availability_time <= ? ... ORDER BY availability_time, job_id LIMIT 1 FOR UPDATE SKIP LOCKED`.
-> With this prefix, MySQL serves the `ORDER BY` directly from the index and stops at the first matching row. If `job_id`
-> is missing from the index, the sort cannot be index-served, forcing a full scan and a `filesort` that becomes very
-> expensive as soon as the queue holds a large backlog of pending jobs.
+> ⚠️ **Warning**: The index **must** start with `queue`, `availability_time`, `job_id` in that order. When consuming,
+> `DbQueue` runs `... WHERE queue = ? AND availability_time <= ? ... ORDER BY availability_time, job_id LIMIT 1 FOR
+> UPDATE SKIP LOCKED`. With this prefix, MySQL serves the `ORDER BY` directly from the index and stops at the first
+> matching row. If `job_id` is missing from the index, the sort cannot be index-served, forcing a full scan and a
+> `filesort` that becomes very expensive as soon as the queue holds a large backlog of pending jobs.
 
 If you want to keep the jobs treated:
 
@@ -385,7 +385,7 @@ $$
 DELIMITER ;
 ```
 
-#### Memory queue
+### Memory queue
 
 The `MemoryQueue` is a lightweight, ephemeral implementation of a queue that stores jobs in memory for the duration of
 the script's execution. This queue is particularly useful for testing, development, or scenarios where persistent
@@ -415,7 +415,7 @@ $queue = new MemoryQueue(
 );
 ```
 
-#### AwsSqsQueue
+### AwsSqsQueue
 
 The `AwsSqsQueue` is an implementation of a queue that integrates with Amazon Simple Queue Service (SQS), a fully
 managed message queuing service provided by AWS. This queue leverages the scalability, durability, and distributed
@@ -450,7 +450,7 @@ $queue = new AwsSqsQueue(
 );
 ```
 
-#### RedisQueue
+### RedisQueue
 
 The `RedisQueue` is a high-performance, in-memory implementation of a queue that uses Redis as its backend. By
 leveraging Redis' fast data structures, `RedisQueue` enables quick enqueue and dequeue operations while providing
@@ -514,7 +514,7 @@ Tips:
 - For test isolation, use a dedicated Redis database and call `$redis->flushDb()` before/after your test suite.
 - For production, monitor memory usage and persistence settings to prevent data loss.
 
-#### AmqpQueue
+### AmqpQueue
 
 The AmqpQueue is an advanced queue implementation based on the AMQP protocol, typically used with brokers like RabbitMQ.
 It provides high throughput, supports delayed jobs, priorities, and dead-lettering, and is suitable for distributed
@@ -567,7 +567,7 @@ $queue = new AmqpQueue(
 );
 ```
 
-#### RabbitMqQueue
+### RabbitMqQueue
 
 > 🆕 **Info**: *Since version 3.1*
 
@@ -699,7 +699,7 @@ $filteredManager = $queueManager->filter('notifications.*', 'emails');
 The **Rate Limiter** allows you to control the flow of job processing by defining limits (e.g., "10 jobs per minute").
 It can be applied at two levels: the **Queue** or the **Worker**.
 
-#### Queue Level Rate Limiting
+### Queue Level Rate Limiting
 
 When a rate limit is defined on a specific queue, the `QueueManager` handles it gracefully. If a queue's limit is
 reached:
@@ -709,7 +709,7 @@ reached:
 
 This strategy ensures high availability by processing available jobs from other queues while one is throttled.
 
-#### Worker Level Rate Limiting
+### Worker Level Rate Limiting
 
 Defining a rate limit on the worker (via `WorkerOptions`) applies a global constraint on the consumption speed,
 regardless of the source queue.
@@ -727,12 +727,12 @@ $options = new WorkerOptions(
 );
 ```
 
-#### Creating Rate Limiters
+### Creating Rate Limiters
 
 Two factory methods are available in `TimeRateLimiter` and `MultiRateLimiter` to easily parse rate strings (e.g.,
 `"10/1m"`, `"100/hour"`, `"10/2hours"`).
 
-##### Simple Rate Limit
+#### Simple Rate Limit
 
 Use `TimeRateLimiter::createFromString()` for a single constraint:
 
@@ -743,7 +743,7 @@ use Berlioz\QueueManager\RateLimiter\TimeRateLimiter;
 $limiter = TimeRateLimiter::createFromString('10/1m');
 ```
 
-##### Multiple Rate Limits
+#### Multiple Rate Limits
 
 Use `MultiRateLimiter::createFromString()` to combine multiple constraints (e.g., a burst limit and a daily limit):
 

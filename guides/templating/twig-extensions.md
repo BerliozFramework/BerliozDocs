@@ -51,7 +51,7 @@ for JS files. An array can be given to add parameters to each preload header:
 > Every file rendered by `entrypoints()` is preloaded (previously only the first one), and the `Link` header is sent on
 > every response. The HTTP/2 Server Push cache (`h2pushes` cookies) has been removed.
 
-> ⚠️ **Deprecated**: *Since version 3.4*
+> ⚠️ **Warning**: *Deprecated since version 3.4*
 >
 > The `nopush` parameter is deprecated, HTTP/2 Server Push is no longer supported by browsers. It will be removed in
 > version 4.

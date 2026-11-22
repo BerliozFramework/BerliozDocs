@@ -27,9 +27,7 @@ You can specify the version to composer:
 composer create-project berlioz/website-skeleton my-project "3.0" --remove-vcs
 ```
 
-> **Info**:
->
-> Option `--remove-vcs` remove automatically the `.git` directory from the default project.
+> ℹ️ **Note**: Option `--remove-vcs` remove automatically the `.git` directory from the default project.
 
 ## HTTP server
 
@@ -67,7 +65,7 @@ For **Apache** version < 2.4:
 </VirtualHost>
 ```
 
-> **Warning**:
+> ⚠️ **Warning**:
 >
 > Needs to enable the module **mod_rewrite** on Apache.
 >
@@ -139,9 +137,7 @@ php -S localhost:8000 index.php
 
 In your web browser, go to the url: `http://localhost:8000`, you will see your project!
 
-> **Warning**:
->
-> The PHP built-in web server is only for **development environment**.
+> ⚠️ **Warning**: The PHP built-in web server is only for **development environment**.
 > Do not use it in production!
 
 ## Test first page

@@ -66,9 +66,7 @@ Subscribers must be declared in configuration:
 }
 ```
 
-> Info!
->
-> It's recommended to use subscribers to listen events, and explode by work.
+> ℹ️ **Note**: It's recommended to use subscribers to listen events, and explode by work.
 > In this case, only necessaries listeners are declared to the dispatcher.
 
 ### Without Subscriber
@@ -92,9 +90,7 @@ If you want listen event without subscriber, you need to declare event and callb
 }
 ```
 
-> Info!
->
-> Prefers subscribers to have the best performances.
+> ℹ️ **Note**: Prefers subscribers to have the best performances.
 
 ## Framework events
 
@@ -120,9 +116,7 @@ You can trigger a specific event with `trigger` method.
 $eventDispatcher->trigger('myEvent', []);
 ```
 
-> Warning!
->
-> The original event can contain some necessary data.
+> ⚠️ **Warning**: The original event can contain some necessary data.
 
 ## Dispatch an event
 

@@ -74,7 +74,7 @@ foreach ($allMessages as $type => $messages) {
 }
 ```
 
-> **Note:** Both `get()` and `all()` are destructive — messages are removed from the bag after retrieval.
+> ℹ️ **Note**: Both `get()` and `all()` are destructive — messages are removed from the bag after retrieval.
 
 ## Clear messages
 

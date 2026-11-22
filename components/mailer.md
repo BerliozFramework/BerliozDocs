@@ -44,7 +44,7 @@ $mailer->send($mail);
 
 **\Berlioz\Mailer\Mail** it's the object representation of a mail.
 
-#### Basic
+### Basic
 
 ```php
 use Berlioz\Mailer\Address;
@@ -58,7 +58,7 @@ $mail->setSubject('Subject of my mail')
      ->setTo([new Address('recipient@test.com', 'The recipient')]);
 ```
 
-#### Attachments
+### Attachments
 
 To add downloadable attachment:
 
@@ -88,9 +88,10 @@ $html .= '<p>Html content 2</p>';
 $mail->setHtml($html);
 ```
 
-**WARNING:** call `$attachment->getId()` method, does that the attachment will be in inline disposition. Only uses this method for inline attachments.
+> ⚠️ **Warning**: call `$attachment->getId()` method, does that the attachment will be in inline disposition. Only uses
+> this method for inline attachments.
 
-#### CC and BCC
+### CC and BCC
 
 You can set carbon copy and blind carbon copy recipients:
 
@@ -99,7 +100,7 @@ $mail->setCc([new Address('cc@test.com', 'CC recipient')]);
 $mail->setBcc([new Address('bcc@test.com', 'BCC recipient')]);
 ```
 
-#### Custom headers
+### Custom headers
 
 You can add custom headers to a mail:
 
@@ -117,9 +118,9 @@ Reserved headers (`Subject`, `From`, `To`, `Cc`, `Bcc`) cannot be set this way �
 > Header names and values must not contain CR (`\r`) or LF (`\n`) characters; an `InvalidArgumentException` is thrown
 > otherwise.
 
-> **Note:** header values must be MIME-encoded by the caller if they contain non-ASCII characters.
+> ℹ️ **Note**: header values must be MIME-encoded by the caller if they contain non-ASCII characters.
 
-#### Mass sending
+### Mass sending
 
 You can send the same mail to multiple recipients individually:
 
@@ -144,7 +145,7 @@ Each recipient receives an individual mail. The callback is optional and receive
 > A sender address (`setFrom()`) is now required. Both transports throw a `TransportException` if no sender is defined
 > when `send()` is called.
 
-#### Defaults transports
+### Defaults transports
 
 Default transport is **\Berlioz\Mailer\Transport\PhpMail** uses internal **mail()** of PHP.
 
@@ -201,7 +202,7 @@ SMTP transport arguments:
 > Arguments `encryption`, `context` and `timeout` are available. The `options` argument (`['timeout' => 5]`) is
 > deprecated and emits an `E_USER_DEPRECATED` notice: use the `timeout` argument instead. It will be removed in v4.
 
-#### SMTP connection modes
+### SMTP connection modes
 
 > 🆕 **Info**: *Since version 3.4*
 
@@ -227,7 +228,7 @@ Prefixing the host with a scheme (`ssl://smtp.test.com`, `tls://smtp.test.com`) 
 when `encryption` is `null`, but prefer the `encryption` argument. Combining a host scheme with `encryption` throws an
 `InvalidArgumentException`.
 
-#### TLS options
+### TLS options
 
 The `context` argument accepts the [PHP SSL context options](https://www.php.net/manual/context.ssl.php), as an array
 or as a stream context created with `stream_context_create()`. By default, `peer_name` is the host.
@@ -258,7 +259,7 @@ You can also pin the server certificate with the `peer_fingerprint` option.
 > in this case. Keep validation enabled and configure `cafile` for private certificates; use `peer_fingerprint`
 > when certificate pinning is required.
 
-#### Create a new transport
+### Create a new transport
 
 It's possible to create new transport for various reasons.
 To do that, you need to create class who implements **\Berlioz\Mailer\Transport\TransportInterface** interface.

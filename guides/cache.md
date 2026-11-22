@@ -25,8 +25,8 @@ use Berlioz\Http\Core\App\HttpApp;
 $app = new HttpApp(new Core(cache: $cache));
 ```
 
-> The cache is an **infrastructure** service of the framework. It is configured by code at bootstrap, **not** through the
-> configuration files, because the cache is needed *before* the configuration is loaded.
+> ℹ️ **Note**: The cache is an **infrastructure** service of the framework. It is configured by code at bootstrap,
+> **not** through the configuration files, because the cache is needed *before* the configuration is loaded.
 
 ## Drivers
 
@@ -94,7 +94,7 @@ $cache = new RedisCacheDriver(
 - **Scoped `clear()`**: only the keys of the configured namespace are removed (via `SCAN` + `DEL`); the rest of the
   Redis instance is never flushed.
 
-> **Tip:** Use a dedicated namespace (and/or a dedicated Redis database) per application to keep `clear()` isolated.
+> 💡 **Tip**: Use a dedicated namespace (and/or a dedicated Redis database) per application to keep `clear()` isolated.
 
 ### Fallback driver
 

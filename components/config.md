@@ -89,7 +89,7 @@ $config = new \Berlioz\Config\Config(/* ... */);
 $value = $config->getOrFail('database.host'); // Throws ConfigException if key is missing or value is null
 ```
 
-> **Note:** `getOrFail()` does not reject valid falsy values such as `false`, `0`, `""`, or `[]`. This method is only
+> ℹ️ **Note**: `getOrFail()` does not reject valid falsy values such as `false`, `0`, `""`, or `[]`. This method is only
 > available on the concrete `Config` class, not on `ConfigInterface`.
 
 ## Functions

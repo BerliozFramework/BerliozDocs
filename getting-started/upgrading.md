@@ -194,7 +194,7 @@ All components now require **PHP ^8.2** (previously ^8.0 or ^7.1 for some).
 | `psr/http-factory`   | ^1.0          | ^1.0 \|\| ^2.0   |
 | `psr/simple-cache`   | ^1.0 \|\| ^2.0 | ^2.0 \|\| ^3.0 |
 
-> **Note:** The `psr/http-message` upgrade from v1 to v2 introduces return types on interface methods. If you have
+> ℹ️ **Note**: The `psr/http-message` upgrade from v1 to v2 introduces return types on interface methods. If you have
 > custom implementations of PSR-7 interfaces, you will need to add the appropriate return types.
 
 #### Removed package: Atlas ORM

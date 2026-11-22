@@ -56,10 +56,8 @@ Default configuration is:
 }
 ```
 
-> **Warning**:
->
-> Ignore this configuration file in your `.gitignore` file. It should contain passwords... and MUST NOT push on GIT
-> repository!
+> ⚠️ **Warning**: Ignore this configuration file in your `.gitignore` file. It should contain passwords... and MUST NOT
+> push on GIT repository!
 
 ### PDO options
 
@@ -119,7 +117,7 @@ Rules:
 - An unknown constant, a constant that is not an integer, or a list entry without `attribute` and `value` keys throws
   a `HectorException`.
 
-> **Warning**:
+> ⚠️ **Warning**:
 >
 > - Do not mix the map and list formats across configuration files (e.g. a map in `hector.json.dist` and a list in
 >   `hector.json`): when one side is a list, the configuration merge renumbers integer keys.

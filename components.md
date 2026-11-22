@@ -17,7 +17,7 @@ PHP project, without the full framework.
 They are all distributed as separate [Composer](https://getcomposer.org/) packages via
 [Packagist](https://packagist.org/?query=berlioz).
 
-> All components require **PHP ^8.2** and follow [Semantic Versioning](https://semver.org/).
+> ℹ️ **Note**: All components require **PHP ^8.2** and follow [Semantic Versioning](https://semver.org/).
 
 ## Configuration & Services
 

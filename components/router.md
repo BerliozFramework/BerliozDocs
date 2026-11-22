@@ -21,7 +21,7 @@ keywords:
 
 ## Routes
 
-#### Create route
+### Create route
 
 You can create simple route like this:
 
@@ -44,7 +44,7 @@ Constructor arguments are:
 - **host**: an array of allowed hosts, or just a host
 - **priority**: you can specify the priority for a route (default: -1)
 
-#### Route group
+### Route group
 
 A route can be transformed to a group, only associate another route to them.
 
@@ -61,7 +61,7 @@ Children routes inherit parent route attributes, requirements, methods, host res
 >
 > Host restrictions declared on a parent route group are now inherited by child routes.
 
-#### Attributes
+### Attributes
 
 Route accept optional attributes, you need to wrap the optional part by brackets.
 
@@ -116,14 +116,14 @@ $router->addRoute(
 $route = $router->handle($serverRequest);
 ```
 
-#### Options
+### Options
 
 | Options            | Type           | Description                                                                               |
 |--------------------|----------------|-------------------------------------------------------------------------------------------|
 | X-Forwarded-Prefix | boolean/string | Default to **false**, **true** to use "X-Forwarded-Prefix" value or custom name of header | 
 | trustedProxies | array | IPs, CIDRs or helper aliases allowed to supply the prefix; defaults to an empty list (since version 3.3) |
 
-#### Generate path
+### Generate path
 
 You can generate a path with some parameters directly with `Router` object.
 
@@ -144,7 +144,7 @@ try {
 The return of method, is the path in string format or thrown an exception if not able to generate path (not all required
 parameters for example).
 
-#### Valid path
+### Valid path
 
 You can be valid a `ServerRequestInterface` to known if a path can be treated by a route.
 
@@ -162,7 +162,7 @@ $valid = $router->isValid($serverRequest);
 
 The return of method is a `boolean` value.
 
-#### Finalize path
+### Finalize path
 
 The `finalizePath()` method applies a reverse-proxy mount to an internal path.
 
@@ -193,7 +193,7 @@ Internal paths always receive the mount, even when they start with the same segm
 `finalizePath('/app/articles')` with mount `/app` returns `/app/app/articles`.
 This method does not infer whether its input is already a public path.
 
-##### Request context
+#### Request context
 
 Resolution priority is:
 
