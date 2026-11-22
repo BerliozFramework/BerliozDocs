@@ -94,10 +94,12 @@ Content-type suffixes are handled automatically (e.g. `application/vnd.api+json`
 
 `getParsedBody()` throws a `Berlioz\Http\Message\Exception\MalformedBodyException` when the body cannot be used:
 invalid JSON, or a parsed value that is neither an array, an object nor `null` (e.g. a JSON string `"text"`).
-The exception extends `RuntimeException`.
+The exception extends `RuntimeException`, and `getHttpMessage()` returns the message whose body is malformed.
 
-A custom parser should throw this exception when it cannot parse the contents. In an HTTP application, the framework
-then answers with a 400 Bad Request (see [HTTP exceptions](../http/exceptions.md)).
+A custom parser should throw this exception when it cannot parse the contents; `getParsedBody()` attaches the message
+to it. In an HTTP application, the framework answers with a 400 Bad Request when the body of the incoming **request**
+is malformed (see [HTTP exceptions](../http/exceptions.md)). A malformed body of another message, such as a response
+received from an upstream API, remains a server error (500).
 
 ## Additional methods
 
