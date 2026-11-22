@@ -62,4 +62,5 @@ If you want to go further with **Berlioz Framework**, you can consult:
 - [Commands](cli/commands.md)
 - [Console](cli/console.md)
 - [Package creation](guides/packages/creation.md)
+- [What's new?](whats-new.md)
 - [Upgrading](getting-started/upgrading.md)

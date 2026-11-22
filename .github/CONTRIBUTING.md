@@ -98,6 +98,19 @@ Each minor version has a section in `getting-started/upgrading.md`. Put every en
 
 Start each entry with a bold label, say what changed, then what the reader must do, and link to the detailed page.
 
+### What's new pages
+
+Each minor version has a page in `whats-new/` (`whats-new/v3-4.md`) and a row in `whats-new.md`. The page shows what
+the reader gains with the version; it does not replace the reference pages, the upgrade guide or the changelog.
+
+- Present the three to five main features first: two or three sentences, one short example taken from the reference
+  page, and a link to that page.
+- List the other new features in one line each, with a link.
+- Do not document anything there that is not in a reference page.
+- Link to the section of the upgrade guide and to the deprecations of the version.
+- In the front matter, give the page a `summary-order` one below the page of the previous version (`7;96` for 3.4,
+  `7;95` for 3.5), so that the newest version comes first.
+
 ### Links and headings
 
 - Link to other pages with a relative path to the `.md` file: `[Routing](../http/routing.md)`.
