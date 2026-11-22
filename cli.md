@@ -11,14 +11,15 @@ keywords:
 
 **Berlioz Framework** allows you to manage your CLI projects.
 
-In some case, you don't have any rendering functionality or HTTP support. The **Berlioz/CliCore** project is do for you!
+In some cases, you don't have any rendering functionality or HTTP support. The **Berlioz/CliCore** project is made for
+you!
 
 ## Installation
 
-Installation of **Berlioz/CliCore** must be done by [Composer](https://getcomposer.org/), it's the recommended
-installation.
+You must install **Berlioz/CliCore** with [Composer](https://getcomposer.org/); it's the recommended installation
+method.
 
-First, create your classical project with composer support. And executes this command:
+First, create a standard project with Composer support. Then execute this command:
 
 ```bash
 composer require berlioz/cli-core
@@ -28,17 +29,17 @@ An executable will be created in the binary directory of **Composer** (default: 
 
 ## Commands
 
-CLI commands are available on the framework.
-You can use some default commands or create your owns.
+CLI commands are available in the framework.
+You can use some default commands or create your own.
 
-For execution of commands:
+To execute a command:
 
 ```bash
 $ vendor/bin/berlioz myproject:foo
 Printed result!
 ```
 
-For more details of commands usage, referrer you to the [Commands page](cli/commands.md).
+For more details on commands, see the [Commands page](cli/commands.md).
 
 > 🆕 **Info**: *Since version 3.4*
 >
@@ -60,7 +61,7 @@ To get the beautified configuration.
 Parameters:
 
 - `-f ...` `--filter ...`
-  To filter the configuration key to shown
+  To filter the configuration key to show
 
 ### `berlioz:cache-clear`
 
@@ -69,10 +70,10 @@ To clear the cache.
 Parameters:
 
 - `--all`
-  To clear all contents of cache directory (except hidden items)
+  To clear all contents of the cache directory (except hidden items)
 - `...`
-  To specify directories name to clear. When specific names are provided, all matching directories are cleared,
-  including hidden ones.
+  To specify the names of the directories to clear. When specific names are provided, all matching directories are
+  cleared, including hidden ones.
 
 ### `berlioz:debug-clear`
 

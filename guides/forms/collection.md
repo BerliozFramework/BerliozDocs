@@ -11,32 +11,32 @@ keywords:
 
 # Collection
 
-Collection is an array of element. An element can be added, removed, etc.
+A collection is an array of elements. An element can be added, removed, etc.
 
-Use class `Berlioz\Form\Collection` to construct a collection of inputs.
+Use the `Berlioz\Form\Collection` class to construct a collection of inputs.
 
 ## Options
 
-| Name             | Type               | Default value | Description                                                            |
-|------------------|--------------------|---------------|------------------------------------------------------------------------|
-| **prototype**    | `ElementInterface` | *none*        | The element template that will be cloned to create collection elements |
-| **editable**     | boolean            | true          | If collection is editable (can add/remove element)                     |
-| **min_elements** | int                | *none*        | The minimum number of elements in collection                           |
-| **max_elements** | int                | *none*        | The maximum number of elements in collection (enforced on submission)  |
-| **type**         | string             | "collection"  | The type name of collection (to personalize template)                  |
+| Name             | Type               | Default value | Description                                                               |
+|------------------|--------------------|---------------|---------------------------------------------------------------------------|
+| **prototype**    | `ElementInterface` | *none*        | The element template that will be cloned to create collection elements    |
+| **editable**     | boolean            | true          | If the collection is editable (can add/remove elements)                   |
+| **min_elements** | int                | *none*        | The minimum number of elements in the collection                          |
+| **max_elements** | int                | *none*        | The maximum number of elements in the collection (enforced on submission) |
+| **type**         | string             | "collection"  | The type name of the collection (to customize the template)               |
 
 > 🆕 **Info**: *Since version 3.1*
 >
 > The `max_elements` limit is now enforced: submitted data exceeding this limit is silently truncated.
 
-## Creation of sub objects
+## Creating sub-objects
 
-Use special option "data_type" in the prototype options to create the specified class object. Or use a closure in this
-option to create a dynamic object.
+Use the special "data_type" option in the prototype options to create an object of the specified class. Or use a
+closure in this option to create the object dynamically.
 
 ## JavaScript interaction
 
-A library is available to do interaction with JavaScript and user: https://github.com/BerliozFramework/Form.js
+A library is available to handle interactions with JavaScript and the user: https://github.com/BerliozFramework/Form.js
 
 ## Example
 
@@ -90,7 +90,7 @@ $form = new Form('form');
 $form->add('addresses', Collection::class, ['prototype' => $address]);
 ```
 
-Result of form will be:
+The result of the form will be:
 
 ```php
 [

@@ -18,9 +18,9 @@ We provide a **Twig** package. Twig is a PHP template engine with its own syntax
 
 ## Integration in Berlioz
 
-If you use the main repository of Berlioz : **berlioz/berlioz**, the package it's already available.
+If you use the main repository of Berlioz, **berlioz/berlioz**, the package is already available.
 
-If you use customizable repositories, you need to [install the package](packages.md) by yourself:
+If you use customizable repositories, you need to [install the package](packages.md) yourself:
 
 ```bash
 composer require berlioz/twig-package
@@ -29,9 +29,9 @@ composer require berlioz/twig-package
 ## Usage
 
 In [controllers](../http/controllers.md), the method `render(string $name, array $variables = []): string` is available
-to process of the rendering of a template file.
+to render a template file.
 
-Example inside controllers methods:
+Example inside controller methods:
 
 ```php
 // In controller method
@@ -56,13 +56,13 @@ $rendering = $twig->render(
 
 ## Service inflector
 
-An inflector is provided with interface: `\Berlioz\Package\Twig\TwigAwareInterface`.
+An inflector is provided with the interface `\Berlioz\Package\Twig\TwigAwareInterface`.
 
-For more information on inflectors, refers you to [container inflectors](../getting-started/service-container.md).
+For more information on inflectors, see [container inflectors](../getting-started/service-container.md).
 
 ## Methods
 
-Twig package have some methods:
+The Twig package has some methods:
 
 - `Twig::render(string $name, array $variables = []): string`
 
@@ -125,7 +125,7 @@ templates:
 
 ### Cache
 
-The internal cache of Twig is use, and can be disabled:
+The internal cache of Twig is used, and can be disabled:
 
 ```json
 {

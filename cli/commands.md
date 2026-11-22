@@ -9,11 +9,11 @@ keywords:
 
 # Commands
 
-You can create some commands to call your functions or services to automate some jobs in crontab for example.
+You can create commands to call your functions or services, for example to automate some jobs in a crontab.
 
 ## Create a command
 
-You need to implement `\Berlioz\Cli\Core\Command\CommandInterface` interface or extends
+You need to implement the `\Berlioz\Cli\Core\Command\CommandInterface` interface or extend the
 `\Berlioz\Cli\Core\Command\AbstractCommand` abstract class.
 
 Representation of the interface:
@@ -53,7 +53,7 @@ interface CommandInterface
 
 ## Arguments
 
-Arguments must be declared with PHP 8 attributes, example:
+Arguments must be declared with PHP 8 attributes, for example:
 
 ```php
 use Berlioz\Cli\Core\Command\Argument;
@@ -91,10 +91,10 @@ Options for arguments:
 
 ## Declare a command
 
-You need to declare each commands in a `commands.json` file in
+You need to declare each command in a `commands.json` file in
 your [configuration directory](../getting-started/config.md).
 
-Example of file:
+Example file:
 
 ```json
 {

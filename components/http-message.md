@@ -19,20 +19,21 @@ keywords:
 > You can find it on [Packagist](https://packagist.org/packages/berlioz/http-message).
 > You can use it independently of the framework, in any PHP application.
 
-**Berlioz HTTP Message** is a PHP library that implements PSR-7 (HTTP message interfaces) and PSR-17 (HTTP Factories) standards.
+**Berlioz HTTP Message** is a PHP library that implements the PSR-7 (HTTP message interfaces) and PSR-17
+(HTTP Factories) standards.
 
 ## PSR references
 
-Looks at **PSR** documentations:
+See the **PSR** documentation:
 - **PSR-7** (HTTP message interfaces): https://www.php-fig.org/psr/psr-7/
 - **PSR-17** (HTTP Factories): https://www.php-fig.org/psr/psr-17/
 
 ## Factory
 
-Only one factory class implements the **PSR-17**:
+Only one factory class implements **PSR-17**:
 `\Berlioz\Http\Message\HttpFactory`
 
-To help you, the factory is cut into some traits:
+To help you, the factory is split into several traits:
 
 - `\Berlioz\Http\Message\Factory\RequestFactoryTrait`
 - `\Berlioz\Http\Message\Factory\ResponseFactoryTrait`

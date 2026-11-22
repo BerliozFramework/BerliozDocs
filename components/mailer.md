@@ -18,11 +18,11 @@ keywords:
 > You can find it on [Packagist](https://packagist.org/packages/berlioz/mailer).
 > You can use it independently of the framework, in any PHP application.
 
-**Berlioz Mailer** is a PHP library for sending mail, with or without local server.
+**Berlioz Mailer** is a PHP library for sending mail, with or without a local server.
 
 ## Example
 
-You can send simply the like this:
+You can simply send a mail like this:
 
 ```php
 use Berlioz\Mailer\Address;
@@ -42,7 +42,7 @@ $mailer->send($mail);
 
 ## Mail
 
-**\Berlioz\Mailer\Mail** it's the object representation of a mail.
+**\Berlioz\Mailer\Mail** is the object representation of a mail.
 
 ### Basic
 
@@ -60,7 +60,7 @@ $mail->setSubject('Subject of my mail')
 
 ### Attachments
 
-To add downloadable attachment:
+To add a downloadable attachment:
 
 ```php
 use Berlioz\Mailer\Attachment;
@@ -88,7 +88,7 @@ $html .= '<p>Html content 2</p>';
 $mail->setHtml($html);
 ```
 
-> ⚠️ **Warning**: call `$attachment->getId()` method, does that the attachment will be in inline disposition. Only uses
+> ⚠️ **Warning**: Calling the `$attachment->getId()` method gives the attachment an inline disposition. Only use
 > this method for inline attachments.
 
 ### CC and BCC
@@ -145,11 +145,12 @@ Each recipient receives an individual mail. The callback is optional and receive
 > A sender address (`setFrom()`) is now required. Both transports throw a `TransportException` if no sender is defined
 > when `send()` is called.
 
-### Defaults transports
+### Default transports
 
-Default transport is **\Berlioz\Mailer\Transport\PhpMail** uses internal **mail()** of PHP.
+The default transport is **\Berlioz\Mailer\Transport\PhpMail**, which uses the internal **mail()** function of PHP.
 
-You can uses another available transport for direct communication with SMTP server: **\Berlioz\Mailer\Transport\Smtp**.
+You can use another available transport for direct communication with an SMTP server:
+**\Berlioz\Mailer\Transport\Smtp**.
 
 ```php
 use Berlioz\Mailer\Mailer;
@@ -190,7 +191,7 @@ SMTP transport arguments:
 | Argument     | Default     | Description                                                                         |
 |--------------|-------------|-------------------------------------------------------------------------------------|
 | `host`       | `localhost` | SMTP server host                                                                    |
-| `username`   | `null`      | Username, authentication is done only if username and password are given           |
+| `username`   | `null`      | Username; authentication is done only if username and password are given           |
 | `password`   | `null`      | Password                                                                            |
 | `port`       | `25`        | SMTP server port                                                                    |
 | `encryption` | `null`      | Connection mode: `null`, `starttls` or `tls` (see [connection modes](#smtp-connection-modes)) |
@@ -261,5 +262,5 @@ You can also pin the server certificate with the `peer_fingerprint` option.
 
 ### Create a new transport
 
-It's possible to create new transport for various reasons.
-To do that, you need to create class who implements **\Berlioz\Mailer\Transport\TransportInterface** interface.
+It's possible to create a new transport for various reasons.
+To do that, you need to create a class that implements the **\Berlioz\Mailer\Transport\TransportInterface** interface.

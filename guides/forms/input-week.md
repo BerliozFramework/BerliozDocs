@@ -20,7 +20,7 @@ keywords:
 
 ## Additional options
 
-No additional than [commons options](inputs.md#common-options).
+No options other than the [common options](inputs.md#common-options).
 
 ## Attributes
 

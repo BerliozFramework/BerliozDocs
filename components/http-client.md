@@ -18,14 +18,15 @@ keywords:
 > You can find it on [Packagist](https://packagist.org/packages/berlioz/http-client).
 > You can use it independently of the framework, in any PHP application.
 
-**Berlioz HTTP Client** is a PHP library to request HTTP server with continuous navigation, including cookies,
-sessions... Implements PSR-18 (HTTP Client), PSR-7 (HTTP message interfaces) and PSR-17 (HTTP Factories) standards.
+**Berlioz HTTP Client** is a PHP library to request HTTP servers with continuous navigation, including cookies,
+sessions... It implements the PSR-18 (HTTP Client), PSR-7 (HTTP message interfaces) and PSR-17 (HTTP Factories)
+standards.
 
 ## Requests
 
 ### With RequestInterface
 
-You can construct your own request object whose implements `RequestInterface` interface (PSR-7).
+You can construct your own request object that implements the `RequestInterface` interface (PSR-7).
 
 ```php
 use Berlioz\Http\Client\Client;
@@ -42,7 +43,7 @@ print $response->getBody();
 
 ### Get/Post/Query/Patch/Put/Delete/Options/Head/Connect/Trace
 
-Methods are available to do request with defined HTTP method:
+Methods are available to send a request with a given HTTP method:
 
 - `Client::get(...)`
 - `Client::post(...)`
@@ -67,7 +68,7 @@ $response = $client->get('https://getberlioz.com');
 print $response->getBody();
 ```
 
-You also can pass HTTP method in argument to `Client::request(...)` method:
+You can also pass the HTTP method as an argument to the `Client::request(...)` method:
 
 ```php
 use Berlioz\Http\Client\Client;
@@ -78,10 +79,10 @@ $response = $client->request('get', 'https://getberlioz.com');
 print $response->getBody();
 ```
 
-Each method accept an array of options with `$options` argument.
+Each method accepts an array of options with the `$options` argument.
 List of options:
 
-- **baseUri** (string|null): Base of URI if not given in requests (default: null)
+- **baseUri** (string|null): Base URI, if not given in requests (default: null)
 - **followLocation** (int|false): Maximum number of redirections to follow, or `false` to disable (default: 5)
 - **redirectSensitiveHeaders** (string[]): Additional credential headers to remove on cross-origin redirects
   (default: `[]`; since version 3.3; see [Redirect security](#redirect-security))
@@ -189,13 +190,13 @@ or `'followLocation' => false` in array options.
 
 ## Session
 
-The session is accessible with method `Client::getSession()`.
+The session is accessible with the `Client::getSession()` method.
 
 ### History
 
-The browsing history is saved in the session. If you serialize the object `Session`, the history is preserve.
+The browsing history is saved in the session. If you serialize the `Session` object, the history is preserved.
 
-The method `Session::getHistory()` returns an `History` object:
+The `Session::getHistory()` method returns a `History` object:
 
 ```php
 use Berlioz\Http\Client\Client;
@@ -206,8 +207,8 @@ $history = $client->getSession()->getHistory();
 
 ### Cookies
 
-A cookie manager is available to manage cookies of session and between requests. The manager is available
-with `Session::getCookies()` method.
+A cookie manager is available to manage the cookies of the session and between requests. The manager is available
+with the `Session::getCookies()` method.
 
 Serializing a `Session` preserves its cookies.
 
@@ -253,25 +254,25 @@ On import, cookies are validated against their entry URI. Missing or undotted do
 conservatively as host-only for that entry host; this may narrow the scope of cookies in older or external HAR files.
 Invalid cookie domains are ignored individually during import and replay, preserving other valid cookies.
 
-HAR file of session is accessible with method `Session::getHar()`.
+The HAR file of the session is accessible with the `Session::getHar()` method.
 
-If you serialize the object `Session`, the HAR is preserved.
+If you serialize the `Session` object, the HAR is preserved.
 
-Refers to the documentation of **elgigi/har-parser** library: https://github.com/ElGigi/HarParser
+Refer to the documentation of the **elgigi/har-parser** library: https://github.com/ElGigi/HarParser
 
 ## Adapters
 
 ### Usage
 
-Default adapter used by library is the `AutoAdapter`, which picks the best available transport automatically: it
-prefers `CurlAdapter` when the CURL extension is installed, and falls back to the `StreamAdapter` otherwise.
+The default adapter used by the library is the `AutoAdapter`, which picks the best available transport automatically:
+it prefers `CurlAdapter` when the CURL extension is installed, and falls back to the `StreamAdapter` otherwise.
 
 > 🆕 **Info**: *Since version 3.2*
 >
 > The default adapter is now the `AutoAdapter`. In previous versions, the client used `CurlAdapter` directly when the
 > CURL extension was installed, and `StreamAdapter` otherwise.
 
-You can specify adapters to the client constructor, with argument `adapter`:
+You can pass adapters to the client constructor, with the `adapter` argument:
 
 ```php
 use Berlioz\Http\Client\Client;
@@ -282,7 +283,7 @@ $client = new Client(adapter: new Adapter\CurlAdapter(), adapter: new Adapter\St
 
 The first specified adapter is the default adapter.
 
-If you want force an adapter for a request, you can pass is name in the request options:
+If you want to force an adapter for a request, you can pass its name in the request options:
 
 ```php
 use Berlioz\Http\Client\Client;
@@ -336,8 +337,8 @@ $adapter = new AutoAdapter(
 
 The `HarAdapter` is specially made to simulate a navigation, coming from a desktop browser for example.
 
-It's very useful for test units. You only need to store your cleaned HAR file into your repository to launch tests with
-simulated HTTP dialogs.
+It's very useful for unit tests. You only need to store your cleaned HAR file in your repository to run tests with
+simulated HTTP exchanges.
 
 ```php
 use Berlioz\Http\Client\Client;
@@ -351,7 +352,7 @@ $client = new Client(adapter: new HarAdapter(har: $har));
 $client->get('https://getberlioz.com'); // Get response from HAR object, without making an HTTP request
 ```
 
-Har adapter accept an option `strict` (default: `false`) to force the way of navigation.
+The HAR adapter accepts a `strict` option (default: `false`) to force the navigation order.
 
 ### Create an adapter
 

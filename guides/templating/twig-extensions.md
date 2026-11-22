@@ -12,7 +12,7 @@ keywords:
 
 # Twig extensions
 
-3 extensions are provided with Twig Package :
+Three extensions are provided with the Twig Package:
 
 - `Berlioz\Package\Twig\Extension\AssetExtension`
 - `Berlioz\Package\Twig\Extension\DefaultExtension`
@@ -53,7 +53,7 @@ for JS files. An array can be given to add parameters to each preload header:
 
 > ⚠️ **Warning**: *Deprecated since version 3.4*
 >
-> The `nopush` parameter is deprecated, HTTP/2 Server Push is no longer supported by browsers. It will be removed in
+> The `nopush` parameter is deprecated: HTTP/2 Server Push is no longer supported by browsers. It will be removed in
 > version 4.
 >
 > The `AssetRuntimeExtension::H2PUSH_CACHE_COOKIE` constant and the `AssetRuntimeExtension::setCookie()` method are

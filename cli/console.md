@@ -9,17 +9,17 @@ keywords:
 
 # Console
 
-Berlioz uses [**league/climate**](https://climate.thephpleague.com/) package to manage output.
+Berlioz uses the [**league/climate**](https://climate.thephpleague.com/) package to manage output.
 
 > CLImate allows you to easily output colored text, special formatting, and more. It makes output to the terminal
 > clearer and debugging a lot simpler.
 
-The console is accessible from environment variable passed in argument of `CommandInterface::run(Environment $env)`
-method.
+The console is accessible from the environment variable passed as an argument to the
+`CommandInterface::run(Environment $env)` method.
 
 ## Output
 
-Example to colorize output:
+Example of colorized output:
 
 ```php
 // ...
@@ -28,4 +28,4 @@ $env->console()->red('Red output');
 $env->console()->output('Normal output');
 ```
 
-For all capabilities of console, refers you to the [official documentation](https://climate.thephpleague.com/).
+For all the capabilities of the console, see the [official documentation](https://climate.thephpleague.com/).

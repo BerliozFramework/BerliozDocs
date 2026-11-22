@@ -9,21 +9,23 @@ keywords:
 
 # HTTP exceptions
 
-`HttpException` class allow you to throw specific exception from context.
-You can so define an HTTP status code and message.
+The `HttpException` class allows you to throw a specific exception from context.
+You can thus define an HTTP status code and message.
 
-By default, if an exception is throw, the framework generate an `InternalServerErrorHttpException` exception with the
-main exception in previous.
-If you throw an `HttpException`, the framework do not generate this exception and use yours, and the defined status code
-and message.
+By default, if an exception is thrown, the framework generates an `InternalServerErrorHttpException` exception with the
+main exception as its previous exception.
+If you throw an `HttpException`, the framework does not generate this exception and uses yours, with the defined status
+code and message.
 
 The error page is rendered by the [error handler](error-handler.md).
 
 ## Main exception
 
-`\Berlioz\Http\Core\Exception\HttpException` is the main exception used by the framework to generate errors to the user.
+`\Berlioz\Http\Core\Exception\HttpException` is the main exception used by the framework to generate errors for the
+user.
 
-For the most common HTTP exceptions, some class are already define in the namespace `\Berlioz\Http\Core\Exception\Http`:
+For the most common HTTP exceptions, some classes are already defined in the namespace
+`\Berlioz\Http\Core\Exception\Http`:
 
  Exception                           | Code | Reason
 -------------------------------------|------|----------------------------------------------

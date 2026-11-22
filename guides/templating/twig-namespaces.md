@@ -12,7 +12,7 @@ keywords:
 
 # Twig namespaces
 
-You can use the twig namespace to separate templates or parts of your project.
+You can use Twig namespaces to separate templates or parts of your project.
 
 ## Declaration
 
@@ -29,7 +29,7 @@ Paths need to be declared in your configuration file like this:
 }
 ```
 
-Namespaces can be accessed by this notation:
+Namespaces can be accessed with this notation:
 
 ```php
 $this->render('@foo/index.html', []);

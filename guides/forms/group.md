@@ -11,14 +11,14 @@ keywords:
 
 # Group
 
-You can organize your inputs into groups. If you map an object with a form with named groups, the system map with sub
-objects, excepted if group has no name.
+You can organize your inputs into groups. If you map an object to a form with named groups, the system maps the groups
+to sub-objects, except if a group has no name.
 
-Use class `Berlioz\Form\Group` to construct a group of inputs.
+Use the `Berlioz\Form\Group` class to construct a group of inputs.
 
 ## Example
 
-Creation of a group "address".
+Creation of an "address" group.
 
 ```php
 use Berlioz\Form\Form;
@@ -67,7 +67,7 @@ $form = new Form('form');
 $form->add('address', $address);
 ```
 
-Result of form will be:
+The result of the form will be:
 
 ```php
 [

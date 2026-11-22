@@ -9,29 +9,29 @@ summary-order: 1
 
 # Installation
 
-This page describes the default installation for the most of HTTP projects.
-If you want use **Berlioz Framework** for CLI projects, go to [CLI Project](../cli.md) to know more.
+This page describes the default installation for most HTTP projects.
+If you want to use **Berlioz Framework** for CLI projects, see [CLI Project](../cli.md) to learn more.
 
 ## Berlioz Framework
 
-Installation of Berlioz Framework must be done by [Composer](https://getcomposer.org/), it's the recommended
+Berlioz Framework must be installed with [Composer](https://getcomposer.org/); it's the recommended
 installation.
 
 ```bash
 composer create-project berlioz/website-skeleton my-project --remove-vcs
 ```
 
-You can specify the version to composer:
+You can specify the version to Composer:
 
 ```bash
 composer create-project berlioz/website-skeleton my-project "3.0" --remove-vcs
 ```
 
-> ℹ️ **Note**: Option `--remove-vcs` remove automatically the `.git` directory from the default project.
+> ℹ️ **Note**: The `--remove-vcs` option automatically removes the `.git` directory from the default project.
 
 ## HTTP server
 
-To run the application, your HTTP server must be pointed on `public` directory.
+To run the application, your HTTP server must point to the `public` directory.
 
 ### Apache server
 
@@ -67,13 +67,13 @@ For **Apache** version < 2.4:
 
 > ⚠️ **Warning**:
 >
-> Needs to enable the module **mod_rewrite** on Apache.
+> You need to enable the **mod_rewrite** module on Apache.
 >
-> Cf. [Apache documentation](https://httpd.apache.org/docs/current/fr/mod/mod_rewrite.html) for installation.
+> See the [Apache documentation](https://httpd.apache.org/docs/current/fr/mod/mod_rewrite.html) for installation.
 
-If you want increase the performances of your server, disables support of `.htaccess` files.
+If you want to increase the performance of your server, disable the support of `.htaccess` files.
 
-For that, you must specify to Apache the fallback resource and disable `AllowOverride` option:
+To do that, you must specify the fallback resource to Apache and disable the `AllowOverride` option:
 
 ```apache
 <Directory "/path/to/my-project/public">
@@ -85,9 +85,9 @@ For that, you must specify to Apache the fallback resource and disable `AllowOve
 
 ### Nginx
 
-[Nginx](https://www.nginx.com) is a high performance web server.
+[Nginx](https://www.nginx.com) is a high-performance web server.
 
-To run PHP application with [Nginx](https://www.nginx.com), you need to
+To run a PHP application with [Nginx](https://www.nginx.com), you need to
 use [PHP FPM](http://php.net/manual/book.fpm.php) (FastCGI Process Manager).
 
 ```nginx
@@ -124,10 +124,10 @@ server {
 
 ### PHP HTTP server
 
-If you want test application without Web Server to install, you can
-use [built-in web server](http://php.net/manual/features.commandline.webserver.php).
+If you want to test the application without installing a web server, you can
+use the [built-in web server](http://php.net/manual/features.commandline.webserver.php).
 
-To start server:
+To start the server:
 
 ```bash
 cd /path/of/project
@@ -135,19 +135,20 @@ cd public
 php -S localhost:8000 index.php
 ```
 
-In your web browser, go to the url: `http://localhost:8000`, you will see your project!
+In your web browser, go to the URL `http://localhost:8000`: you will see your project!
 
-> ⚠️ **Warning**: The PHP built-in web server is only for **development environment**.
+> ⚠️ **Warning**: The PHP built-in web server is only for a **development environment**.
 > Do not use it in production!
 
-## Test first page
+## Test the first page
 
-Go to in your favorite browser, and try to go to your page, in your example: `getberlioz.com`.
+Open your favorite browser and go to your page, in our example: `getberlioz.com`.
 
-If everything ok, you will see this screen:
+If everything is OK, you will see this screen:
 
 ![First page](../_assets/first-page.png)
 
-You can also see on this first page, the debug console of **Berlioz**. If you click on, you will see the debug detail:
+On this first page, you can also see the debug console of **Berlioz**. If you click on it, you will see the debug
+details:
 
 ![Debug](../_assets/first-page-debug.png)

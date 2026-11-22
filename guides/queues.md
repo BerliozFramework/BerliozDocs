@@ -743,7 +743,7 @@ scrape_configs:
       - targets: ['app.example.com']
 ```
 
-The exposed metrics are the same as the CLI; see the
+The exposed metrics are the same as those of the CLI; see the
 [Queue CLI commands](../cli/queues.md#queuesize) page for output examples.
 
 ## Custom queue factories

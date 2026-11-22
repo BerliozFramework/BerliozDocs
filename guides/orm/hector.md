@@ -14,13 +14,13 @@ debug console page, and CLI commands.
 
 ## Installation
 
-Use composer to install package:
+Use Composer to install the package:
 
 ```bash
 composer require berlioz/hector-package
 ```
 
-For more detail package installation, referred to the [package description](../packages.md) page.
+For more details on package installation, see the [package description](../packages.md) page.
 
 ## Configuration
 
@@ -39,7 +39,7 @@ Create a `hector.json` file in your [configuration directory](../../getting-star
 }
 ```
 
-Default configuration is:
+The default configuration is:
 
 ```json
 {
@@ -56,8 +56,8 @@ Default configuration is:
 }
 ```
 
-> ⚠️ **Warning**: Ignore this configuration file in your `.gitignore` file. It should contain passwords... and MUST NOT
-> push on GIT repository!
+> ⚠️ **Warning**: Ignore this configuration file in your `.gitignore` file. It is likely to contain passwords and MUST
+> NOT be pushed to the Git repository!
 
 ### PDO options
 
@@ -123,23 +123,22 @@ Rules:
 >   `hector.json`): when one side is a list, the configuration merge renumbers integer keys.
 > - Options like `PDO::ATTR_AUTOCOMMIT` or `PDO::ATTR_ERRMODE` may interfere with the internal transaction handling of
 >   Hector ORM.
-> - Since PHP 8.4, driver specific constants are available on driver classes (e.g. `Pdo\Mysql::ATTR_INIT_COMMAND`);
+> - Since PHP 8.4, driver-specific constants are available on driver classes (e.g. `Pdo\Mysql::ATTR_INIT_COMMAND`);
 >   `PDO::MYSQL_ATTR_*` constants are deprecated since PHP 8.5.
 
 ## Package additions
 
-- Subscription of ORM events with framework event manager
-- Debug page in console
-- Not found entities exception generate a not found http error
-- Usage of cache system of framework
-- Magics methods in entities to manage events simply
+- Subscription of ORM events with the framework event manager
+- Debug page in the console
+- An entity not found exception generates a not found HTTP error
+- Usage of the cache system of the framework
+- Magic methods in entities to manage events simply
 
 ## Usage
 
-To know more on usage with the ORM, referrer you to
-the [official documentation of Hector ORM](https://gethectororm.com).
+To learn more about using the ORM, see the [official documentation of Hector ORM](https://gethectororm.com).
 
-## Events magic methods
+## Event magic methods
 
 Save magic methods:
 
@@ -165,7 +164,7 @@ Delete magic methods:
 - `Entity::onBeforeDelete(): void` called before delete
 - `Entity::onAfterDelete(): void` called after delete
 
-All methods are called from service container, so the dependency injection is enabled :).
+All methods are called from the service container, so dependency injection is enabled :).
 
 ## Debug console
 

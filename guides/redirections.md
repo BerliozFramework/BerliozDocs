@@ -9,12 +9,12 @@ summary-order: ;6
 
 # HTTP Redirections
 
-Sometimes, you need to redirect an old route to a new route. You have two methods to redirect route to another route.
+Sometimes, you need to redirect an old route to a new route. You have two methods to redirect a route to another route.
 
 ## With config
 
-You can create a `redirections.json` file into your [configuration directory](../getting-started/directories.md) and add
-a similar content:
+You can create a `redirections.json` file in your [configuration directory](../getting-started/directories.md) and add
+content similar to this:
 
 ```json
 {
@@ -30,12 +30,13 @@ a similar content:
 }
 ```
 
-The key `berlioz.http.redirections` is an JSON object. The key of property it's a regular expression to find, and the
+The key `berlioz.http.redirections` is a JSON object. The key of each property is a regular expression to find, and the
 value is the replacement value.
 
-In internal, Berlioz use `preg_replace()` PHP function. So you can use mask and replacement value with backreferences.
+Internally, Berlioz uses the `preg_replace()` PHP function. So you can use a pattern and a replacement value with
+backreferences.
 
-Examples for redirection with the config given in example above:
+Examples of redirections with the config given in the example above:
 
  Original path              | Redirect path        
 ----------------------------|----------------------
@@ -47,8 +48,8 @@ Examples for redirection with the config given in example above:
  /another-old-route/        | /new/                
  /another-old-route/foo/bar | /new/foo/bar         
 
-The default redirection HTTP status code is `301 Moved Permanently`, so if you want specify another HTTP status code,
-it's possible with this config example:
+The default redirection HTTP status code is `301 Moved Permanently`. If you want to specify another HTTP status code,
+you can do so as in this config example:
 
 ```json
 {
@@ -67,13 +68,13 @@ it's possible with this config example:
 
 In this example, the HTTP status code will be `302 Found`.
 
-> ⚠️ **Warning**: With this method, controllers routes are priority from list of redirection.
+> ⚠️ **Warning**: With this method, controller routes take priority over the list of redirections.
 > So if you have a conflict between a controller route and a defined route, the controller wins!
 
-## With controller
+## With a controller
 
-You can create redirection with methods of controllers, to use `redirection()` helper, who redirect with `302 Found`HTTP
-status.
+You can create a redirection in controller methods with the `redirection()` helper, which redirects with the
+`302 Found` HTTP status.
 
 ```php
 class MyController extends \Berlioz\Http\Core\Controller\AbstractController
@@ -88,7 +89,7 @@ class MyController extends \Berlioz\Http\Core\Controller\AbstractController
 }
 ```
 
-If you can also generate the route from the router, like this:
+You can also generate the route from the router, like this:
 
 ```php
 use Berlioz\Http\Core\Attribute as Berlioz;
@@ -111,7 +112,7 @@ class MyController extends AbstractController
 }
 ```
 
-If you want to specify the HTTP response code, pass it in the second parameter of `redirect()` method:
+If you want to specify the HTTP response code, pass it as the second parameter of the `redirect()` method:
 
 ```php
 return $this->redirect('/new-route', 301);

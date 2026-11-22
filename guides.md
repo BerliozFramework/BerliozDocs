@@ -12,15 +12,15 @@ The guides are designed to help you use the framework in a specific situation or
 
 - [ORM](guides/orm.md) (Object-Relational Mapping)
 
-  Learn how manage your database and associate entities with framework.
+  Learn how to manage your database and associate entities with the framework.
 
 - [Events](guides/events.md)
 
-  Learn how exploit capabilities of events with framework.
+  Learn how to exploit the capabilities of events with the framework.
 
 - [Packages](guides/packages.md)
 
-  Learn how manage packages and how create one.
+  Learn how to manage packages and how to create one.
 
 - [Cache](guides/cache.md)
 
@@ -30,10 +30,10 @@ The guides are designed to help you use the framework in a specific situation or
 
 - [Redirections](guides/redirections.md)
 
-  Implement HTTP redirections for old routes (for example) with or without controller.
+  Implement HTTP redirections for old routes (for example) with or without a controller.
 
 - [Maintenance mode](guides/maintenance.md)
 
-  Define a maintenance page during your maintenance works.
+  Define a maintenance page during your maintenance work.
 
 - Assets (TODO)
