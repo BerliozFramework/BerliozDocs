@@ -89,8 +89,7 @@ before version 4. The last part only concerns you if you extend framework classe
   built with another PSR-7 library that cannot be sent as a valid HTTP/1 message, for example with a pseudo-header
   such as `:status`, throws an `InvalidResponseException` and nothing is sent. The exception is not handled by the
   error handler: it reaches your front controller, where PHP logs it and, with `display_errors` disabled, answers
-  with a 500 error. See
-  [HTTP/1 emission](../components/http-message.md#http1-emission).
+  with a 500 error. See [HTTP/1 emission](../components/http-message.md#http1-emission).
 - **Debug console:** An unknown snapshot now returns a `404` error. A snapshot still being written returns a `202`
   page that reloads itself, and a snapshot that was never completed returns a `410` page. The toolbar shows the
   response time instead of the total time. See [Debug](debug.md#response-time).
