@@ -150,16 +150,11 @@ On success, `validate()` returns an `Http1ResponseHead` with three read-only pro
 - `headers`: the header values by name, in the order of the response; each value stays separate (e.g. one
   `Set-Cookie` per cookie)
 
-Messages of this library apply the same rules when they are built, so they fail early, where the error handler of an
-application can still answer with an error page:
-
-- leading and trailing spaces and tabs of header values are removed, then control characters other than the
-  horizontal tab are rejected;
-- `Response` rejects status codes outside 100-599 and control characters in the reason phrase.
-
-They still accept pseudo-headers in their header names, for example when an HTTP client session is replayed from a
-HAR file, and any protocol version. Only an HTTP/1 emission rejects them. The HTTP client throws an `HttpException`
-(PSR-18 `ClientExceptionInterface`) when a received response breaks these rules.
+Messages of this library remove the leading and trailing spaces and tabs of header values when they are built. Apart
+from that, they stay permissive, because they also hold received data, such as incoming requests or responses of an
+HTTP client: they only reject CR, LF and NUL in header values, and accept any status code, protocol version and
+pseudo-header (e.g. when an HTTP client session is replayed from a HAR file). Only an HTTP/1 emission rejects the
+other values.
 
 `HttpApp::print()` uses this validator before sending a response (see [After the response](../http/terminate.md)).
 

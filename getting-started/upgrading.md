@@ -79,17 +79,14 @@ before version 4. The last part only concerns you if you extend framework classe
   error instead of a `500`: the error handler configured for `400` renders it, and it is no longer written to the
   error log. `getParsedBody()` throws a `MalformedBodyException`, which extends `RuntimeException`, so existing
   `catch` blocks keep working. See [Malformed bodies](../components/http-message.md#malformed-bodies).
-- **Header values and status codes:** Messages of `berlioz/http-message` now remove leading and trailing spaces and
-  tabs from header values, and reject control characters other than the horizontal tab in header values and reason
-  phrases (previously only CR, LF and NUL). `Response` rejects status codes outside 100-599, and header names ending
-  with a line feed are rejected. These errors are raised when the response is built, so the error handler answers
-  them. The HTTP client throws an `HttpException` when a received response breaks these rules. See
-  [HTTP/1 emission](../components/http-message.md#http1-emission).
+- **Header values:** Messages of `berlioz/http-message` now remove leading and trailing spaces and tabs from header
+  values, and reject header names ending with a line feed.
 - **Response validation:** `HttpApp::print()` validates the complete response before sending anything. A response
-  built with another PSR-7 library that cannot be sent as a valid HTTP/1 message, for example with a pseudo-header
-  such as `:status`, throws an `InvalidResponseException` and nothing is sent. The exception is not handled by the
-  error handler: it reaches your front controller, where PHP logs it and, with `display_errors` disabled, answers
-  with a 500 error. See [HTTP/1 emission](../components/http-message.md#http1-emission).
+  that cannot be sent as a valid HTTP/1 message, for example with a control character in a header value, a status
+  code outside 100-599 or a pseudo-header such as `:status`, throws an `InvalidResponseException` and nothing is sent.
+  The exception is not handled by the error handler: it reaches your front controller, where PHP logs it and, with
+  `display_errors` disabled, answers with a 500 error. See
+  [HTTP/1 emission](../components/http-message.md#http1-emission).
 - **Debug console:** An unknown snapshot now returns a `404` error. A snapshot still being written returns a `202`
   page that reloads itself, and a snapshot that was never completed returns a `410` page. The toolbar shows the
   response time instead of the total time. See [Debug](debug.md#response-time).
