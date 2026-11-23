@@ -94,7 +94,7 @@ get the debug toolbar, the snapshots and the console. Other clients get a `404` 
 > 🆕 **Info**: *Since version 3.4*
 
 When `berlioz.debug.ip` is not configured, only local clients are allowed: `127.0.0.1` and `::1`. CLI commands are
-considered local too.
+considered local too, as long as the list allows `127.0.0.1` or `::1`.
 
 To allow other clients, declare the list of allowed addresses:
 
@@ -117,14 +117,15 @@ To allow other clients, declare the list of allowed addresses:
 The list replaces the default one: add `127.0.0.1` and `::1` if you still need local access. An empty list
 (`"ip": []`) denies every client.
 
-> ⚠️ **Warning**: with an `ip` list, CLI commands are no longer considered local and run without debug mode.
+> ⚠️ **Warning**: if your list does not allow `127.0.0.1` or `::1` (for example only remote addresses), CLI commands
+> run without debug mode.
 
 Each entry of the list can be:
 
 - an IP address: `203.0.113.10`, `::1`;
 - a CIDR range: `198.51.100.0/24`, `2001:db8::/32`;
 - an alias: `loopback` (`127.0.0.0/8` and `::1`), `private` (private and reserved ranges), `public`;
-- `*` to allow every client.
+- `*` to allow every client, including behind a reverse proxy.
 
 > ⚠️ **Warning**: `*` exposes debug information to everyone who can reach your application. Never use it on a
 > public server.
