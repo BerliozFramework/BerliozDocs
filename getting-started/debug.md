@@ -84,10 +84,19 @@ By default, debug mode is not enabled. You need to enable it in your configurati
 }
 ```
 
-## Restrict to an IP or host
+## Restrict access
 
-For security, you can restrict debug mode to some IP addresses or hosts.
-In your configuration file, declare the list of authorized IP addresses and hosts, like this:
+Debug mode exposes sensitive information (configuration, environment, PHP info, queries...). Only allowed clients
+get the debug toolbar, the snapshots and the console. Other clients get a `404` error on the console.
+
+### Default access
+
+> 🆕 **Info**: *Since version 3.4*
+
+When `berlioz.debug.ip` is not configured, only local clients are allowed: `127.0.0.1` and `::1`. CLI commands are
+considered local too.
+
+To allow other clients, declare the list of allowed addresses:
 
 ```json
 {
@@ -96,14 +105,55 @@ In your configuration file, declare the list of authorized IP addresses and host
       "enable": true,
       "ip": [
         "127.0.0.1",
-        "getberlioz.com"
+        "::1",
+        "203.0.113.10",
+        "198.51.100.0/24"
       ]
     }
   }
 }
 ```
 
-In this example, debug mode is enabled only for the local IP `127.0.0.1` and the host `getberlioz.com`.
+The list replaces the default one: add `127.0.0.1` and `::1` if you still need local access. An empty list
+(`"ip": []`) denies every client.
+
+> ⚠️ **Warning**: with an `ip` list, CLI commands are no longer considered local and run without debug mode.
+
+Each entry of the list can be:
+
+- an IP address: `203.0.113.10`, `::1`;
+- a CIDR range: `198.51.100.0/24`, `2001:db8::/32`;
+- an alias: `loopback` (`127.0.0.0/8` and `::1`), `private` (private and reserved ranges), `public`;
+- `*` to allow every client.
+
+> ⚠️ **Warning**: `*` exposes debug information to everyone who can reach your application. Never use it on a
+> public server.
+
+#### Docker and virtual machines
+
+With Docker, a virtual machine or a local network, your browser does not reach the application from `127.0.0.1`
+but from a private address, for example the Docker gateway `172.17.0.1`. Allow the private ranges, or only the
+address of your network:
+
+```json
+{
+  "berlioz": {
+    "debug": {
+      "enable": true,
+      "ip": ["loopback", "private"]
+    }
+  }
+}
+```
+
+#### Hosts
+
+> ⚠️ **Warning**: *Deprecated since version 3.4*
+>
+> Hosts trigger an `E_USER_DEPRECATED` notice and will be removed in version 4. Use IP addresses, CIDR ranges or
+> aliases instead.
+
+An entry that is not an address, a range or an alias is compared to the host name of the client IP (reverse DNS).
 
 ### Client IP resolution behind a proxy
 
@@ -113,8 +163,8 @@ In this example, debug mode is enabled only for the local IP `127.0.0.1` and the
 > **no longer trusted by default**. Previously, a spoofed `X-Forwarded-For` header could bypass the IP restriction and
 > enable the debug mode from any origin.
 
-If your application runs behind a trusted reverse proxy or load balancer, declare the proxy addresses (single IPs or
-CIDR ranges) under `berlioz.proxies.trusted`. Only then is the forwarded client IP taken into account:
+If your application runs behind a trusted reverse proxy or load balancer, declare the proxy addresses (single IPs,
+CIDR ranges or aliases) under `berlioz.proxies.trusted`. Only then is the forwarded client IP taken into account:
 
 ```json
 {
@@ -128,15 +178,27 @@ CIDR ranges) under `berlioz.proxies.trusted`. Only then is the forwarded client 
     "debug": {
       "enable": true,
       "ip": [
-        "127.0.0.1",
-        "getberlioz.com"
+        "203.0.113.10"
       ]
     }
   }
 }
 ```
 
-When no trusted proxy is configured, the forwarded headers are ignored and `REMOTE_ADDR` is used as the client IP.
+The client IP is read from the `X-Forwarded-For` header sent by the trusted proxy.
+
+> 🆕 **Info**: *Since version 3.4*
+>
+> When the client cannot be determined reliably, debug access is denied:
+>
+> - the request has a `Forwarded`, `X-Forwarded-For` or `X-Real-IP` header, but comes from a proxy that is not
+>   declared in `berlioz.proxies.trusted`;
+> - the request comes from a trusted proxy that does not send the `X-Forwarded-For` header.
+>
+> A reverse proxy running on the same server (`127.0.0.1`) therefore no longer makes every remote client local.
+
+A proxy that sends no forwarding header at all cannot be detected: all its clients have the address of the proxy.
+Configure your proxy to send the `X-Forwarded-For` header, and declare it in `berlioz.proxies.trusted`.
 
 ## Snapshot retention
 
