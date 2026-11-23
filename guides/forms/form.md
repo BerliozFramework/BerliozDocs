@@ -75,8 +75,12 @@ With `apply: false`:
 `apply()` writes each value once. It throws a `Berlioz\Form\Exception\FormException` if the form is not submitted, or
 if the submission is already written: by a previous `apply()`, or by `handle()` without `apply: false`.
 
+`apply()` does not check the validation: call `isValid()` first, otherwise an invalid submission is written too.
+
 In both modes, the form converts every submitted value before it writes the first one. If a transformer throws an
-exception, the mapped object is unchanged and the exception is thrown by `handle()` or `apply()`.
+exception, the mapped object is unchanged and the exception is thrown by `handle()` or `apply()`. Without
+`apply: false`, the `add` and `remove` callbacks of collections have already been called at that point; with
+`apply: false`, they are not called.
 
 > ℹ️ **Note**: An error raised while writing, such as a missing setter or an exception thrown by a custom setter, stops
 > the writing: the values already written are not restored.
