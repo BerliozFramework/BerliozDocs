@@ -131,7 +131,9 @@ foreach ($head->headers as $name => $values) {
 
 The validator checks:
 
-- **Protocol version:** a digit, optionally followed by a dot and a digit (`1.0`, `1.1`, `2`...)
+- **Protocol version:** a digit, optionally followed by a dot and a digit (`1.0`, `1.1`, `2`...). "HTTP/1" names the
+  format produced, a status line and `Name: value` lines as expected by `header()`: the web server translates it to
+  the protocol negotiated with the client, so `2` is accepted. Rules specific to HTTP/2 and HTTP/3 are not checked
 - **Status code:** from 100 to 599
 - **Reason phrase:** no control character, except the horizontal tab
 - **Header names:** an RFC 9110 token; pseudo-headers such as `:status` are rejected
@@ -148,8 +150,16 @@ On success, `validate()` returns an `Http1ResponseHead` with three read-only pro
 - `headers`: the header values by name, in the order of the response; each value stays separate (e.g. one
   `Set-Cookie` per cookie)
 
-Messages of this library still accept pseudo-headers in their header names, for example when an HTTP client session
-is replayed from a HAR file. Only an HTTP/1 emission rejects them.
+Messages of this library apply the same rules when they are built, so they fail early, where the error handler of an
+application can still answer with an error page:
+
+- leading and trailing spaces and tabs of header values are removed, then control characters other than the
+  horizontal tab are rejected;
+- `Response` rejects status codes outside 100-599 and control characters in the reason phrase.
+
+They still accept pseudo-headers in their header names, for example when an HTTP client session is replayed from a
+HAR file, and any protocol version. Only an HTTP/1 emission rejects them. The HTTP client throws an `HttpException`
+(PSR-18 `ClientExceptionInterface`) when a received response breaks these rules.
 
 `HttpApp::print()` uses this validator before sending a response (see [After the response](../http/terminate.md)).
 
