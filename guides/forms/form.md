@@ -28,6 +28,9 @@ The class inherits from [`Berlioz\Form\Group`](group.md), so you can add a form 
 - `Form::isSubmitted(): bool`: whether the form is submitted
 - `Form::isValid(): bool`: whether all elements of the form pass validation
 - `Form::getConstraints(): ConstraintInterface[]`: all the constraints thrown by the validation
+- `Form::invalid(ConstraintInterface ...$constraint): void`: manually invalidate the form (also available on every
+  element), see [Manual invalidation](../../components/form.md#manual-invalidation)
+- `Form::resetConstraints(): void`: clear the constraints of the form and its elements, including manual ones
 - `Form::getValue(): array`: form value (without processing by transformers); if the form is submitted, the value will
   be the user value, otherwise the default value
 - `Form::getFinalValue(): array`: same as `Form::getValue()` with processing by transformers
