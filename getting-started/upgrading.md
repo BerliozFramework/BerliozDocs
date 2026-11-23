@@ -96,6 +96,9 @@ before version 4. The last part only concerns you if you extend framework classe
   the mapped object. If an input intentionally receives several values, use a `Collection`, a multiple `Choice` or a
   `RawType` instead. See [Non-scalar values](../guides/forms/inputs.md#non-scalar-values).
 - **API forms:** `ApiDataProvider` now also handles `PATCH` and `DELETE` requests.
+- **Failed conversions:** The form now converts every submitted value before it writes the first one to the mapped
+  object. If a transformer throws an exception, the mapped object is no longer partially modified. No action is
+  required. See [Validate before writing](../guides/forms/form.md#validate-before-writing).
 
 #### Templates and mailer
 
@@ -166,6 +169,9 @@ and they will be removed in version 4. All deprecations, including older ones, a
   `RouterRuntimeExtension::functionPathExists()` must accept `array|RouteAttributes` for the parameters argument.
   Update narrower overrides to match or widen these types. Subclasses overriding
   `Berlioz\Package\Twig\Twig::__debugInfo()` must now declare the `array` return type.
+- **Custom form hydrators:** If you extend a hydrator of `Berlioz\Form\Hydrator`, override the new
+  `plan(mixed $mapped, HydrationQueue $queue)` method instead of `hydrate()`: it queues the writes instead of doing
+  them. `AbstractHydrator::locateHydrator()` now returns `AbstractHydrator`.
 
 ---
 

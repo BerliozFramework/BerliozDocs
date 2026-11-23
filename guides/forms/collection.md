@@ -34,6 +34,39 @@ Use the `Berlioz\Form\Collection` class to construct a collection of inputs.
 Use the special "data_type" option in the prototype options to create an object of the specified class. Or use a
 closure in this option to create the object dynamically.
 
+## Callbacks
+
+The `callbacks` option calls your code when the elements of the collection change. Give a callable, or an array of
+callables, for each event:
+
+| Event        | Called when                                                                                   |
+|--------------|-----------------------------------------------------------------------------------------------|
+| **add**      | A submission adds an element                                                                  |
+| **remove**   | A submission removes an element                                                               |
+| **complete** | An element is created for a value set on the collection, such as a value of the mapped object |
+
+Each callback receives the collection and the element:
+
+```php
+use Berlioz\Form\Collection;
+use Berlioz\Form\Element\ElementInterface;
+
+$form->add('addresses', Collection::class, [
+    'prototype' => $address,
+    'callbacks' => [
+        'remove' => function (Collection $collection, ElementInterface $element): void {
+            // ...
+        },
+    ],
+]);
+```
+
+> 🆕 **Info**: *Since version 3.4*
+>
+> If the form is handled with `apply: false`, the `add` and `remove` callbacks are called by `Form::apply()`, after
+> every submitted value is converted. They are not called if the submission is not applied. See
+> [Validate before writing](form.md#validate-before-writing).
+
 ## JavaScript interaction
 
 A library is available to handle interactions with JavaScript and the user: <https://github.com/BerliozFramework/Form.js>
