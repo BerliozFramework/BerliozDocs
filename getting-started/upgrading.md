@@ -79,6 +79,12 @@ before version 4. The last part only concerns you if you extend framework classe
   error instead of a `500`: the error handler configured for `400` renders it, and it is no longer written to the
   error log. `getParsedBody()` throws a `MalformedBodyException`, which extends `RuntimeException`, so existing
   `catch` blocks keep working. See [Malformed bodies](../components/http-message.md#malformed-bodies).
+- **Response validation:** `HttpApp::print()` now throws an `InvalidResponseException`, and sends nothing, when the
+  response cannot be sent as a valid HTTP/1 message: protocol version, status code outside 100-599, control characters
+  in the reason phrase or a header value, header value starting or ending with a space, invalid header name or
+  pseudo-header such as `:status`. Responses built with `berlioz/http-message` already reject most of these values;
+  check the responses built with another PSR-7 library. Header names ending with a line feed are now rejected by
+  `berlioz/http-message` too. See [HTTP/1 emission](../components/http-message.md#http1-emission).
 - **Debug console:** An unknown snapshot now returns a `404` error. A snapshot still being written returns a `202`
   page that reloads itself, and a snapshot that was never completed returns a `410` page. The toolbar shows the
   response time instead of the total time. See [Debug](debug.md#response-time).
