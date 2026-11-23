@@ -113,6 +113,11 @@ before version 4. The last part only concerns you if you extend framework classe
 - **SQS attempt metadata:** Reading the maximum attempts from the redrive policy requires `sqs:GetQueueAttributes`.
   Grant that permission, or configure `max_attempts` explicitly to match the actual SQS redrive policy.
   See [Attempts and retry time](../components/queue-manager.md#attempts-and-retry-time).
+- **RabbitMQ management API:** `RabbitMqQueue` now requires explicit `managementApiUsername` and
+  `managementApiPassword` when `managementApiBaseUrl` is given, and only accepts an `http://` or `https://` base URL
+  without credentials, query or fragment: a `QueueException` is thrown otherwise. Redirections of the management API
+  are no longer followed. Point `managementApiBaseUrl` to the final URL, and prefer a dedicated user with the
+  `monitoring` tag. See [RabbitMqQueue](../components/queue-manager.md#rabbitmqqueue).
 - **Queue workers:** `Worker` installs its signal handlers when `run()` starts, no longer in its constructor. See
   [Graceful Shutdown](../components/queue-manager.md#graceful-shutdown).
 - **Queue factories:** `berlioz/queue-manager-package` now provides factories for Redis, AMQP, RabbitMQ and Null
