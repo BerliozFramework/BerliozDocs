@@ -29,6 +29,7 @@ logs or in the [debug console](debug.md) to find what remains to migrate.
 | `scalar` option of form inputs                           | 3.4   | Remove the option: [Non-scalar values](../guides/forms/inputs.md#non-scalar-values)                                                  |
 | `options` argument of the `Smtp` transport               | 3.4   | Use the `timeout` argument: [Transports](../components/mailer.md#transports)                                                         |
 | `nopush` parameter of the Twig `preload()` function      | 3.4   | Remove the parameter: [Preload](../guides/templating/twig-extensions.md#preload)                                                     |
+| Host names in the `berlioz.debug.ip` configuration       | 3.4   | Use IP addresses, CIDR ranges or aliases: [Hosts](debug.md#hosts)                                                                    |
 | Trusted forwarded prefix without request URI rewriting   | 3.3   | Set `berlioz.router.rewriteRequestUri` to `true`: [Reverse-proxy prefixes](../http/routing.md#deprecated-behavior-and-v4-transition) |
 
 The features below are deprecated too, without an announced removal version. Stop using them as well:
@@ -61,6 +62,12 @@ before version 4. The last part only concerns you if you extend framework classe
 - **Hector ORM:** `berlioz/hector-package` now requires `hectororm/hectororm` **^1.5**, so that PDO options are
   actually forwarded to the connection. Remove any project-level pin below 1.5 and update the Composer lock file
   as part of the upgrade. See [PDO options](../guides/orm/hector.md#pdo-options).
+- **Debug access:** When debug mode is enabled, only `127.0.0.1` and `::1` are now allowed by default, and an empty
+  `berlioz.debug.ip` list denies every client instead of allowing them all. If you use the debug mode from another
+  address (Docker, virtual machine, remote server), list the allowed addresses in `berlioz.debug.ip`, for example
+  `["loopback", "private"]`, or `["*"]` to allow every client. Behind a reverse proxy, even on the same server,
+  declare it in `berlioz.proxies.trusted`: forwarded requests from an undeclared proxy are denied. See
+  [Restrict access](debug.md#restrict-access).
 
 ### Behavior changes
 
@@ -127,6 +134,8 @@ These features still work in version 3.4. Unless stated otherwise, using them tr
 and they will be removed in version 4. All deprecations, including older ones, are listed in
 [Preparing for version 4](#preparing-for-version-4).
 
+- **Debug hosts:** Host names in the `berlioz.debug.ip` configuration are deprecated. Use IP addresses, CIDR ranges
+  or aliases instead. See [Hosts](debug.md#hosts).
 - **Service declarations:** Declaring services in the `container.services` configuration key is deprecated. Move
   them to a service provider listed in `container.providers`. See
   [Migrating from `container.services`](service-container.md#migrating-from-containerservices).
