@@ -76,10 +76,15 @@ Filters provided:
 
 - `date_format`
 - `truncate`
-- `nl2p`
+- `nl2p`: wraps paragraphs in `<p>` and converts line breaks to `<br />`
 - `human_file_size`
 - `json_decode`
 - `basename`
+
+> 🆕 **Info**: *Since version 3.4*
+>
+> `nl2p` escapes its input before adding its markup, like the Twig `nl2br` filter. To format trusted HTML, mark it
+> as safe first: `{{ html|raw|nl2p }}`.
 
 Tests provided:
 
