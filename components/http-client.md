@@ -97,7 +97,9 @@ List of options:
 - **callback** (Closure|null): Callback after each successful request `fn(RequestInterface, ResponseInterface): void`
 - **callbackException** (Closure|null): Callback on HTTP error instead of throwing `fn(HttpException, Options): ResponseInterface`
 - **headers** (array): Default headers added to requests, subject to the redirect credential policy
-- **context** (HttpContext|null): SSL/TLS and proxy configuration
+- **context** (HttpContext|array|null): SSL/TLS and proxy configuration; its `credentials_origins` entry lists the
+  origins allowed to receive transport credentials on redirects (since version 3.4; see
+  [Transport credentials](#transport-credentials))
 
 Array options override client defaults; headers are merged by name and `redirectSensitiveHeaders` is additive.
 Passing an `Options` object supplies a complete options object rather than merging it with client defaults.
@@ -158,6 +160,46 @@ When passing a complete `Options` object, include all applicable custom sensitiv
 
 Headers configured through options or default-header setters are reapplied on same-origin redirects. Headers set
 only on the original PSR-7 request are not automatically copied when a redirect request is rebuilt.
+
+### Transport credentials
+
+> 🆕 **Info**: *Since version 3.4*
+
+Some credentials are not headers of the request: they are configured on the transport and sent by the adapter.
+
+- The TLS client certificate of the `context` option: `ssl_local_cert`, `ssl_local_pk`, `ssl_local_cert_passphrase`
+  and `ssl_local_passphrase`
+- The credential options given to `CurlAdapter`: `CURLOPT_USERPWD`, `CURLOPT_XOAUTH2_BEARER`, `CURLOPT_SSLCERT`,
+  `CURLOPT_COOKIE`...
+
+These credentials are only used for the origin of the initial request. When a redirect leaves this origin, the next
+requests of the call are sent without them, including a redirect back to the initial origin. Proxy settings and
+proxy credentials are kept on every request.
+
+To also send them to other origins, list these origins in the `credentials_origins` option of the context:
+
+```php
+use Berlioz\Http\Client\Client;
+
+$client = new Client([
+    'context' => [
+        'ssl_local_cert' => '/path/to/client.pem',
+        'ssl_local_pk' => '/path/to/client.key',
+        'credentials_origins' => [
+            'https://auth.example.test',
+            'https://*.partner.example',
+        ],
+    ],
+]);
+```
+
+An entry is an origin, written `scheme://host` or `scheme://host:port`, without path. The scheme and the port must
+match those of the redirect target. A leading `*.` matches exactly one subdomain level: `https://*.partner.example`
+matches `https://api.partner.example`, but neither `https://partner.example` nor `https://a.b.partner.example`.
+An invalid entry, such as `*` or `https://*.com`, throws an `InvalidOriginException` when the request is sent.
+
+This list only concerns transport credentials. The headers of the previous sections are always removed on a
+cross-origin redirect.
 
 ### Referer and cookies
 
@@ -358,3 +400,12 @@ The HAR adapter accepts a `strict` option (default: `false`) to force the naviga
 
 You can create an adapter for your project.
 You must implement the interface `Berlioz\Http\Client\Adapter\AdapterInterface`.
+
+> 🆕 **Info**: *Since version 3.4*
+>
+> If your adapter holds its own credentials for the origin (authentication, client certificate, cookies...),
+> implement `Berlioz\Http\Client\Adapter\OriginCredentialsAwareInterface` instead. Its
+> `withoutOriginCredentials()` method returns a copy of the adapter without these credentials, and must keep the proxy
+> and transport settings. The client uses this copy when a redirect leaves the origins allowed to receive them
+> (see [Transport credentials](#transport-credentials)). Other adapters only receive a context without the TLS client
+> certificate.
