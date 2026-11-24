@@ -82,6 +82,11 @@ before version 4. The last part only concerns you if you extend framework classe
   receives `QUERY` requests too: restrict `method` on routes that must not accept them, and reject a `QUERY` request
   without `Content-Type`, or use the `acceptQuery` route option. See [QUERY method](../http/routing.md#query-method).
 - **HTTP client redirections:** `QUERY` requests now keep their method and body on 301 and 302 redirections.
+- **HTTP client transport credentials:** The TLS client certificate of the context and the credential options of
+  `CurlAdapter` (`CURLOPT_USERPWD`, `CURLOPT_XOAUTH2_BEARER`, `CURLOPT_COOKIE`...) are no longer sent once a redirect
+  leaves the origin of the initial request. If a redirect to another origin needs them, list this origin in the
+  `credentials_origins` option of the context. See
+  [Transport credentials](../components/http-client.md#transport-credentials).
 - **Malformed request bodies:** A malformed body of the incoming request, such as invalid JSON, now produces a `400`
   error instead of a `500`: the error handler configured for `400` renders it, and it is no longer written to the
   error log. `getParsedBody()` throws a `MalformedBodyException`, which extends `RuntimeException`, so existing
@@ -173,6 +178,9 @@ and they will be removed in version 4. All deprecations, including older ones, a
 
 ### If you extend the framework
 
+- **Custom HTTP client adapters:** An adapter holding its own credentials for the origin must implement
+  `OriginCredentialsAwareInterface`, so that the client can drop them on cross-origin redirects. See
+  [Create an adapter](../components/http-client.md#create-an-adapter).
 - **Custom queues:** `QueueInterface` has two new methods, `getMaxAttempts()` and `getRetryTime()`. Custom
   implementations must implement them. See
   [Attempts and retry time](../components/queue-manager.md#attempts-and-retry-time).
