@@ -90,6 +90,14 @@ before version 4. The last part only concerns you if you extend framework classe
 - **HTTP client proxy:** The `proxy` context option now defaults to `null`: the stream adapter now uses the proxy of
   the `http_proxy`, `https_proxy` and `all_proxy` environment variables, like the cURL adapter. If you set `proxy`
   to `false`, the cURL adapter no longer uses these variables either. See [Proxy](../components/http-client.md#proxy).
+- **HTTP client proxy enforcement:** The stream adapter now connects through the proxy given in the `proxy` context
+  option; it previously connected directly to the origin. The cURL adapter now reaches an `https://` proxy over TLS.
+  The certificate of the proxy is verified even when `ssl_verify_peer` or `ssl_verify_host` is disabled for the
+  origin: use `proxy_ssl_verify_peer` and `proxy_ssl_verify_host` for the proxy. A proxy that is neither `http` nor
+  `https` is rejected. See [HTTPS proxies](../components/http-client.md#https-proxies).
+- **Multipart bodies:** `MultipartStream` now throws an `InvalidArgumentException` for an invalid boundary, part
+  header name or part header value, and percent-encodes `"`, `\`, CR and LF in field names and file names. See
+  [HTTP Message](../components/http-message.md).
 - **Malformed request bodies:** A malformed body of the incoming request, such as invalid JSON, now produces a `400`
   error instead of a `500`: the error handler configured for `400` renders it, and it is no longer written to the
   error log. `getParsedBody()` throws a `MalformedBodyException`, which extends `RuntimeException`, so existing
@@ -120,6 +128,11 @@ before version 4. The last part only concerns you if you extend framework classe
 
 #### Templates and mailer
 
+- **Twig `nl2p` filter:** The filter now escapes its input before adding paragraphs and line breaks, like `nl2br`.
+  If the value is trusted HTML, mark it as safe first: `{{ html|raw|nl2p }}`. See
+  [Extension `DefaultExtension`](../guides/templating/twig-extensions.md#extension-defaultextension).
+- **SMTP blind copies:** The SMTP transport no longer writes `Bcc` recipients in the message headers. They still
+  receive the message.
 - **Twig preloads:** Every file rendered by `entrypoints()` with preload enabled now receives a preload hint.
   The obsolete `h2pushes` cookie cache is removed and the `Link` header is sent on every response. See
   [Preload](../guides/templating/twig-extensions.md#preload).

@@ -68,6 +68,13 @@ $multipart->addFile('file', '/path/to/file.pdf');
 $contentType = 'multipart/form-data; boundary=' . $multipart->getBoundary();
 ```
 
+> 🆕 **Info**: *Since version 3.4*
+>
+> `MultipartStream` validates what frames the parts. An invalid boundary, part header name or part header value
+> throws an `InvalidArgumentException`, and nothing is added to the stream. In field names and file names, `"`, `\`,
+> CR and LF are percent-encoded (`%22`, `%5C`, `%0D`, `%0A`), so they cannot change the structure read by the
+> receiver.
+
 ## Body parsers
 
 The `Message` class includes a body parser registry. Built-in parsers handle common content types:

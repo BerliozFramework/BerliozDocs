@@ -126,7 +126,40 @@ $client = new Client(['context' => ['proxy' => false]]);
 $client = new Client(['context' => ['proxy' => 'http://proxy.local:3128']]);
 ```
 
-Only `http` and `https` proxies are supported. A proxy without scheme is an `http` proxy.
+Only `http` and `https` proxies are supported. A proxy without scheme is an `http` proxy. Another configuration
+(other scheme, missing host, path, query or fragment) throws a `RequestException` before any connection.
+
+Credentials of the proxy URL are only sent to the proxy, in the `Proxy-Authorization` header. Encode special
+characters in them: `http://us%40er:p%3Ass@proxy.local:3128`.
+
+### HTTPS proxies
+
+The connection to an `https` proxy is encrypted. Its certificate is verified independently of the origin
+certificate, with dedicated context options:
+
+| Option                  | Default      | Behavior                                    |
+|-------------------------|--------------|---------------------------------------------|
+| `proxy_ssl_verify_peer` | `true`       | Verify the certificate of the proxy         |
+| `proxy_ssl_verify_host` | `true`       | Verify the host name of the proxy           |
+| `proxy_ssl_cafile`      | `ssl_cafile` | Certificate authority file for the proxy    |
+| `proxy_ssl_capath`      | `ssl_capath` | Certificate authority directory, same usage |
+
+Disabling `ssl_verify_peer` or `ssl_verify_host` for the origin does not disable the verification of the proxy.
+
+```php
+use Berlioz\Http\Client\Client;
+
+$client = new Client([
+    'context' => [
+        'proxy' => 'https://proxy.local:8443',
+        'proxy_ssl_cafile' => '/path/to/proxy-ca.pem',
+    ],
+]);
+```
+
+The stream adapter cannot send an HTTPS request through an `https` proxy (PHP streams do not support TLS inside
+TLS): it throws a `RequestException`. Use the cURL adapter, or an `http` proxy, for that case. The cURL adapter
+throws a `RequestException` when the installed libcurl has no HTTPS proxy support.
 
 ### Environment variables
 
@@ -149,6 +182,10 @@ Entries of `no_proxy` can be:
 - any of them followed by a port: `example.com:8080`, `[::1]:8080`.
 
 `no_proxy` only applies to the proxy of the environment, never to a proxy given in the `proxy` option.
+
+A SOCKS proxy in these variables (`socks4://`, `socks4a://`, `socks5://`, `socks5h://`) is handed over to libcurl
+by the cURL adapter. The stream adapter does not support it and throws a `RequestException`. Any other unsupported
+value throws a `RequestException` naming the variable.
 
 > ⚠️ **Warning**: Before version 3.4, the default value was `false`: the cURL adapter used the environment variables,
 > the stream adapter did not. `false` now disables the proxy in every adapter. A `CURLOPT_PROXY` option given to the
