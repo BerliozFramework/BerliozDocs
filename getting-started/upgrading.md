@@ -87,6 +87,9 @@ before version 4. The last part only concerns you if you extend framework classe
   leaves the origin of the initial request. If a redirect to another origin needs them, list this origin in the
   `credentials_origins` option of the context. See
   [Transport credentials](../components/http-client.md#transport-credentials).
+- **HTTP client proxy:** The `proxy` context option now defaults to `null`: the stream adapter now uses the proxy of
+  the `http_proxy`, `https_proxy` and `all_proxy` environment variables, like the cURL adapter. If you set `proxy`
+  to `false`, the cURL adapter no longer uses these variables either. See [Proxy](../components/http-client.md#proxy).
 - **Malformed request bodies:** A malformed body of the incoming request, such as invalid JSON, now produces a `400`
   error instead of a `500`: the error handler configured for `400` renders it, and it is no longer written to the
   error log. `getParsedBody()` throws a `MalformedBodyException`, which extends `RuntimeException`, so existing

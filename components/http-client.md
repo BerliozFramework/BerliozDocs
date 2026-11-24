@@ -104,6 +104,56 @@ List of options:
 Array options override client defaults; headers are merged by name and `redirectSensitiveHeaders` is additive.
 Passing an `Options` object supplies a complete options object rather than merging it with client defaults.
 
+## Proxy
+
+> 🆕 **Info**: *Since version 3.4*
+
+The `proxy` option of the HTTP context selects the proxy of the requests:
+
+| Value             | Behavior                                                         |
+|-------------------|------------------------------------------------------------------|
+| `null` (default)  | Proxy of the environment variables, see below                    |
+| `false`           | No proxy, even if environment variables define one               |
+| string            | Given proxy, for example `http://user:password@proxy.local:3128` |
+
+```php
+use Berlioz\Http\Client\Client;
+
+// Never use a proxy
+$client = new Client(['context' => ['proxy' => false]]);
+
+// Always use this proxy
+$client = new Client(['context' => ['proxy' => 'http://proxy.local:3128']]);
+```
+
+Only `http` and `https` proxies are supported. A proxy without scheme is an `http` proxy.
+
+### Environment variables
+
+With the default value, the cURL and stream adapters read the same environment variables and make the same decision:
+
+- `https_proxy` or `HTTPS_PROXY` for HTTPS requests;
+- `http_proxy` for HTTP requests;
+- `all_proxy` or `ALL_PROXY` when the previous ones are not defined;
+- `no_proxy` or `NO_PROXY`: comma-separated list of hosts that do not use the proxy.
+
+The uppercase `HTTP_PROXY` variable is never read: in a web context, a client can define it with a `Proxy` request
+header ([httpoxy](https://httpoxy.org/)).
+
+Entries of `no_proxy` can be:
+
+- `*`, for every host;
+- a host name, which also matches its sub-domains: `example.com`, `.example.com` or `*.example.com` match
+  `example.com` and `www.example.com`;
+- an IP address or a CIDR range: `127.0.0.1`, `::1`, `10.0.0.0/8`;
+- any of them followed by a port: `example.com:8080`, `[::1]:8080`.
+
+`no_proxy` only applies to the proxy of the environment, never to a proxy given in the `proxy` option.
+
+> ⚠️ **Warning**: Before version 3.4, the default value was `false`: the cURL adapter used the environment variables,
+> the stream adapter did not. `false` now disables the proxy in every adapter. A `CURLOPT_PROXY` option given to the
+> cURL adapter still takes precedence over the environment variables.
+
 ## Redirect security
 
 > 🆕 **Info**: *Since version 3.3*
