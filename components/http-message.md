@@ -101,6 +101,63 @@ to it. In an HTTP application, the framework answers with a 400 Bad Request when
 is malformed (see [HTTP exceptions](../http/exceptions.md)). A malformed body of another message, such as a response
 received from an upstream API, remains a server error (500).
 
+## HTTP/1 emission
+
+> 🆕 **Info**: *Since version 3.4*
+
+`Berlioz\Http\Message\Validator\Http1ResponseValidator` checks that any PSR-7 response, from this library or another
+one, can be sent as a valid HTTP/1 message. Validate the response before sending anything, so that an invalid response
+is never sent halfway:
+
+```php
+use Berlioz\Http\Message\Exception\InvalidResponseException;
+use Berlioz\Http\Message\Validator\Http1ResponseValidator;
+
+try {
+    $head = (new Http1ResponseValidator())->validate($response);
+} catch (InvalidResponseException $exception) {
+    // Nothing has been sent yet: log the error and send another response
+    throw $exception;
+}
+
+header($head->statusLine);
+foreach ($head->headers as $name => $values) {
+    foreach ($values as $i => $value) {
+        // Pass the status code, so PHP does not change it (e.g. with a "Location" header)
+        header(sprintf('%s: %s', $name, $value), 0 === $i, $head->statusCode);
+    }
+}
+```
+
+The validator checks:
+
+- **Protocol version:** a digit, optionally followed by a dot and a digit (`1.0`, `1.1`, `2`...). "HTTP/1" names the
+  format produced, a status line and `Name: value` lines as expected by `header()`: the web server translates it to
+  the protocol negotiated with the client, so `2` is accepted. Rules specific to HTTP/2 and HTTP/3 are not checked
+- **Status code:** from 100 to 599
+- **Reason phrase:** no control character, except the horizontal tab
+- **Header names:** an RFC 9110 token; pseudo-headers such as `:status` are rejected
+- **Header values:** no control character except the horizontal tab, and no leading or trailing space or tab;
+  empty values are allowed
+
+An invalid field throws a `Berlioz\Http\Message\Exception\InvalidResponseException`, which extends
+`InvalidArgumentException`. The validator never corrects a value and never reads the body.
+
+On success, `validate()` returns an `Http1ResponseHead` with three read-only properties:
+
+- `statusLine`: the status line, e.g. `HTTP/1.1 200 OK`
+- `statusCode`: the status code
+- `headers`: the header values by name, in the order of the response; each value stays separate (e.g. one
+  `Set-Cookie` per cookie)
+
+Messages of this library remove the leading and trailing spaces and tabs of header values when they are built. Apart
+from that, they stay permissive, because they also hold received data, such as incoming requests or responses of an
+HTTP client: they only reject CR, LF and NUL in header values, and accept any status code, protocol version and
+pseudo-header (e.g. when an HTTP client session is replayed from a HAR file). Only an HTTP/1 emission rejects the
+other values.
+
+`HttpApp::print()` uses this validator before sending a response (see [After the response](../http/terminate.md)).
+
 ## Additional methods
 
 Some methods are provided beyond the PSR-7/PSR-17 standards:
