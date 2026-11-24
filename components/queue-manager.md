@@ -594,15 +594,28 @@ $connection->connect();
 $queue = new RabbitMqQueue(
   connection: $connection,
   name: 'default',
-  managementApiBaseUrl: 'http://localhost:15672',
-  managementApiUsername: 'guest',
-  managementApiPassword: 'guest',
+  managementApiBaseUrl: 'https://localhost:15671',
+  managementApiUsername: 'monitoring',
+  managementApiPassword: 'secret',
   vhost: '/',
+  managementApiContext: ['ssl' => ['cafile' => '/etc/ssl/rabbitmq/ca.pem']],
 );
 ```
 
-The management API credentials are optional. When they are not configured, queue processing still works, but
+The management API is optional. When `managementApiBaseUrl` is not given, queue processing still works, but
 monitoring-specific metrics such as `waitTime()` and `delayed()` will return `null`.
+
+> 🆕 **Info**: *Since version 3.4*
+
+When `managementApiBaseUrl` is given, the constructor throws a `QueueException`, before connecting, if:
+
+- `managementApiUsername` or `managementApiPassword` is missing;
+- the base URL is not an `http://` or `https://` URL with a host, or contains credentials, a query or a fragment.
+
+Use a dedicated read-only user with the `monitoring` tag rather than the broker credentials. Redirections of the
+management API are never followed and only `200 OK` responses are used. `managementApiContext` accepts a stream
+context or [stream context options](https://www.php.net/manual/context.php) (e.g. `ssl.cafile` for a private CA);
+HTTP method, authorization and redirection options cannot be overridden.
 
 ## QueueManager
 

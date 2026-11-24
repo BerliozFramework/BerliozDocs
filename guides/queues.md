@@ -305,9 +305,14 @@ for monitoring metrics (`waitTime()`, `delayed()`…):
                         "dsn": "amqp://guest:guest@127.0.0.1:5672/%2F"
                     },
                     "management": {
-                        "base_url": "http://127.0.0.1:15672",
-                        "username": null,
-                        "password": null
+                        "base_url": "https://rabbitmq.example.com:15671",
+                        "username": "monitoring",
+                        "password": "{env: RABBITMQ_MONITORING_PASSWORD}",
+                        "context": {
+                            "ssl": {
+                                "cafile": "/etc/ssl/rabbitmq/ca.pem"
+                            }
+                        }
                     },
                     "name": ["emails", "notifications"]
                 }
@@ -317,10 +322,27 @@ for monitoring metrics (`waitTime()`, `delayed()`…):
 }
 ```
 
-When `username` or `password` are not given, the login and password of the effective AMQP connection are used,
-whether they come from the DSN, the explicit keys or the `amqp.login` / `amqp.password` INI settings. Explicit
-`management.username` and `management.password` override them. Management API calls use the vhost of the effective
-connection (including the `amqp.vhost` INI setting). The `amqps://` [TLS requirements](#tls-connection) also apply.
+The `management` section is optional: without `base_url`, queues work but monitoring metrics return `null`.
+
+| Key        | Description                                                                                  |
+|------------|----------------------------------------------------------------------------------------------|
+| `base_url` | `http://` or `https://` URL of the management API (a path prefix is allowed)                 |
+| `username` | Management API user, **required** with `base_url`                                            |
+| `password` | Management API password, **required** with `base_url`                                        |
+| `context`  | Optional [stream context options](https://www.php.net/manual/context.php), e.g. `ssl.cafile` |
+
+The management API credentials are **never** taken from the AMQP connection: when `base_url` is given without
+`username` and `password`, a `ConfigException` is thrown. Use a dedicated read-only user with the `monitoring` tag,
+not the broker credentials. Management API calls use the vhost of the effective connection (including the
+`amqp.vhost` INI setting). The `amqps://` [TLS requirements](#tls-connection) also apply to the broker connection.
+
+The management configuration is validated before connecting: a `base_url` with another scheme (`file://`, `php://`…),
+without host, or with credentials, a query or a fragment is rejected. Redirections of the management API are never
+followed, and only `200 OK` responses are used.
+
+> ⚠️ **Warning**: With `http://`, the management credentials are sent in clear text. Use it only on a trusted network
+> (e.g. an in-cluster Kubernetes service); prefer `https://` otherwise. With `https://`, the certificate is verified:
+> give your CA with `context.ssl.cafile` rather than disabling `verify_peer`.
 
 ### Null queue
 
