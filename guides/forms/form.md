@@ -24,7 +24,10 @@ The class inherits from [`Berlioz\Form\Group`](group.md), so you can add a form 
 
 ## Methods
 
-- `Form::handle(ServerRequestInterface $request): void`: handle a server request for the form
+- `Form::handle(ServerRequestInterface $request, bool $apply = true): void`: handle a server request for the form;
+  with `apply: false`, the mapped object is not modified *(since version 3.4)*
+- `Form::apply(): void`: write the submission to the mapped object, see
+  [Validate before writing](#validate-before-writing) *(since version 3.4)*
 - `Form::isSubmitted(): bool`: whether the form is submitted
 - `Form::isValid(): bool`: whether all elements of the form pass validation
 - `Form::getConstraints(): ConstraintInterface[]`: the constraints not respected by the form itself, after
@@ -36,6 +39,51 @@ The class inherits from [`Berlioz\Form\Group`](group.md), so you can add a form 
 - `Form::getValue(): array`: form value (without processing by transformers); if the form is submitted, the value will
   be the user value, otherwise the default value
 - `Form::getFinalValue(): array`: same as `Form::getValue()` with processing by transformers
+
+## Validate before writing
+
+> 🆕 **Info**: *Since version 3.4*
+
+By default, `handle()` writes the submitted values to the mapped object right away, even if they are invalid. If you
+need to keep the object unchanged when the submission is rejected, for example to display it again or to discard the
+changes, call `handle()` with `apply: false`, then call `apply()` once the submission is valid:
+
+```php
+use Berlioz\Form\Form;
+use Berlioz\Form\Type\Text;
+
+$form = new Form('user', $user);
+$form->add('name', Text::class);
+
+$form->handle($request, apply: false);
+
+if ($form->isSubmitted() && $form->isValid()) {
+    $form->apply();
+    // $user contains the submitted values
+}
+
+// Otherwise, $user is unchanged
+```
+
+With `apply: false`:
+
+- the mapped object, its nested objects and its collections are not modified;
+- the `set` callbacks of a [`FormMapping`](../forms.md#custom-mapping) are not called;
+- the `add` and `remove` callbacks of a [collection](collection.md#callbacks) are called by `apply()`, not by
+  `handle()`.
+
+`apply()` writes each value once. It throws a `Berlioz\Form\Exception\FormException` if the form is not submitted, or
+if the submission is already written: by a previous `apply()`, or by `handle()` without `apply: false`.
+
+`apply()` does not check the validation: call `isValid()` first, otherwise an invalid submission is written too.
+
+In both modes, the form converts every submitted value before it writes the first one. If a transformer throws an
+exception, the mapped object is unchanged and the exception is thrown by `handle()` or `apply()`. Without
+`apply: false`, the `add` and `remove` callbacks of collections have already been called at that point; with
+`apply: false`, they are not called.
+
+> ℹ️ **Note**: An error raised while writing, such as a missing setter or an exception thrown by a custom setter, stops
+> the writing: the values already written are not restored.
 
 ## Request lifetime
 

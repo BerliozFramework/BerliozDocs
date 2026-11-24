@@ -100,6 +100,10 @@ if ($form->isSubmitted() && $form->isValid()) {
 }
 ```
 
+`handle()` writes the submitted values to the mapped object, even if they are invalid. To write them only once the
+submission is valid, see [Validate before writing](../guides/forms/form.md#validate-before-writing)
+*(since version 3.4)*.
+
 ### Manual invalidation
 
 > 🆕 **Info**: *Since version 3.4*
