@@ -100,6 +100,36 @@ if ($form->isSubmitted() && $form->isValid()) {
 }
 ```
 
+### Manual invalidation
+
+> 🆕 **Info**: *Since version 3.4*
+
+Some checks can only be done after the validators, for example a uniqueness check in a database. Use the `invalid()`
+method to add constraints to the form or to any of its elements:
+
+```php
+use Berlioz\Form\Validator\Constraint\BasicConstraint;
+
+$form->handle($request);
+
+if ($form->isSubmitted() && $form->isValid()) {
+    if ($userRepository->emailExists($form['email']->getValue())) {
+        $form['email']->invalid(new BasicConstraint(message: 'This email is already used.'));
+    }
+}
+
+if ($form->isSubmitted() && $form->isValid()) {
+    // Save...
+}
+```
+
+The element and all its parents are then invalid, and the constraint is returned by `getConstraints()` to be displayed
+with the other errors. Manual constraints are kept until:
+
+- the `resetConstraints()` method is called (it also resets the children of a group, a collection or a form),
+- the form is handled again with `handle()`,
+- the element is cloned (a clone, like a new collection entry, never copies the constraints of the original).
+
 ## Group
 
 Example for a postal address:
